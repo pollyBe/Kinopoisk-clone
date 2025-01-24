@@ -6,6 +6,7 @@ import { IMovieProps } from "../../types/types"
 import style from './Main.module.scss'
 import { FetchMovies } from "../../store/moviesSlice"
 import Pagination from "../../Components/Pagination/Pagination"
+import Slider from "../../Components/Slider/Slider"
 
 const Main = () => {
   const dispatch = useDispatch()
@@ -37,14 +38,16 @@ const Main = () => {
   return (
     <>
       <div className={style.container} >
-      <ul className={style.moviesWrap} >
+        <Slider movies={movies} />
+      {/* <ul className={style.moviesWrap} >
         {movies.map((movie) => (
           <li key={movie.kinopoiskId} className={style.movieItem}>
             <img src={movie.posterUrl} alt="poster" />
             <p>{movie.nameRu}</p>
           </li>
         ))}
-      </ul>
+        </ul> */}
+
         <Pagination />
         </div>
     </>
