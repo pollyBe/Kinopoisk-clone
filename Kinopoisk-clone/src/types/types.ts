@@ -15,17 +15,21 @@ export interface ITitleProps {
   title: string;
 }
 export interface IMovieProps {
-  countries: string[];
-  genres: string[];
-  imdbId: number | null;
+  countries: { name: string }[];
+  coverUrl: string;
+  description: string;
+  genres: { name: string }[];
+  imdbId: string;
   kinopoiskId: number;
+  logoUrl: string | null;
   nameEn: string | null;
-  nameOriginal: string;
-  nameRu: string | null;
+  nameOriginal: string | null;
+  nameRu: string;
   posterUrl: string;
   posterUrlPreview: string;
+  ratingAgeLimits: string | null;
   ratingImdb: number | null;
-  ratingKinopoisk: number;
+  ratingKinopoisk: number | null;
   type: string;
   year: number;
 }

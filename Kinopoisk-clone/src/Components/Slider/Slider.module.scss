@@ -1,11 +1,12 @@
 .sliderWrap {
+  position: relative;
   width: 100%;
-  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 3px solid #67b1e981;
-  border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background-color: #67b1e94f;
   overflow: hidden;
 }
@@ -15,11 +16,11 @@
   justify-content: center;
   align-items: center;
   background-color: #67b1e9c8;
-
   h2 {
     text-transform: uppercase;
   }
 }
+
 .slider {
   width: 100%;
   overflow: hidden;

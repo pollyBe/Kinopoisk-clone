@@ -4,7 +4,6 @@ export const FetchMovies = createAsyncThunk(
   "posts/fetchMovies",
   async (objectFromMainPage, { rejectWithValue }) => {
     const { limit, offset, searchQuery, ordering } = objectFromMainPage;
-    console.log("offset", offset);
     try {
       const responce = await fetch(
         `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1&limit=${limit}&offset=${offset}&ordering=${ordering}&search=${searchQuery}`,

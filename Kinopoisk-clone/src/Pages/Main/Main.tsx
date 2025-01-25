@@ -27,7 +27,6 @@ const Main = () => {
       ordering: ordering,
     }))
   }, [currentPage, ordering])
-  console.log(movies, currentPage, itemsPerPage, searchQuery)
   if (loading) {
     return <div>loading...</div>;
   }

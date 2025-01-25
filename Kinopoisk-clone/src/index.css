@@ -25,3 +25,22 @@ body {
   --background-color: #45444c;
   --text-color: #f3f3f3;
 }
+.slick-slider {
+  height: 30vh;
+  border: 3px solid #67b1e981;
+  border-top: none;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #67b1e94f;
+}
+
+.slick-list {
+  height: 100%;
+}
+.slick-track {
+  height: 100%;
+}
+.slick-slide > div {
+  height: 100%;
+  border-radius: 15px;
+}
