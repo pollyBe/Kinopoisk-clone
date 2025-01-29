@@ -1,28 +1,32 @@
 .sliderWrap {
-  position: relative;
   width: 100%;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 3px solid #67b1e981;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 20px;
   background-color: #67b1e94f;
   overflow: hidden;
 }
 .sliderTitle {
+  border: 3px solid #67b1e981;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #67b1e9c8;
+
   h2 {
+    font-size: 22px;
     text-transform: uppercase;
   }
 }
-
 .slider {
   width: 100%;
+  height: 100%;
   overflow: hidden;
   border-top: 3px solid #67b1e981;
 }
@@ -36,7 +40,7 @@
 .slide {
   height: 100%;
   border-radius: 10px;
-  margin-left: 5px;
+  margin-left: 2px;
   transition: 1s ease-in-out;
   :last-child {
     margin-left: 0;
@@ -48,6 +52,8 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+    display: block;
+    margin: auto;
     transition: 0.5s ease-in-out;
     cursor: pointer;
   }

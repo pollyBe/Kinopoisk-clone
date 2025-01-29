@@ -12,24 +12,24 @@ export interface IInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export interface ITitleProps {
-  title: string;
+  title: string | undefined;
 }
-export interface IMovieProps {
-  countries: { name: string }[];
-  coverUrl: string;
-  description: string;
-  genres: { name: string }[];
-  imdbId: string;
+export interface IMovie {
+  countries?: { country: string }[];
+  coverUrl?: string;
+  description?: string;
+  genres?: { genre: string }[];
+  imdbId?: string;
   kinopoiskId: number;
-  logoUrl: string | null;
-  nameEn: string | null;
-  nameOriginal: string | null;
-  nameRu: string;
-  posterUrl: string;
-  posterUrlPreview: string;
-  ratingAgeLimits: string | null;
-  ratingImdb: number | null;
-  ratingKinopoisk: number | null;
-  type: string;
-  year: number;
+  logoUrl?: string;
+  nameEn?: string;
+  nameOriginal?: string;
+  nameRu?: string;
+  posterUrl?: string;
+  posterUrlPreview?: string;
+  ratingAgeLimits?: string;
+  ratingImdb?: number;
+  ratingKinopoisk?: number;
+  type?: string;
+  year?: number;
 }

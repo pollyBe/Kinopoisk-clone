@@ -1,0 +1,15 @@
+.container {
+  width: 80%;
+  margin: auto;
+}
+.backLink {
+  text-decoration: none;
+  padding: 10px;
+  text-align: center;
+  color: #19242c;
+  font-weight: 600;
+  cursor: pointer;
+  :hover {
+    color: #3f87ba;
+  }
+}

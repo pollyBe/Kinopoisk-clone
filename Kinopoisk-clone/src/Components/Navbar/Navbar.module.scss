@@ -1,0 +1,84 @@
+.navbarWrap {
+  position: absolute;
+  display: flex;
+  top: -5px;
+  left: -18%;
+  width: 20%;
+  height: 100vh;
+  transition: all 2s ease-in-out;
+}
+.openNavbarButton {
+  width: 10%;
+  height: 100%;
+  border: none;
+  background-color: #ffffff00;
+  cursor: pointer;
+  transition: all 0.7s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.icon {
+  height: 40px;
+  fill: rgba(65, 211, 211, 0.666);
+}
+.navbar {
+  padding: 40px 7px;
+  width: 90%;
+  height: 100%;
+  background-color: rgba(240, 248, 255, 0.422);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+  h4 {
+    margin-bottom: 30px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: rgb(12, 32, 32);
+  }
+}
+.navbarWrap.active {
+  left: 0;
+}
+
+.sortingWrap,
+.typesWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+}
+.itemWrap {
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  .item {
+    color: rgb(9, 52, 52);
+    font-size: 14px;
+  }
+
+  .active {
+    color: rgb(8, 131, 131);
+    font-size: 14px;
+    background-color: rgba(79, 240, 240, 0.185);
+    padding: 5px;
+    border-radius: 10px;
+  }
+}
+.filmIcon {
+  height: 14px;
+  width: 14px;
+  fill: rgb(35, 52, 52);
+  margin-right: 5px;
+}
+.sortingWrap {
+  margin-bottom: 10px;
+}
+.typesWrap {
+  padding-top: 20px;
+  border-top: 1px solid rgb(153, 200, 200);
+  width: 50%;
+}
