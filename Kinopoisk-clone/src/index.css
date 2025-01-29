@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+body {
+  position: relative;
+  margin: 5vh 0 0;
+  height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  background-image: url("./assets/backgrounds/flat-lay-cinema.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.light-theme {
+  --background-color: #f3f3f3;
+  --text-color: #2e2e32;
+}
+.dark-theme {
+  --background-color: #45444c;
+  --text-color: #f3f3f3;
+}

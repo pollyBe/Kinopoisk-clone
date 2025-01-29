@@ -1,0 +1,76 @@
+.pageNubmers {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #271313;
+}
+.pageNubmersCurr {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #363e7d;
+}
+
+.pageNubmersWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.NumberButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+  gap: 8px;
+}
+
+.numbersWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    button {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 600;
+      color: #271313;
+      &:active {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 600;
+        color: #5563cc;
+      }
+    }
+  }
+}
+
+.icon {
+  width: 18px;
+  height: 14px;
+  fill: var(--text-color);
+}

@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  height: 5vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(19, 18, 18);
+  z-index: 99;
+}
+.container {
+  width: 70%;
+  margin: auto;
+}
+.headerWrap {
+  width: 100%;
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.inputWrap {
+  display: flex;
+  justify-content: space-between;
+  width: 22%;
+  align-items: center;
+  input {
+    background-color: rgb(78, 75, 75);
+    color: rgb(240, 238, 237);
+    padding: 3px 5px;
+    font-size: 12px;
+  }
+}

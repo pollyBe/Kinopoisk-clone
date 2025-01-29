@@ -1,0 +1,97 @@
+.movieContainer {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.leftWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 60vh;
+}
+.imgWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+.rightWrap {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+}
+
+.raitingsWrap {
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
+  align-items: start;
+  margin-bottom: 20px;
+  li {
+    margin-left: 10px;
+  }
+}
+.age {
+  font-size: 18px;
+  font-weight: 600;
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+.countriesWrap {
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 10px;
+  li {
+    font-weight: 400;
+    margin-left: 5px;
+  }
+}
+.genresWrap {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 10px;
+  li {
+    font-weight: 400;
+    margin-left: 5px;
+  }
+}
+
+.yearInfo,
+.typeInfo {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 10px;
+  p {
+    font-weight: 400;
+    margin-left: 5px;
+  }
+}
+.descriptionWrap {
+  display: flex;
+  padding: 10px 5px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.241);
+  border-radius: 10px;
+}
+.infoWrap {
+  margin-bottom: 20px;
+}
