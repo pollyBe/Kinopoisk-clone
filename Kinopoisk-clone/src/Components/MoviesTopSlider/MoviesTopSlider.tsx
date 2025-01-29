@@ -2,25 +2,25 @@ import Slider from "react-slick";
 import style from './MoviesTopSlider.module.scss';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchMovies, setSelectedMovie } from "../../store/moviesSlice";
+import { setSelectedMovie } from "../../store/moviesSlice";
 import { useEffect } from "react";
+import { fetchSliderMovies } from "../../store/sliderMoviesSlice";
+import { IMovie } from "../../types/types";
+import { AppDispatch, RootState } from "../../store";
 
 function MoviesTopSlider() {
-  const dispatch = useDispatch()
-  const { sliderTitle, slide, } = style;
+  const dispatch = useDispatch<AppDispatch>()
+  const { sliderTitle, slide, container} = style;
   const {
-    movies,
+    sliderContent,
     loading,
     error,
-    currentPage,
-    ordering, } = useSelector((state: any) => state.movies)
+  } = useSelector((state: RootState) => state.slider)
   useEffect(() => {
-    dispatch(FetchMovies({
-      type: `TOP_POPULAR_ALL`,
-    }))
-  }, [currentPage, ordering])
+    dispatch(fetchSliderMovies())
+  }, [dispatch])
   if (loading) {
     return <div className={style.loading}>loading...</div>;
   }
@@ -63,20 +63,12 @@ function MoviesTopSlider() {
   };
 
   return (
-    <>
+    <div className={container}>
         <div className={sliderTitle}>
           <h2>Top popular for all time</h2>
         </div>
       <Slider {...settings}>
-        {movies.map((movie) => (
-          // <li
-          //   key={movie.kinopoiskId}
-          //   className={slide}
-          //   onClick={() => {
-          //   dispatch(setSelectedMovie(movie))
-          //   handleMovieClick(movie.kinopoiskId)}}>
-          //   <img src={movie.posterUrl} alt="poster" />
-          // </li>
+        {sliderContent.map((movie:IMovie) => (
           <Link to={`/movie/${movie.kinopoiskId}`} key={movie.kinopoiskId}
             className={slide}
             >
@@ -86,7 +78,7 @@ function MoviesTopSlider() {
           </Link>
         ))}
       </Slider>
-    </>
+    </div>
   );
 }
 

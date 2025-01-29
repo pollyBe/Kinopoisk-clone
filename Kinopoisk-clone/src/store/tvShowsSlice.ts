@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IMoviesState, IObjectFrommainPage } from "../types/types";
 
-export const FetchMovies = createAsyncThunk<
+export const FetchTVShows = createAsyncThunk<
   { items: any[]; total: number; totalPages: number },
   IObjectFrommainPage,
   { rejectValue: string }
->("posts/fetchMovies", async (objectFromMainPage, { rejectWithValue }) => {
-  const { limit, page, searchQuery, ordering, type } = objectFromMainPage;
+>("TVShows/FetchTVShows", async (objectFromMainPage, { rejectWithValue }) => {
+  const { limit, page, searchQuery, ordering } = objectFromMainPage;
   try {
     const response = await fetch(
-      `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=${type}&page=${page}&limit=${limit}&ordering=${ordering}&search=${searchQuery}`,
+      `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_250_TV_SHOWS&page=${page}&limit=${limit}&ordering=${ordering}&search=${searchQuery}`,
       {
         method: "GET",
         headers: {
@@ -43,8 +43,8 @@ const initialState: IMoviesState = {
   selectedImage: null,
 };
 
-const moviesSlice = createSlice({
-  name: "movies",
+const tvShowsSlice = createSlice({
+  name: "TVShows",
   initialState,
   reducers: {
     setSelectedMovie(state, action) {
@@ -68,17 +68,17 @@ const moviesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(FetchMovies.pending, (state) => {
+      .addCase(FetchTVShows.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(FetchMovies.fulfilled, (state, action) => {
+      .addCase(FetchTVShows.fulfilled, (state, action) => {
         state.loading = false;
         state.movies = action.payload.items;
         state.totalItems = action.payload.total;
         state.totalPages = action.payload.totalPages;
       })
-      .addCase(FetchMovies.rejected, (state, action) => {
+      .addCase(FetchTVShows.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
@@ -92,5 +92,5 @@ export const {
   setPage,
   setSearchQuery,
   setOrdering,
-} = moviesSlice.actions;
-export default moviesSlice.reducer;
+} = tvShowsSlice.actions;
+export default tvShowsSlice.reducer;

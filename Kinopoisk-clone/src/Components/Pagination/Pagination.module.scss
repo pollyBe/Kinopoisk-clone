@@ -5,7 +5,7 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-  color: var(--text-color);
+  color: #271313;
 }
 .pageNubmersCurr {
   border: none;
@@ -14,7 +14,7 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-  color: #2231aa;
+  color: #363e7d;
 }
 
 .pageNubmersWrap {
@@ -43,6 +43,30 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    button {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 600;
+      color: #271313;
+      &:active {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 600;
+        color: #5563cc;
+      }
+    }
+  }
 }
 
 .icon {

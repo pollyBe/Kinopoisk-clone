@@ -1,15 +1,16 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import style from './Main.module.scss';
-import { FetchMovies, setOrdering, setPage } from "../../store/moviesSlice";
-import Pagination from "../../Components/Pagination/Pagination";
-import { AppDispatch } from "../../store";
-import { IMovie } from "../../types/types";
+import { FetchTVShows, setOrdering, setPage } from "../../store/tvShowsSlice";
 import MoviesPageHeader from "../../UI-Components/MoviesPageHeader/MoviesPageHeader";
 
-const Main = () => {
-  const dispatch = useDispatch<AppDispatch>();
+import style from './PopularTvShows.module.scss';
+import { useEffect } from "react";
+import { AppDispatch } from "../../store";
+import Pagination from "../../Components/Pagination/Pagination";
+import { IMovie } from "../../types/types";
+
+const PopularTVShows = () => {
   const { container, moviesSection, moviesWrap, movieItem } = style;
+  const dispatch = useDispatch<AppDispatch>()
   const {
     movies,
     loading,
@@ -18,15 +19,14 @@ const Main = () => {
     itemsPerPage,
     searchQuery,
     totalItems,
-    ordering, } = useSelector((state: any) => state.movies);
+    ordering, } = useSelector((state: any) => state.TVShows);
 
   useEffect(() => {
-    dispatch(FetchMovies({
+    dispatch(FetchTVShows({
       limit: itemsPerPage,
       page: currentPage,
       searchQuery: searchQuery,
       ordering: ordering,
-      type: `TOP_250_MOVIES`,
     }));
   }, [dispatch, currentPage, ordering, itemsPerPage, searchQuery]);
 
@@ -39,11 +39,11 @@ const Main = () => {
   const handlerOrdering = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setOrdering(e.target.value));
   };
+  console.log(currentPage, totalItems, itemsPerPage)
   return (
-    <>
-      <div className={container}>
-        <MoviesPageHeader value={ordering} title='Top 250 Popular Movies' onChange={handlerOrdering} />
-        <div className={moviesSection}>
+  <div className={container}>
+    <MoviesPageHeader title='Top Popular TV-Shows' onChange={handlerOrdering} value={ordering} />
+    <div className={moviesSection}>
           <ul className={moviesWrap}>
             {movies.map((movie:IMovie) => (
               <li key={movie.kinopoiskId} className={movieItem}>
@@ -54,8 +54,6 @@ const Main = () => {
           </ul>
         </div>
         <Pagination currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} setPage={(page: number) => dispatch(setPage(page))}/>
-      </div>
-    </>
-  );
-};
-export default Main;
+  </div>)
+}
+export default PopularTVShows

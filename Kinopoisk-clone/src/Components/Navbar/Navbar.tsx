@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom"
 import style from './Navbar.module.scss'
+import FilmIcon from '../../assets/icons/film-solid.svg?react'
 import { useDispatch, useSelector } from "react-redux";
 import { switchIsActive } from "../../store/isActiveSlice";
 import Right from '../../assets/icons/angles-right-solid.svg?react'
 import Left from '../../assets/icons/angles-left-solid.svg?react'
-import FilmIcon from '../../assets/icons/film-solid.svg?react'
 
 const Navbar = () => {
   const { navbarWrap,navbar, sortingWrap, typesWrap, item, active, itemWrap, openNavbarButton, icon, filmIcon} = style;
@@ -22,10 +22,10 @@ const Navbar = () => {
       <div className={navbar}>
       <h4>Choose your vibe</h4>
       <ul className={sortingWrap}>
-          <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/' className={myClass()} onClick={closeNavBar}>Top Popular Movies</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/topTv-Shows' className={myClass()} onClick={closeNavBar}>Top Popular TV-Shows</NavLink></li>
+          <NavLink to='/' className={myClass()} onClick={closeNavBar}>Top 250 Popular Movies</NavLink></li>
+        <li className={itemWrap}><FilmIcon className={filmIcon} />
+          <NavLink to='/PolpularTVShows' className={myClass()} onClick={closeNavBar}>Top Popular TV-Shows</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/vampires' className={myClass()} onClick={closeNavBar}>Hoa Hoa Hoa Hoa(Vampires)</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
