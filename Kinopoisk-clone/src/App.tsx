@@ -3,7 +3,11 @@ import './App.css'
 import Layout from './Pages/Layout/Layout'
 import Main from './Pages/Main/Main'
 import SelectedMoviePage from './Pages/SelectedMoviePage/SelectedMoviePage'
-import PopularTVShows from './Pages/PopularTVShows/PopularTVShows'
+import PopularTVShows from './Pages/Main/PopularTVShows'
+import Vampires from './Pages/Main/Vampires'
+import Comics from './Pages/Main/Comics'
+import Family from './Pages/Main/Family'
+import TopPopularAll from './Pages/Main/Family'
 
 function App() {
 
@@ -12,7 +16,11 @@ function App() {
       <Routes>
       <Route path="/" element={<Layout />}>
         <Route path='/' element={<Main />} />
-        <Route path='/PolpularTVShows' element={<PopularTVShows/>}/>
+          <Route path='/popularTVShows' element={<PopularTVShows />} />
+          <Route path='/vampires' element={<Vampires />} />
+          <Route path='/comics' element={<Comics />} />
+          <Route path='/family' element={<Family />} />
+          <Route path ='/top-popular-for-all-time' element={<TopPopularAll/>}/>
       </Route>
         <Route path='/movie/:id' element={<SelectedMoviePage />} />
       </Routes>

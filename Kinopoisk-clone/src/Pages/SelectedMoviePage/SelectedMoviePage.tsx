@@ -4,13 +4,14 @@ import style from './SelectedMoviePage.module.scss'
 import Footer from "../../Components/Footer/Footer";
 import { useSelector } from "react-redux";
 import SelectedMovie from "../../Components/SelectedMovie/SelectedMovie";
+import { RootState } from "../../store";
 
 const SelectedMoviePage = () => {
-  const {selectedMovie}=useSelector((state)=>state.movies)
+  const {selectedMovie}=useSelector((state:RootState)=>state.movies)
   const { container, backLink } = style;
   return (<div className={container}>
     <Header/>
-    <Link to='/' className={backLink}>Back</Link>
+    <Link to='/' className={backLink}>Back</Link>{selectedMovie &&
     <SelectedMovie
       kinopoiskId={selectedMovie.kinopoiskId}
       posterUrl={selectedMovie.posterUrl}
@@ -22,7 +23,7 @@ const SelectedMoviePage = () => {
       year={selectedMovie.year}
       type={selectedMovie.type}
       description={selectedMovie.description}
-    />
+    />}
     <Footer />
   </div>)
 }

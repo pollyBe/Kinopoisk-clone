@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMoviesState, IObjectFrommainPage } from "../types/types";
+import { IMovie, IMoviesState, IObjectFrommainPage } from "../types/types";
 
 export const FetchMovies = createAsyncThunk<
-  { items: any[]; total: number; totalPages: number },
+  { items: IMovie[]; total: number; totalPages: number },
   IObjectFrommainPage,
   { rejectValue: string }
 >("posts/fetchMovies", async (objectFromMainPage, { rejectWithValue }) => {
@@ -22,7 +22,7 @@ export const FetchMovies = createAsyncThunk<
       throw new Error("error");
     }
     const data = await response.json();
-    console.log(data);
+
     return data;
   } catch (error) {
     return rejectWithValue((error as Error).message || "error");

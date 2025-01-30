@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import style from './Main.module.scss';
-import { FetchMovies, setOrdering, setPage } from "../../store/moviesSlice";
 import { AppDispatch, RootState } from "../../store";
-import MoviesList from "../../Components/MoviesList/MoviesList";
 
-const Main = () => {
-  const dispatch = useDispatch<AppDispatch>();
+import style from './Main.module.scss'
+import MoviesList from "../../Components/MoviesList/MoviesList";
+import { FetchMovies, setOrdering, setPage } from "../../store/moviesSlice";
+
+const TopPopularAll = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const {
     movies,
     loading,
@@ -23,7 +24,7 @@ const Main = () => {
       page: currentPage,
       searchQuery: searchQuery,
       ordering: ordering,
-      type: `TOP_250_MOVIES`,
+      type: 'TOP_POPULAR_ALL'
     }));
   }, [dispatch, currentPage, ordering, itemsPerPage, searchQuery]);
 
@@ -36,19 +37,20 @@ const Main = () => {
   const handlerOrdering = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setOrdering(e.target.value));
   };
+  console.log(movies)
+
   return (
-    <>
+    <>{movies.length !== 0 ?
       <MoviesList
         movies={movies}
-       value={ordering}
-       title='Top 250 Popular Movies'
-       onChange={handlerOrdering}
-       currentPage={currentPage}
-       itemsPerPage={itemsPerPage}
+        value={ordering}
+        title='Top popular for all time'
+        onChange={handlerOrdering}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
         totalItems={totalItems}
         setPage={(page: number) => dispatch(setPage(page))}
-        />
-    </>
-  );
-};
-export default Main;
+        />:<p>Such category will be updated soon</p>}
+    </>)
+}
+export default TopPopularAll

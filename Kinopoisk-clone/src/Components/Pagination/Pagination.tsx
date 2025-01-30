@@ -1,10 +1,7 @@
-import React from 'react';
 import style from './Pagination.module.scss';
-import { useDispatch } from 'react-redux';
 
 import Next from '../../assets/icons/Icon-Arrow-Next.svg?react';
 import Prev from '../../assets/icons/Icon-Arrow-Prev.svg?react';
-import { setPage } from '../../store/tvShowsSlice';
 
 interface IProps {
   currentPage: number;

@@ -18,7 +18,7 @@ const MoviesPageHeader = ({ value, onChange, title }: IProps) => {
         <select value={value} onChange={onChange}>
           <option value={""}>As it is</option>
           <option value={"nameRu"}>Title</option>
-          <option value={"year"}>Year</option>
+          <option value={"YEAR"}>Year</option>
         </select>
         </div></>)
 }

@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { switchIsActive } from "../../store/isActiveSlice";
 import Right from '../../assets/icons/angles-right-solid.svg?react'
 import Left from '../../assets/icons/angles-left-solid.svg?react'
+import FormOfFilters from "../FormOfFilters/FormOfFilters";
 
 const Navbar = () => {
-  const { navbarWrap,navbar, sortingWrap, typesWrap, item, active, itemWrap, openNavbarButton, icon, filmIcon} = style;
+  const { navbarWrap,navbar, sortingWrap, item, active, itemWrap, openNavbarButton, icon, filmIcon} = style;
   const dispatch = useDispatch()
   const closeNavBar = () => dispatch(switchIsActive(false))
   const { isActive } = useSelector((state:any) => state.isActive)
@@ -25,14 +26,14 @@ const Navbar = () => {
         <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/' className={myClass()} onClick={closeNavBar}>Top 250 Popular Movies</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/PolpularTVShows' className={myClass()} onClick={closeNavBar}>Top Popular TV-Shows</NavLink></li>
+          <NavLink to='/popularTVShows' className={myClass()} onClick={closeNavBar}>Top Popular TV-Shows</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/vampires' className={myClass()} onClick={closeNavBar}>Hoa Hoa Hoa Hoa(Vampires)</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/comics' className={myClass()} onClick={closeNavBar}>Comics</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/family' className={myClass()} onClick={closeNavBar}>For family evenings</NavLink></li>
-        <li className={itemWrap}><FilmIcon className={filmIcon} />
+          <NavLink to='/top-popular-for-all-time' className={myClass()} onClick={closeNavBar}>Top popular for all time</NavLink></li>
+        {/* <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/oscar-winners' className={myClass()} onClick={closeNavBar}>Oscar winners</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/love' className={myClass()} onClick={closeNavBar}>Love is in the air</NavLink></li>
@@ -41,15 +42,10 @@ const Navbar = () => {
         <li className={itemWrap}><FilmIcon className={filmIcon} />
           <NavLink to='/catastrophes' className={myClass()} onClick={closeNavBar}>Catastrophes</NavLink></li>
         <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/for-kids' className={myClass()} onClick={closeNavBar}>For kids</NavLink></li>
+          <NavLink to='/for-kids' className={myClass()} onClick={closeNavBar}>For kids</NavLink></li>*/}
       </ul>
-      <ul className={typesWrap}>
-        <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/movies' className={myClass()} onClick={closeNavBar}>Movies</NavLink></li>
-        <li className={itemWrap}><FilmIcon className={filmIcon} />
-          <NavLink to='/series' className={myClass()} onClick={closeNavBar}>Series</NavLink></li>
-      </ul>
-      </div>
+        <FormOfFilters />
+        </div>
       <button className={openNavbarButton} onClick={() => dispatch(switchIsActive(isActive ? false : true))}>{!isActive?<Right className={icon} />:<Left className={icon}/>}</button>
     </div>
  )

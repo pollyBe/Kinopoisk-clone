@@ -3,7 +3,8 @@ import themeSlice from "./themeSlice";
 import moviesSlice from "./moviesSlice";
 import isActiveSlice from "./isActiveSlice";
 import sliderMoviesSlice from "./sliderMoviesSlice";
-import tvShowsSlice from "./tvShowsSlice";
+import filtersSlice from "./filtersSlice";
+import filtredMoviesSlice from "./filtredMoviesSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     movies: moviesSlice,
     isActive: isActiveSlice,
     slider: sliderMoviesSlice,
-    TVShows: tvShowsSlice,
+    filters: filtersSlice,
+    filtredMovies: filtredMoviesSlice,
   },
 });
 

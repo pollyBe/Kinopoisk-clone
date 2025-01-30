@@ -1,11 +1,11 @@
 .navbarWrap {
-  position: absolute;
+  position: fixed;
   display: flex;
   top: -5px;
   left: -18%;
   width: 20%;
   height: 100vh;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 .openNavbarButton {
   width: 10%;

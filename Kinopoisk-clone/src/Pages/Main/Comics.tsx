@@ -5,7 +5,7 @@ import { FetchMovies, setOrdering, setPage } from "../../store/moviesSlice";
 import { AppDispatch, RootState } from "../../store";
 import MoviesList from "../../Components/MoviesList/MoviesList";
 
-const Main = () => {
+const Comics = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {
     movies,
@@ -23,7 +23,7 @@ const Main = () => {
       page: currentPage,
       searchQuery: searchQuery,
       ordering: ordering,
-      type: `TOP_250_MOVIES`,
+      type: `COMICS_THEME`,
     }));
   }, [dispatch, currentPage, ordering, itemsPerPage, searchQuery]);
 
@@ -41,7 +41,7 @@ const Main = () => {
       <MoviesList
         movies={movies}
        value={ordering}
-       title='Top 250 Popular Movies'
+       title='Comics'
        onChange={handlerOrdering}
        currentPage={currentPage}
        itemsPerPage={itemsPerPage}
@@ -51,4 +51,4 @@ const Main = () => {
     </>
   );
 };
-export default Main;
+export default Comics;
