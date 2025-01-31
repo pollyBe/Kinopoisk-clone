@@ -79,7 +79,7 @@ export interface IFiltersState {
 }
 export interface IFiltredMoviesState {
   movies: IMovie[];
-  loading: false;
+  loading: boolean;
   error: null | string;
   selectedMovie: IMovie | null;
   totalItems: number;

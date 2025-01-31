@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../../store";
 
 import style from './Main.module.scss'
 import MoviesList from "../../Components/MoviesList/MoviesList";
-import { FetchMovies, setOrdering, setPage } from "../../store/moviesSlice";
+import { FetchMovies, setPage } from "../../store/moviesSlice";
 
 const Vampires = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -34,17 +34,12 @@ const Vampires = () => {
   if (error) {
     return <div>Error...</div>;
   }
-  const handlerOrdering = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setOrdering(e.target.value));
-  };
 
   return (
     <>
       <MoviesList
         movies={movies}
-        value={ordering}
         title='Hoa hoa hoa hoa(Vampires)'
-        onChange={handlerOrdering}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
         totalItems={totalItems}

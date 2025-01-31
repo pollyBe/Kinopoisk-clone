@@ -76,6 +76,23 @@ const filtredMoviesSlice = createSlice({
       state.type = action.payload;
     }
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(GetFiltredMovies.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(GetFiltredMovies.fulfilled, (state, action) => {
+        state.loading = false;
+        state.movies = action.payload.items;
+        state.totalItems = action.payload.total;
+        state.totalPages = action.payload.totalPages;
+      })
+      .addCase(GetFiltredMovies.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+  },
 })
 
 export const { setCountryId, setGenreId, setOrdering, setPage, setSelectedMovie, setType, setYearFrom, setYearTo } = filtredMoviesSlice.actions;

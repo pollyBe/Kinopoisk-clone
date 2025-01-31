@@ -9,34 +9,32 @@ import { AppDispatch } from '../../store';
 
 interface IProps{
   movies: IMovie[],
-  value: string,
   title: string,
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
   currentPage: number,
   itemsPerPage: number,
   totalItems: number,
-  setPage: (page: number) => { payload: any; type: "movies/setPage"; }
+  setPage: ((page: number) => { payload: any; type: "movies/setPage"; }) | ((page: number) => { payload: any; type:"filtredMovies/setPage"})
 }
 
-const MoviesList = ({movies, value, title, onChange, currentPage, itemsPerPage, totalItems, setPage}:IProps) => {
+const MoviesList = ({movies, title, currentPage, itemsPerPage, totalItems, setPage}:IProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const { container, moviesSection, moviesWrap, movieItem } = style;
   const navigate = useNavigate()
   return (
   <div className={container}>
-    <MoviesPageHeader value={value} title={title} onChange={onChange} />
+    <MoviesPageHeader  title={title} />
     <div className={moviesSection}>
       <ul className={moviesWrap}  >
         {movies.map((movie:IMovie) => (
             <li key={movie.kinopoiskId} className={movieItem}>
             <img
-              src={movie.posterUrl}
+              src={movie.posterUrlPreview}
               alt="poster"
               onClick={() => {
                 dispatch(setSelectedMovie(movie))
                 navigate(`/movie/${movie.kinopoiskId}`)
               }} />
-            <p>{movie.nameRu}</p>
+            <p>{movie.nameRu?movie.nameRu:movie.nameOriginal}</p>
              </li>
         ))}
       </ul>

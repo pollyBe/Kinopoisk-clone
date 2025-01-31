@@ -17,11 +17,17 @@
   &:hover {
     transform: scale(1.1);
   }
+  .icon {
+    height: 40px;
+    fill: rgba(65, 211, 211, 0.666);
+    pointer-events: auto;
+  }
 }
 
 .icon {
   height: 40px;
   fill: rgba(65, 211, 211, 0.666);
+  pointer-events: auto;
 }
 .navbar {
   padding: 40px 7px;
@@ -81,4 +87,14 @@
   padding-top: 20px;
   border-top: 1px solid rgb(153, 200, 200);
   width: 50%;
+}
+.filters {
+  border-top: 1px solid #4e787e98;
+  padding-top: 20px;
+  h4 {
+    margin-bottom: 10px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: rgb(12, 32, 32);
+  }
 }

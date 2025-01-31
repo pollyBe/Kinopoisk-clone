@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import style from './Main.module.scss';
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../store";
-import { FetchMovies, setOrdering, setPage} from "../../store/moviesSlice";
+import { FetchMovies, setPage} from "../../store/moviesSlice";
 import MoviesList from "../../Components/MoviesList/MoviesList";
 
 const PopularTVShows = () => {
@@ -33,15 +33,11 @@ const PopularTVShows = () => {
   if (error) {
     return <div>Error...</div>;
   }
-  const handlerOrdering = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setOrdering(e.target.value));
-  };
+
   return (    <>
     <MoviesList
       movies={movies}
-     value={ordering}
      title='Top 250 TV Shows'
-     onChange={handlerOrdering}
      currentPage={currentPage}
      itemsPerPage={itemsPerPage}
       totalItems={totalItems}

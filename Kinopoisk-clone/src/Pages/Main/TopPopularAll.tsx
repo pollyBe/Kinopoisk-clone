@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../../store";
 
 import style from './Main.module.scss'
 import MoviesList from "../../Components/MoviesList/MoviesList";
-import { FetchMovies, setOrdering, setPage } from "../../store/moviesSlice";
+import { FetchMovies, setPage } from "../../store/moviesSlice";
 
 const TopPopularAll = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -34,18 +34,11 @@ const TopPopularAll = () => {
   if (error) {
     return <div>Error...</div>;
   }
-  const handlerOrdering = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setOrdering(e.target.value));
-  };
-  console.log(movies)
-
   return (
     <>{movies.length !== 0 ?
       <MoviesList
         movies={movies}
-        value={ordering}
         title='Top popular for all time'
-        onChange={handlerOrdering}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
         totalItems={totalItems}
