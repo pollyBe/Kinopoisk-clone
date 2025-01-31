@@ -20,7 +20,9 @@ export interface IMovie {
   description?: string;
   genres?: { genre: string }[];
   imdbId?: string;
+  ratingImdbVoteCount?: number;
   kinopoiskId: number;
+  ratingKinopoiskVoteCount?: number;
   logoUrl?: string;
   nameEn?: string;
   nameOriginal?: string;
@@ -32,6 +34,8 @@ export interface IMovie {
   ratingKinopoisk?: number;
   type?: string;
   year?: number;
+  filmLength?: number;
+  webUrl?: string;
 }
 
 export interface ISliderState {

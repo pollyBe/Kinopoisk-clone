@@ -24,7 +24,7 @@ function App() {
           <Route path='/top-popular-for-all-time' element={<TopPopularAll />} />
           <Route path='/custom-filter' element={<CustomFilter/>}/>
       </Route>
-        <Route path='/movie/:id' element={<SelectedMoviePage />} />
+        <Route path='/movie/:kinopoiskId' element={<SelectedMoviePage />} />
       </Routes>
     </>
   )

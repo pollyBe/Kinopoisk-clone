@@ -13,7 +13,6 @@ const SelectedMoviePage = () => {
   const { movie, loading, error } = useSelector((state:RootState) => state.movie);
   const { kinopoiskId } = useParams();
   const { container, backLink } = style;
-  console.log(kinopoiskId)
 
   useEffect(() => {
     dispatch(GetMovieByID({kinopoiskId}));
@@ -28,15 +27,19 @@ const SelectedMoviePage = () => {
       kinopoiskId={movie.kinopoiskId}
       posterUrl={movie.posterUrl}
       nameRu={movie.nameRu}
-      nameEn={movie.nameEn}
+      nameOriginal={movie.nameOriginal}
       ratingImdb={movie.ratingImdb}
+      ratingImdbVoteCount={movie.ratingImdbVoteCount}
       ratingKinopoisk={movie.ratingKinopoisk}
+      ratingKinopoiskVoteCount={movie.ratingKinopoiskVoteCount}
       ratingAgeLimits={movie.ratingAgeLimits}
       countries={movie.countries}
       genres={movie.genres}
       year={movie.year}
       type={movie.type}
       description={movie.description}
+      filmLength={movie.filmLength}
+      webUrl={movie.webUrl}
     />}
     <Footer />
   </div>)

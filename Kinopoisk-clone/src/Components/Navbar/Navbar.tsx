@@ -18,6 +18,7 @@ const Navbar = () => {
     if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
       dispatch(switchIsActive(false));
     }
+    console.log(isActive)
   };
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const Navbar = () => {
 
   return (
     <div ref={navbarRef} className={!isActive ? navbarWrap : `${navbarWrap} ${active}`}>
-      <div className={navbar}>
+      <div className={navbar} >
         <h4>Choose your vibe</h4>
         <ul className={sortingWrap}>
           <li className={itemWrap}>
