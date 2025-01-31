@@ -17,17 +17,13 @@
   &:hover {
     transform: scale(1.1);
   }
-  .icon {
-    height: 40px;
-    fill: rgba(65, 211, 211, 0.666);
-    pointer-events: auto;
-  }
 }
 
 .icon {
   height: 40px;
   fill: rgba(65, 211, 211, 0.666);
   pointer-events: auto;
+  cursor: pointer;
 }
 .navbar {
   padding: 40px 7px;

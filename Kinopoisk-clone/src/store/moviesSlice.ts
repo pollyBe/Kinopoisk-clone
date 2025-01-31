@@ -5,7 +5,7 @@ export const FetchMovies = createAsyncThunk<
   { items: IMovie[]; total: number; totalPages: number },
   IObjectFrommainPage,
   { rejectValue: string }
->("posts/fetchMovies", async (objectFromMainPage, { rejectWithValue }) => {
+>("movies/fetchMovies", async (objectFromMainPage, { rejectWithValue }) => {
   const { limit, page, searchQuery, ordering, type } = objectFromMainPage;
   try {
     const response = await fetch(

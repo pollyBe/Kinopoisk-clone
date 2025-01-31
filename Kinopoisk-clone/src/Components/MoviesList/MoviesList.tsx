@@ -1,11 +1,8 @@
-import { useDispatch } from 'react-redux';
 import MoviesPageHeader from '../../UI-Components/MoviesPageHeader/MoviesPageHeader';
 import { IMovie } from '../../types/types';
 import Pagination from '../Pagination/Pagination';
 import style from './MoviesList.module.scss'
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { AppDispatch } from '../../store';
-import { GetMovieByID } from '../../store/movieSlice';
+import { NavLink } from 'react-router-dom';
 
 interface IProps{
   movies: IMovie[],
@@ -13,13 +10,11 @@ interface IProps{
   currentPage: number,
   itemsPerPage: number,
   totalItems: number,
-  setPage: ((page: number) => { payload: any; type: "movies/setPage"; }) | ((page: number) => { payload: any; type:"filtredMovies/setPage"})
+  setPage: ((page: number) => { payload: any; type: "movies/setPage"; }) | ((page: number) => { payload: any; type:"filtredMovies/setPage"}) | ((page: number) => { payload: any; type: "search/setPage"; })
 }
 
 const MoviesList = ({movies, title, currentPage, itemsPerPage, totalItems, setPage}:IProps) => {
-  const dispatch = useDispatch<AppDispatch>();
   const { container, moviesSection, moviesWrap, movieItem } = style;
-  const navigate = useNavigate()
   return (
   <div className={container}>
     <MoviesPageHeader  title={title} />

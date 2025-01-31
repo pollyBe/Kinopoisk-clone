@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Header from "../../Components/Header/Header"
 import style from './SelectedMoviePage.module.scss'
 import Footer from "../../Components/Footer/Footer";
@@ -7,12 +7,14 @@ import SelectedMovie from "../../Components/SelectedMovie/SelectedMovie";
 import { AppDispatch, RootState } from "../../store";
 import { useEffect } from "react";
 import { GetMovieByID } from "../../store/movieSlice";
+import Button from "../../UI-Components/Button/Button";
 
 const SelectedMoviePage = () => {
+  const navigate=useNavigate()
   const dispatch = useDispatch<AppDispatch>();
   const { movie, loading, error } = useSelector((state:RootState) => state.movie);
   const { kinopoiskId } = useParams();
-  const { container, backLink } = style;
+  const { container } = style;
 
   useEffect(() => {
     dispatch(GetMovieByID({kinopoiskId}));
@@ -22,7 +24,9 @@ const SelectedMoviePage = () => {
   if (error) return <div>Error: {error}</div>;
   return (<div className={container}>
     <Header/>
-    <Link to='/' className={backLink}>Back</Link>{movie &&
+    <Button onClick={() =>navigate(-1)}
+    type='button' text='Back'/>
+    {movie &&
     <SelectedMovie
       kinopoiskId={movie.kinopoiskId}
       posterUrl={movie.posterUrl}

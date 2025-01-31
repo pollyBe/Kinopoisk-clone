@@ -52,6 +52,7 @@ export interface IObjectFrommainPage {
   searchQuery?: string;
   ordering?: string;
   type?: string;
+  keyword?: string;
 }
 export interface IMoviesState {
   movies: IMovie[];
