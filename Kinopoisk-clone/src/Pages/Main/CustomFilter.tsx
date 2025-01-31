@@ -47,7 +47,7 @@ const CustomFilter = () => {
       {movies.length !== 0 ? (
         <MoviesList
           movies={movies}
-          title="Top popular for all time"
+          title="Movies matching your filter criteria"
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           totalItems={totalItems}

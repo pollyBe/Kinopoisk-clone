@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import MoviesPageHeader from '../../UI-Components/MoviesPageHeader/MoviesPageHeader';
-import { setSelectedMovie } from '../../store/moviesSlice';
 import { IMovie } from '../../types/types';
 import Pagination from '../Pagination/Pagination';
 import style from './MoviesList.module.scss'
-import { useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../store';
+import { GetMovieByID } from '../../store/movieSlice';
 
 interface IProps{
   movies: IMovie[],
@@ -26,14 +26,12 @@ const MoviesList = ({movies, title, currentPage, itemsPerPage, totalItems, setPa
     <div className={moviesSection}>
       <ul className={moviesWrap}  >
         {movies.map((movie:IMovie) => (
-            <li key={movie.kinopoiskId} className={movieItem}>
+          <li key={movie.kinopoiskId} className={movieItem}>
+            <NavLink to={`/movie/${movie.kinopoiskId}`}>
             <img
               src={movie.posterUrlPreview}
               alt="poster"
-              onClick={() => {
-                dispatch(setSelectedMovie(movie))
-                navigate(`/movie/${movie.kinopoiskId}`)
-              }} />
+            /></NavLink>
             <p>{movie.nameRu?movie.nameRu:movie.nameOriginal}</p>
              </li>
         ))}
