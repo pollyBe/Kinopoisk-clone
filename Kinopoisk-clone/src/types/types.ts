@@ -22,6 +22,7 @@ export interface IMovie {
   imdbId?: string;
   ratingImdbVoteCount?: number;
   kinopoiskId: number;
+  filmId?: number;
   ratingKinopoiskVoteCount?: number;
   logoUrl?: string;
   nameEn?: string;

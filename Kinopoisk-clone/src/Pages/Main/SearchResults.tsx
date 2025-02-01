@@ -1,5 +1,3 @@
-//TODO Fix rendering according to fetched data
-
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../store"
 import { useEffect } from "react"
@@ -24,8 +22,8 @@ const SearchResults = () => {
       <MoviesList
         movies={movies}
         title={`Search results for ' ${keyword}'`}
-       currentPage={currentPage}
-       itemsPerPage={20}
+        currentPage={currentPage}
+        itemsPerPage={20}
         totalItems={totalItems}
         setPage={(page: number) => dispatch(setPage(page))}
         />

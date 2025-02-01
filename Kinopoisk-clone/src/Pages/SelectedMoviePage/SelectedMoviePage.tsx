@@ -1,3 +1,7 @@
+// TODO create component with actors
+//      add video
+//      add photo galary
+
 import { useNavigate, useParams } from "react-router-dom"
 import Header from "../../Components/Header/Header"
 import style from './SelectedMoviePage.module.scss'

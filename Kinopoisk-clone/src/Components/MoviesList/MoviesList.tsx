@@ -1,3 +1,5 @@
+//TODO add rating to card
+
 import MoviesPageHeader from '../../UI-Components/MoviesPageHeader/MoviesPageHeader';
 import { IMovie } from '../../types/types';
 import Pagination from '../Pagination/Pagination';
@@ -21,8 +23,8 @@ const MoviesList = ({movies, title, currentPage, itemsPerPage, totalItems, setPa
     <div className={moviesSection}>
       <ul className={moviesWrap}  >
         {movies.map((movie:IMovie) => (
-          <li key={movie.kinopoiskId} className={movieItem}>
-            <NavLink to={`/movie/${movie.kinopoiskId}`}>
+          <li key={movie.kinopoiskId?movie.kinopoiskId:movie.filmId} className={movieItem}>
+            <NavLink to={`/movie/${movie.kinopoiskId? movie.kinopoiskId:movie.filmId}`}>
             <img
               src={movie.posterUrlPreview}
               alt="poster"

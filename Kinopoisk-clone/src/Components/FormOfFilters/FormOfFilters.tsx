@@ -1,3 +1,5 @@
+//TODO fix styles for range
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
@@ -11,7 +13,7 @@ import { switchIsActive } from '../../store/isActiveSlice';
 const FormOfFilters = () => {
   const { isActive } = useSelector((state:RootState) => state.isActive)
   const { genres, countries } = useSelector((state: RootState) => state.filters);
-  const { genresWrap, countriesWrap, form, orderWrap, typeWrap, yearRangeWrap } = style;
+  const { genresWrap, countriesWrap, form, orderWrap, typeWrap, yearRangeWrap, submitButton } = style;
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -98,7 +100,7 @@ const FormOfFilters = () => {
         yearTo={yearTo}
         setYearTo={setYearTo}
       /></div>
-      <button type="submit" onClick={() => dispatch(switchIsActive(isActive ? false : true))}>Submit</button>
+      <button className={submitButton} type="submit" onClick={() => dispatch(switchIsActive(isActive ? false : true))}>Submit</button>
     </form>
   );
 };
