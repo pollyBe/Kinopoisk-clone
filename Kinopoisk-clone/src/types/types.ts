@@ -124,9 +124,13 @@ export interface IActor {
   age?: number;
   birthplace?: string;
   deathplace?: string;
-  spouses?: string[];
+  spouses?: ISpouse[];
   hasAwards: number;
   profession: string;
   facts: string[];
   films: IMovie[];
+}
+export interface ISpouse {
+  name: string;
+  personId: number;
 }

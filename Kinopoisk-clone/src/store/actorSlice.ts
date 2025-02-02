@@ -1,28 +1,34 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IActor, IMovie } from "../types/types";
+import { IActor } from "../types/types";
 
-export const GetActorInfo = createAsyncThunk(
-  "actor/GetActorInfo",
-  async (objectFromMoviePage, { rejectWithValue }) => {
-    const { staffId }: any = objectFromMoviePage;
-    try {
-      const response = await fetch(
-        `https://kinopoiskapiunofficial.tech/api/v1/staff/${staffId}`,
-        {
-          method: "GET",
-          headers: {
-            "X-API-KEY": "75a3a176-fdd5-47ef-9828-159d9d1426a6",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue((error as Error).message);
-    }
+interface IActorIdObject {
+  staffId?: string;
+}
+
+export const GetActorInfo = createAsyncThunk<
+  IActor,
+  IActorIdObject,
+  { rejectValue: string }
+>("actor/GetActorInfo", async (objectFromMoviePage, { rejectWithValue }) => {
+  const { staffId }: IActorIdObject = objectFromMoviePage;
+  try {
+    const response = await fetch(
+      `https://kinopoiskapiunofficial.tech/api/v1/staff/${staffId}`,
+      {
+        method: "GET",
+        headers: {
+          "X-API-KEY": "75a3a176-fdd5-47ef-9828-159d9d1426a6",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return rejectWithValue((error as Error).message);
   }
-);
+});
 
 interface IActorState {
   actor: IActor;

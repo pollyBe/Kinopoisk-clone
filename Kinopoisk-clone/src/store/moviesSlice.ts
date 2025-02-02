@@ -36,7 +36,6 @@ const initialState: IMoviesState = {
   totalItems: 0,
   totalPages: 0,
   currentPage: 1,
-  itemsPerPage: 0,
 };
 
 const moviesSlice = createSlice({
@@ -56,7 +55,6 @@ const moviesSlice = createSlice({
       .addCase(FetchMovies.fulfilled, (state, action) => {
         state.loading = false;
         state.movies = action.payload.items;
-        state.itemsPerPage = action.payload.items.length;
         state.totalItems = action.payload.total;
         state.totalPages = action.payload.totalPages;
       })

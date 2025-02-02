@@ -51,9 +51,6 @@ const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKino
       </div>
       </div>
       </div>
-      {/* <div>
-        <ActorsInfo kinopoiskId={kinopoiskId}/>
-      </div> */}
   </div>)
 }
 export default SelectedMovie

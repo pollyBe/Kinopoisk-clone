@@ -5,9 +5,9 @@ import Footer from "../../Components/Footer/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 import { useEffect } from "react";
-import { GetMovieByID } from "../../store/movieSlice";
 import Button from "../../UI-Components/Button/Button";
 import ActorInfo from "../../Components/ActorInfo/ActorInfo";
+import { GetActorInfo } from "../../store/actorSlice";
 
 const ActorPage = () => {
   const navigate=useNavigate()
@@ -17,9 +17,9 @@ const ActorPage = () => {
   const { container } = style;
 
   useEffect(() => {
-    dispatch(GetMovieByID({staffId}));
+    dispatch(GetActorInfo({staffId}));
   }, [staffId]);
-
+  console.log(staffId)
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   return (<div className={container}>

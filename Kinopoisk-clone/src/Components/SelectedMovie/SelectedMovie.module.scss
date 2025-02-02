@@ -71,6 +71,7 @@
 .genresWrap {
   font-weight: 600;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   margin-right: 10px;
@@ -128,4 +129,7 @@
   justify-content: space-between;
   margin-bottom: 20px;
   width: 80%;
+}
+.infoLeft {
+  width: 50%;
 }
