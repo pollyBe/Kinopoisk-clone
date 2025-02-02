@@ -13,8 +13,7 @@ const TopPopularAll = () => {
     loading,
     error,
     currentPage,
-    itemsPerPage,
-    totalItems,
+    totalPages,
   } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const TopPopularAll = () => {
       page: currentPage,
       type: 'TOP_POPULAR_ALL'
     }));
-  }, [dispatch, currentPage, itemsPerPage]);
+  }, [dispatch, currentPage]);
 
   if (loading) {
     return <div className={style.loading}>loading...</div>;
@@ -36,8 +35,7 @@ const TopPopularAll = () => {
         movies={movies}
         title='Top popular for all time'
         currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
+        totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
         />:<p>Such category will be updated soon</p>}
     </>)

@@ -16,9 +16,8 @@ const CustomFilter = () => {
     movies,
     loading,
     error,
-    totalItems,
+    totalPages,
     currentPage,
-    itemsPerPage,
   } = useSelector((state: RootState) => state.filtredMovies);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const CustomFilter = () => {
         yearTo: yearTo,
       })
     );
-  }, [dispatch, currentPage, itemsPerPage, yearFrom, yearTo, genre, country, order, type]);
+  }, [dispatch, currentPage, yearFrom, yearTo, genre, country, order, type]);
 
   if (loading) {
     return <div>loading...</div>;
@@ -49,8 +48,7 @@ const CustomFilter = () => {
           movies={movies}
           title="Movies matching your filter criteria"
           currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          totalItems={totalItems}
+          totalPages={totalPages}
           setPage={(page: number) => dispatch(setPage(page))}
         />
       ) : (

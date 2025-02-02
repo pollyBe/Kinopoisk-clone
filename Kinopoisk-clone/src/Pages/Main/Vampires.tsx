@@ -13,8 +13,7 @@ const Vampires = () => {
     loading,
     error,
     currentPage,
-    itemsPerPage,
-    totalItems,
+    totalPages,
   } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
@@ -22,8 +21,7 @@ const Vampires = () => {
       page: currentPage,
       type: 'VAMPIRE_THEME'
     }));
-  }, [dispatch, currentPage, itemsPerPage]);
-  console.log(movies)
+  }, [dispatch, currentPage]);
 
   if (loading) {
     return <div className={style.loading}>loading...</div>;
@@ -38,8 +36,7 @@ const Vampires = () => {
         movies={movies}
         title='Hoa hoa hoa hoa(Vampires)'
         currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
+        totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
         />
     </>)
