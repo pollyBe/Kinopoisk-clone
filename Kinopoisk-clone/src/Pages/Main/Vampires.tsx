@@ -23,6 +23,7 @@ const Vampires = () => {
       type: 'VAMPIRE_THEME'
     }));
   }, [dispatch, currentPage, itemsPerPage]);
+  console.log(movies)
 
   if (loading) {
     return <div className={style.loading}>loading...</div>;
