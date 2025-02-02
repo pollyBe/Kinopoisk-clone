@@ -1,0 +1,72 @@
+.ActorInfoWrap {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.infoWrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.rightWrap {
+  .titleWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    p {
+      font-size: 14px;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    margin-top: 40px;
+  }
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  p {
+    margin-bottom: 5px;
+  }
+}
+.spousesList {
+  display: flex;
+}
+.factsWrap {
+  margin-bottom: 40px;
+  h4 {
+    margin: 0 0 20px 40px;
+  }
+  p {
+    margin-left: 10px;
+  }
+}
+.filmsWrap {
+  h4 {
+    margin: 0 0 20px 40px;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: all 0.7s ease;
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      &:hover {
+        border-radius: 10px;
+        background-color: rgba(31, 122, 138, 0.341);
+      }
+    }
+  }
+}

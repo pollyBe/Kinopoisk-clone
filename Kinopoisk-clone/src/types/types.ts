@@ -111,3 +111,26 @@ export interface ISelectProps {
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   value: string | number;
 }
+export interface IActor {
+  personId: number;
+  webUrl: string;
+  nameRu: string;
+  nameEn: string;
+  sex: string;
+  posterUrl: string;
+  growth?: number;
+  birthday?: string;
+  death?: string;
+  age?: number;
+  birthplace?: string;
+  deathplace?: string;
+  spouses?: ISpouse[];
+  hasAwards: number;
+  profession: string;
+  facts: string[];
+  films: IMovie[];
+}
+export interface ISpouse {
+  name: string;
+  personId: number;
+}

@@ -8,6 +8,7 @@ import filtredMoviesSlice from "./filtredMoviesSlice";
 import movieSlice from "./movieSlice";
 import searchSlice from "./searchSlice";
 import actorsSlice from "./actorsSlice";
+import actorSlice from "./actorSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     movie: movieSlice,
     search: searchSlice,
     actors: actorsSlice,
+    actor: actorSlice,
   },
 });
 
