@@ -11,7 +11,6 @@ const ActorsInfo = ({ kinopoiskId }:IMovie) => {
   useEffect(() => {
     dispatch(GetActorsInfo(kinopoiskId))
   }, [dispatch])
-  console.log(actors)
   return (<>
     <h4>Actors</h4>
     <ul className={style.actorsWrap}>
