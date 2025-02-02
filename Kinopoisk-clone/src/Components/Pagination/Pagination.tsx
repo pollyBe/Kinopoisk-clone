@@ -5,13 +5,11 @@ import Prev from '../../assets/icons/Icon-Arrow-Prev.svg?react';
 
 interface IProps {
   currentPage: number;
-  itemsPerPage: number;
-  totalItems: number;
+  totalPages: number;
   setPage: (page: number) => void;
 }
 
-const Pagination = ({ currentPage, itemsPerPage, totalItems, setPage }: IProps) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+const Pagination = ({ currentPage, totalPages, setPage }: IProps) => {
 
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);

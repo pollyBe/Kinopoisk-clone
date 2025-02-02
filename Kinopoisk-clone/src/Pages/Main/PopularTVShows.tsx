@@ -12,8 +12,7 @@ const PopularTVShows = () => {
     loading,
     error,
     currentPage,
-    itemsPerPage,
-    totalItems,
+    totalPages,
  } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const PopularTVShows = () => {
       page: currentPage,
       type: `TOP_250_TV_SHOWS`,
     }));
-  }, [dispatch, currentPage, itemsPerPage]);
+  }, [dispatch, currentPage]);
 
   if (loading) {
     return <div className={style.loading}>loading...</div>;
@@ -35,8 +34,7 @@ const PopularTVShows = () => {
       movies={movies}
      title='Top 250 TV Shows'
      currentPage={currentPage}
-     itemsPerPage={itemsPerPage}
-      totalItems={totalItems}
+     totalPages={totalPages}
       setPage={(page: number) => dispatch(setPage(page))}
       />
   </>)

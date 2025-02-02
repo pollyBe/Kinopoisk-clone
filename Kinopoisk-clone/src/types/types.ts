@@ -62,7 +62,6 @@ export interface IMoviesState {
   totalItems: number;
   totalPages: number;
   currentPage: number;
-  itemsPerPage: number;
 }
 export interface genre {
   id: number;

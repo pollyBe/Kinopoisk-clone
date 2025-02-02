@@ -10,12 +10,11 @@ interface IProps{
   movies: IMovie[],
   title: string,
   currentPage: number,
-  itemsPerPage: number,
-  totalItems: number,
+  totalPages: number,
   setPage: ((page: number) => { payload: any; type: "movies/setPage"; }) | ((page: number) => { payload: any; type:"filtredMovies/setPage"}) | ((page: number) => { payload: any; type: "search/setPage"; })
 }
 
-const MoviesList = ({movies, title, currentPage, itemsPerPage, totalItems, setPage}:IProps) => {
+const MoviesList = ({movies, title, currentPage,  totalPages, setPage}:IProps) => {
   const { container, moviesSection, moviesWrap, movieItem } = style;
   return (
   <div className={container}>
@@ -36,8 +35,7 @@ const MoviesList = ({movies, title, currentPage, itemsPerPage, totalItems, setPa
     </div>
       <Pagination
         currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
+        totalPages={totalPages}
         setPage={setPage} />
   </div>)
 }

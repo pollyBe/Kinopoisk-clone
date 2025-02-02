@@ -12,8 +12,7 @@ const Comics = () => {
     loading,
     error,
     currentPage,
-    itemsPerPage,
-    totalItems,
+    totalPages,
  } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const Comics = () => {
       page: currentPage,
       type: `COMICS_THEME`,
     }));
-  }, [dispatch, currentPage, itemsPerPage]);
+  }, [dispatch, currentPage]);
 
   if (loading) {
     return <div className={style.loading}>loading...</div>;
@@ -35,8 +34,7 @@ const Comics = () => {
         movies={movies}
        title='Comics'
        currentPage={currentPage}
-       itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
+       totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
         />
     </>
