@@ -34,7 +34,6 @@ const initialState: IFiltredMoviesState = {
   movies: [],
   loading: false,
   error: null as string | null,
-  selectedMovie: null,
   totalItems: 0,
   totalPages: 0,
   currentPage: 1,
@@ -51,9 +50,6 @@ const filtredMoviesSlice = createSlice({
   name: 'filtredMovies',
   initialState,
   reducers: {
-    setSelectedMovie(state, action) {
-      state.selectedMovie = action.payload;
-    },
     setPage: (state, action) => {
       state.currentPage = action.payload;
     },
@@ -95,5 +91,5 @@ const filtredMoviesSlice = createSlice({
   },
 })
 
-export const { setCountryId, setGenreId, setOrdering, setPage, setSelectedMovie, setType, setYearFrom, setYearTo } = filtredMoviesSlice.actions;
+export const { setCountryId, setGenreId, setOrdering, setPage, setType, setYearFrom, setYearTo } = filtredMoviesSlice.actions;
 export default filtredMoviesSlice.reducer;

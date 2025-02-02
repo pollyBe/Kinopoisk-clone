@@ -59,14 +59,10 @@ export interface IMoviesState {
   movies: IMovie[];
   loading: boolean;
   error: string | null;
-  selectedMovie: IMovie | null;
   totalItems: number;
   totalPages: number;
   currentPage: number;
   itemsPerPage: number;
-  searchQuery: string;
-  ordering: string;
-  selectedImage: string | null;
 }
 export interface genre {
   id: number;
@@ -87,7 +83,6 @@ export interface IFiltredMoviesState {
   movies: IMovie[];
   loading: boolean;
   error: null | string;
-  selectedMovie: IMovie | null;
   totalItems: number;
   totalPages: number;
   currentPage: number;

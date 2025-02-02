@@ -13,19 +13,15 @@ const Comics = () => {
     error,
     currentPage,
     itemsPerPage,
-    searchQuery,
     totalItems,
-    ordering, } = useSelector((state: RootState) => state.movies);
+ } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
     dispatch(FetchMovies({
-      limit: itemsPerPage,
       page: currentPage,
-      searchQuery: searchQuery,
-      ordering: ordering,
       type: `COMICS_THEME`,
     }));
-  }, [dispatch, currentPage, ordering, itemsPerPage, searchQuery]);
+  }, [dispatch, currentPage, itemsPerPage]);
 
   if (loading) {
     return <div className={style.loading}>loading...</div>;

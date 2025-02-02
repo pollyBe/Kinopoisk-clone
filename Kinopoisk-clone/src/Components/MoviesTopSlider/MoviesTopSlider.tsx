@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedMovie } from "../../store/moviesSlice";
 import { useEffect } from "react";
 import { fetchSliderMovies } from "../../store/sliderMoviesSlice";
 import { IMovie } from "../../types/types";
@@ -72,9 +71,7 @@ function MoviesTopSlider() {
           <Link to={`/movie/${movie.kinopoiskId}`} key={movie.kinopoiskId}
             className={slide}
             >
-            <img src={movie.posterUrl} alt="poster" onClick={() => {
-              dispatch(setSelectedMovie(movie))
-            }} />
+            <img src={movie.posterUrl} alt="poster" />
           </Link>
         ))}
       </Slider>

@@ -6,10 +6,10 @@ export const FetchMovies = createAsyncThunk<
   IObjectFrommainPage,
   { rejectValue: string }
 >("movies/fetchMovies", async (objectFromMainPage, { rejectWithValue }) => {
-  const { limit, page, searchQuery, ordering, type } = objectFromMainPage;
+  const { page, type } = objectFromMainPage;
   try {
     const response = await fetch(
-      `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=${type}&page=${page}&limit=${limit}&ordering=${ordering}&search=${searchQuery}`,
+      `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=${type}&page=${page}`,
       {
         method: "GET",
         headers: {
@@ -33,37 +33,18 @@ const initialState: IMoviesState = {
   movies: [],
   loading: false,
   error: null as string | null,
-  selectedMovie: null,
   totalItems: 0,
   totalPages: 0,
   currentPage: 1,
   itemsPerPage: 20,
-  searchQuery: "",
-  ordering: "",
-  selectedImage: null,
 };
 
 const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    setSelectedMovie(state, action) {
-      state.selectedMovie = action.payload;
-    },
     setPage: (state, action) => {
       state.currentPage = action.payload;
-    },
-    setSearchQuery: (state, action) => {
-      state.searchQuery = action.payload;
-    },
-    setOrdering: (state, action) => {
-      state.ordering = action.payload;
-    },
-    setSelectedImage: (state, action) => {
-      state.selectedImage = action.payload;
-    },
-    clearSelectedImage: (state) => {
-      state.selectedImage = null;
     },
   },
   extraReducers: (builder) => {
@@ -85,12 +66,5 @@ const moviesSlice = createSlice({
   },
 });
 
-export const {
-  clearSelectedImage,
-  setSelectedImage,
-  setSelectedMovie,
-  setPage,
-  setSearchQuery,
-  setOrdering,
-} = moviesSlice.actions;
+export const { setPage } = moviesSlice.actions;
 export default moviesSlice.reducer;

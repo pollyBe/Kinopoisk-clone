@@ -1,16 +1,19 @@
 import Title from "../../UI-Components/Title/Title";
 import { IMovie } from "../../types/types"
+import ActorsInfo from "../ActorsInfo/ActorsInfo";
 import style from './SelectedMovie.module.scss'
 
-const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKinopoisk, ratingAgeLimits, countries, genres, year, type, description, ratingImdbVoteCount, ratingKinopoiskVoteCount, filmLength, webUrl }: IMovie) => {
-  const {movieContainer, leftWrap, imgWrap, rightWrap, raitingsWrap, age, infoWrap, countriesWrap, genresWrap, yearInfo, typeInfo, descriptionWrap, lengthWrap, webUrlWrap, originalNameWrap} = style;
-  return (<div className={movieContainer}>
-    <div className={leftWrap}>
+const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKinopoisk, ratingAgeLimits, countries, genres, year, type, description, ratingImdbVoteCount, ratingKinopoiskVoteCount, filmLength, webUrl, kinopoiskId}: IMovie) => {
+  const {movieContainer, leftWrap, imgWrap, rightWrap, raitingsWrap, age, infoWrap, countriesWrap, genresWrap, yearInfo, typeInfo, descriptionWrap, lengthWrap, webUrlWrap, originalNameWrap, container} = style;
+  return (
+  <div className={container}>
+    <div className={movieContainer}>
+      <div className={leftWrap}>
       <div className={imgWrap}>
         <img src={posterUrl} alt="poster" />
       </div>
-    </div >
-    <div className={rightWrap}>
+      </div >
+      <div className={rightWrap}>
       <Title title={nameRu === null ? nameOriginal:nameRu} />
       {ratingAgeLimits && <p className={age}>{ratingAgeLimits}+</p>}
       <ul className={raitingsWrap}>
@@ -43,7 +46,11 @@ const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKino
       <div className={webUrlWrap}>
         {webUrl && <a href={webUrl} target='_blank'>Watch on Kinopoisk</a>}
       </div>
-    </div>
+      </div>
+      </div>
+      <div>
+        <ActorsInfo kinopoiskId={kinopoiskId}/>
+      </div>
   </div>)
 }
 export default SelectedMovie
