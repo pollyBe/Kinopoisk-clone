@@ -10,6 +10,7 @@ import Family from './Pages/Main/TopPopularAll'
 import TopPopularAll from './Pages/Main/TopPopularAll'
 import CustomFilter from './Pages/Main/CustomFilter'
 import SearchResults from './Pages/Main/SearchResults'
+import ActorPage from './Pages/ActorPage/ActorPage'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/search-results' element={<SearchResults/>}/>
       </Route>
         <Route path='/movie/:kinopoiskId' element={<SelectedMoviePage />} />
+        <Route path='/actor/:staffId' element={<ActorPage/>}/>
       </Routes>
     </>
   )

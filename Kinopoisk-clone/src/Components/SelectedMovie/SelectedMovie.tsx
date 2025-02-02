@@ -4,7 +4,7 @@ import ActorsInfo from "../ActorsInfo/ActorsInfo";
 import style from './SelectedMovie.module.scss'
 
 const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKinopoisk, ratingAgeLimits, countries, genres, year, type, description, ratingImdbVoteCount, ratingKinopoiskVoteCount, filmLength, webUrl, kinopoiskId}: IMovie) => {
-  const {movieContainer, leftWrap, imgWrap, rightWrap, raitingsWrap, age, infoWrap, countriesWrap, genresWrap, yearInfo, typeInfo, descriptionWrap, lengthWrap, webUrlWrap, originalNameWrap, container} = style;
+  const {movieContainer, leftWrap, imgWrap, rightWrap, raitingsWrap, age, infoWrap, countriesWrap, genresWrap, yearInfo, typeInfo, descriptionWrap, lengthWrap, webUrlWrap, originalNameWrap, container, infoLeft} = style;
   return (
   <div className={container}>
     <div className={movieContainer}>
@@ -21,24 +21,27 @@ const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKino
         {ratingImdb ? <li>IMDB: {ratingImdb}<p> ({ratingImdbVoteCount})</p></li>:null}
       </ul>
       <div className={infoWrap}>
-      <div className={lengthWrap}>
-        {filmLength && <p><b>Length:</b> {filmLength} min</p>}
-      </div>
-        <div className={originalNameWrap}>
-        {nameOriginal ? <p><b>Original name:</b> {nameOriginal}</p>:null}
-        </div>
-      <ul className={countriesWrap}>Country:
-        {countries && countries.map((el) => (
+        <div className={infoLeft}>
+          <div className={lengthWrap}>
+            {filmLength && <p><b>Length:</b> {filmLength} min</p>}
+          </div>
+          <div className={originalNameWrap}>
+            {nameOriginal ? <p><b>Original name:</b> {nameOriginal}</p>:null}
+          </div>
+          <ul className={countriesWrap}>Country:
+            {countries && countries.map((el) => (
           <li key={el.country}>{el.country}</li>
-        ))}
-      </ul>
-      <ul className={genresWrap}>Genres:
-        {genres && genres.map((el) => (
+            ))}
+          </ul>
+          <ul className={genresWrap}>Genres:
+            {genres && genres.map((el) => (
           <li key={el.genre}> {el.genre}</li>
-        ))}
-      </ul>
-      {year && <div className={yearInfo}>Year:<p>{year}</p></div>}
-        {type && <div className={typeInfo}>Type:<p>{type}</p></div>}
+            ))}
+          </ul>
+          {year && <div className={yearInfo}>Year:<p>{year}</p></div>}
+          {type && <div className={typeInfo}>Type:<p>{type}</p></div>}
+            </div>
+            <ActorsInfo kinopoiskId={kinopoiskId}/>
       </div>
       <div className={descriptionWrap}>
         {description ? <p>{description}</p> : <p>Sorry. Will be updated soon.</p>}
@@ -48,9 +51,9 @@ const SelectedMovie = ({ nameRu, posterUrl, nameOriginal, ratingImdb, ratingKino
       </div>
       </div>
       </div>
-      <div>
+      {/* <div>
         <ActorsInfo kinopoiskId={kinopoiskId}/>
-      </div>
+      </div> */}
   </div>)
 }
 export default SelectedMovie

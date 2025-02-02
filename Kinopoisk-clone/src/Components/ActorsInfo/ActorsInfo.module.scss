@@ -1,35 +1,26 @@
 .actorsWrap {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-  width: 100%;
-}
-.actorsItem {
-  width: 10%;
-  border: 1px solid black;
   position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.actorsItem {
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  p {
-    padding: 5px 0;
-    width: 100%;
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    text-align: center;
-    background-color: #ffffff82;
-    transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  a {
+    color: black;
+    text-decoration: none;
+    text-align: start;
   }
   &:hover {
-    p {
-      bottom: 0;
-    }
+    background-color: #ffffff3a;
   }
+}
+.actorswrap {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
 }
