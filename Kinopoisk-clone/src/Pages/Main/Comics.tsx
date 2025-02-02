@@ -5,7 +5,7 @@ import { FetchMovies, setPage } from "../../store/moviesSlice";
 import { AppDispatch, RootState } from "../../store";
 import MoviesList from "../../Components/MoviesList/MoviesList";
 
-const Main = () => {
+const Comics = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {
     movies,
@@ -14,12 +14,12 @@ const Main = () => {
     currentPage,
     itemsPerPage,
     totalItems,
-  } = useSelector((state: RootState) => state.movies);
+ } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
     dispatch(FetchMovies({
       page: currentPage,
-      type: `TOP_250_MOVIES`,
+      type: `COMICS_THEME`,
     }));
   }, [dispatch, currentPage, itemsPerPage]);
 
@@ -29,12 +29,11 @@ const Main = () => {
   if (error) {
     return <div>Error...</div>;
   }
-
   return (
     <>
       <MoviesList
         movies={movies}
-       title='Top 250 Popular Movies'
+       title='Comics'
        currentPage={currentPage}
        itemsPerPage={itemsPerPage}
         totalItems={totalItems}
@@ -43,4 +42,4 @@ const Main = () => {
     </>
   );
 };
-export default Main;
+export default Comics;

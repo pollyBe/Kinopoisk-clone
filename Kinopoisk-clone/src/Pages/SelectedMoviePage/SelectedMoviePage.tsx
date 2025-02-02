@@ -1,28 +1,54 @@
-import { Link } from "react-router-dom"
+// TODO create component with actors
+//      add video
+//      add photo galary
+
+import { useNavigate, useParams } from "react-router-dom"
 import Header from "../../Components/Header/Header"
 import style from './SelectedMoviePage.module.scss'
 import Footer from "../../Components/Footer/Footer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SelectedMovie from "../../Components/SelectedMovie/SelectedMovie";
+import { AppDispatch, RootState } from "../../store";
+import { useEffect } from "react";
+import { GetMovieByID } from "../../store/movieSlice";
+import Button from "../../UI-Components/Button/Button";
 
 const SelectedMoviePage = () => {
-  const {selectedMovie}=useSelector((state)=>state.movies)
-  const { container, backLink } = style;
+  const navigate=useNavigate()
+  const dispatch = useDispatch<AppDispatch>();
+  const { movie, loading, error } = useSelector((state:RootState) => state.movie);
+  const { kinopoiskId } = useParams();
+  const { container } = style;
+
+  useEffect(() => {
+    dispatch(GetMovieByID({kinopoiskId}));
+  }, [kinopoiskId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
   return (<div className={container}>
     <Header/>
-    <Link to='/' className={backLink}>Back</Link>
+    <Button onClick={() =>navigate(-1)}
+    type='button' text='Back'/>
+    {movie &&
     <SelectedMovie
-      kinopoiskId={selectedMovie.kinopoiskId}
-      posterUrl={selectedMovie.posterUrl}
-      nameRu={selectedMovie.nameRu}
-      nameEn={selectedMovie.nameEn}
-      ratingImdb={selectedMovie.ratingImdb}
-      ratingKinopoisk={selectedMovie.ratingKinopoisk} ratingAgeLimits={selectedMovie.ratingAgeLimits} countries={selectedMovie.countries}
-      genres={selectedMovie.genres}
-      year={selectedMovie.year}
-      type={selectedMovie.type}
-      description={selectedMovie.description}
-    />
+      kinopoiskId={movie.kinopoiskId}
+      posterUrl={movie.posterUrl}
+      nameRu={movie.nameRu}
+      nameOriginal={movie.nameOriginal}
+      ratingImdb={movie.ratingImdb}
+      ratingImdbVoteCount={movie.ratingImdbVoteCount}
+      ratingKinopoisk={movie.ratingKinopoisk}
+      ratingKinopoiskVoteCount={movie.ratingKinopoiskVoteCount}
+      ratingAgeLimits={movie.ratingAgeLimits}
+      countries={movie.countries}
+      genres={movie.genres}
+      year={movie.year}
+      type={movie.type}
+      description={movie.description}
+      filmLength={movie.filmLength}
+      webUrl={movie.webUrl}
+    />}
     <Footer />
   </div>)
 }

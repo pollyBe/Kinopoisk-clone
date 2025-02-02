@@ -1,11 +1,11 @@
 .navbarWrap {
-  position: absolute;
+  position: fixed;
   display: flex;
   top: -5px;
   left: -18%;
   width: 20%;
   height: 100vh;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 .openNavbarButton {
   width: 10%;
@@ -22,12 +22,15 @@
 .icon {
   height: 40px;
   fill: rgba(65, 211, 211, 0.666);
+  pointer-events: auto;
+  cursor: pointer;
 }
 .navbar {
   padding: 40px 7px;
   width: 90%;
   height: 100%;
-  background-color: rgba(240, 248, 255, 0.422);
+  background-color: rgba(240, 248, 255, 0.697);
+  box-shadow: 9px 0px 5px -5px rgba(34, 60, 80, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -66,6 +69,9 @@
     background-color: rgba(79, 240, 240, 0.185);
     padding: 5px;
     border-radius: 10px;
+    box-shadow:
+      10px 10px 10px 2px rgba(34, 60, 80, 0.2) inset,
+      10px 10px 10px 2px rgba(34, 60, 80, 0.2);
   }
 }
 .filmIcon {
@@ -81,4 +87,14 @@
   padding-top: 20px;
   border-top: 1px solid rgb(153, 200, 200);
   width: 50%;
+}
+.filters {
+  border-top: 1px solid #4e787e98;
+  padding-top: 20px;
+  h4 {
+    margin-bottom: 10px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: rgb(12, 32, 32);
+  }
 }

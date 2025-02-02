@@ -9,8 +9,11 @@ const IsActiveSlice = createSlice({
     switchIsActive(state, action) {
       state.isActive = action.payload;
     },
+    toggleIsActive(state) {
+      state.isActive = !state.isActive;
+    },
   },
 });
 
-export const { switchIsActive } = IsActiveSlice.actions;
+export const { switchIsActive, toggleIsActive } = IsActiveSlice.actions;
 export default IsActiveSlice.reducer;

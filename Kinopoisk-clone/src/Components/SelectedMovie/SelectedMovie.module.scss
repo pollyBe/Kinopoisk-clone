@@ -5,12 +5,16 @@
   align-items: center;
   justify-content: space-between;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+}
 .leftWrap {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 40%;
-  height: 60vh;
+  height: 70vh;
 }
 .imgWrap {
   display: flex;
@@ -39,7 +43,12 @@
   align-items: start;
   margin-bottom: 20px;
   li {
+    font-weight: 600;
     margin-left: 10px;
+    p {
+      font-weight: 400;
+      font-size: 12px;
+    }
   }
 }
 .age {
@@ -72,7 +81,9 @@
 }
 
 .yearInfo,
-.typeInfo {
+.typeInfo,
+.lengthWrap,
+.originalNameWrap {
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -81,6 +92,26 @@
   p {
     font-weight: 400;
     margin-left: 5px;
+  }
+}
+.lengthWrap,
+.originalNameWrap {
+  p {
+    margin-left: 0;
+  }
+}
+.webUrlWrap {
+  margin-top: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 10px;
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
   }
 }
 .descriptionWrap {

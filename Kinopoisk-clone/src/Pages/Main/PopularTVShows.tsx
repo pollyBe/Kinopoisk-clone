@@ -1,11 +1,11 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from './Main.module.scss';
-import { FetchMovies, setPage } from "../../store/moviesSlice";
+import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../store";
+import { FetchMovies, setPage} from "../../store/moviesSlice";
 import MoviesList from "../../Components/MoviesList/MoviesList";
 
-const Main = () => {
+const PopularTVShows = () => {
   const dispatch = useDispatch<AppDispatch>();
   const {
     movies,
@@ -14,12 +14,12 @@ const Main = () => {
     currentPage,
     itemsPerPage,
     totalItems,
-  } = useSelector((state: RootState) => state.movies);
+ } = useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
     dispatch(FetchMovies({
       page: currentPage,
-      type: `TOP_250_MOVIES`,
+      type: `TOP_250_TV_SHOWS`,
     }));
   }, [dispatch, currentPage, itemsPerPage]);
 
@@ -30,17 +30,15 @@ const Main = () => {
     return <div>Error...</div>;
   }
 
-  return (
-    <>
-      <MoviesList
-        movies={movies}
-       title='Top 250 Popular Movies'
-       currentPage={currentPage}
-       itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
-        setPage={(page: number) => dispatch(setPage(page))}
-        />
-    </>
-  );
-};
-export default Main;
+  return (    <>
+    <MoviesList
+      movies={movies}
+     title='Top 250 TV Shows'
+     currentPage={currentPage}
+     itemsPerPage={itemsPerPage}
+      totalItems={totalItems}
+      setPage={(page: number) => dispatch(setPage(page))}
+      />
+  </>)
+}
+export default PopularTVShows
