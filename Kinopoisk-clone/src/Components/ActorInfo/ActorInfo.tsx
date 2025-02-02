@@ -1,5 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import Button from "../../UI-Components/Button/Button";
+import { NavLink } from "react-router-dom";
 import Title from "../../UI-Components/Title/Title";
 import { IMovie, ISpouse } from "../../types/types";
 
