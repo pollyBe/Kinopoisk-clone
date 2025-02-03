@@ -9,7 +9,7 @@
 body {
   position: relative;
   margin: 5vh 0 0;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--background-color);
   color: var(--text-color);
   background-image: url("./assets/backgrounds/flat-lay-cinema.jpg");
