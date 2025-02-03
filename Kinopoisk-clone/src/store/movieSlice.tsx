@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IMovie } from "../types/types";
 
- export const GetMovieByID = createAsyncThunk(
+interface IObjectFromMoviePage{
+  kinopoiskId?: string;
+}
+
+ export const GetMovieByID = createAsyncThunk<IMovie, IObjectFromMoviePage, {rejectValue:string}>(
     "movie/GetMovieByID",
     async (objectFromMoviePage, { rejectWithValue }) => {
       const { kinopoiskId }: any = objectFromMoviePage;
