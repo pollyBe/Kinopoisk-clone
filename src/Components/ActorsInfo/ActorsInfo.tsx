@@ -12,13 +12,13 @@ const ActorsInfo = ({ kinopoiskId }:IMovie) => {
   useEffect(() => {
     dispatch(GetActorsInfo(kinopoiskId))
   }, [dispatch])
-  console.log(actors)
+
   return (<div className={style.ActorsInfo}>
     <h4>Actors:</h4>
     <ul className={style.actorsWrap}>
       {actors.slice(0, 9).map((actor: IActor) => {
          if (actor.professionKey === 'ACTOR') {
-           return (<li className={style.actorsItem}>
+           return (<li className={style.actorsItem} key={actor.personId}>
              <Link to={`/actor/${actor.staffId}`}>{actor.nameEn? actor.nameEn: actor.nameRu}</Link>
            </li>)
          }

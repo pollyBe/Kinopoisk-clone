@@ -34,6 +34,7 @@ interface IActorsState {
 }
 
 export interface IActor {
+    personId?:number;
   staffId: number;
   nameRu?: string;
   nameEn?: string;
