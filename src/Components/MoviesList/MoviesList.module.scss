@@ -6,49 +6,19 @@
   flex-direction: column;
 }
 .moviesWrap {
+  padding: 15px 0;
+  justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  gap: 20px;
+}
 
-  :hover {
-    background: rgba(27, 126, 126, 0.647);
-  }
-}
 .movieItem {
-  width: 23%;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  background: rgba(11, 69, 69, 0.647);
-  border-radius: 20px;
-  margin-bottom: 20px;
+  width: 17%;
+  height: 300px;
   overflow: hidden;
-  cursor: pointer;
-  transition: all 0.7s ease;
-  a {
-    width: 90%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      transition: all 0.7s ease;
-    }
-  }
-  p {
-    text-align: center;
-    font-weight: 600;
-    color: black;
-  }
 }
+
 .loading {
   text-align: center;
   position: absolute;

@@ -28,22 +28,48 @@ const Pagination = ({ currentPage, totalPages, setPage }: IProps) => {
   };
 
   const renderPageNumbers = () => {
-    const pageNumbers = [];
-    const maxPageNumbers = 4;
-    const startPage = Math.max(currentPage - Math.floor(maxPageNumbers / 2), 1);
-    const endPage = Math.min(startPage + maxPageNumbers - 1, totalPages);
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(
-        <button
-          className={i === currentPage ? style.pageNumbersCurr : style.pageNumbers}
-          key={i}
-          onClick={() => handlePageChange(i)}
-        >
-          {i}
-        </button>
-      );
+    const pages = [];
+
+    const createPage = (page: number) => (
+      <button
+        key={page}
+        className={
+          page === currentPage
+            ? style.pageNumbersCurr
+            : style.pageNumbers
+        }
+        onClick={() => handlePageChange(page)}
+      >
+        {page}
+      </button>
+    );
+
+    const createDots = (key: string) => (
+      <span key={key} className={style.dots}>
+        ...
+      </span>
+    );
+
+    pages.push(createPage(1));
+
+    if (currentPage > 3) {
+      pages.push(createDots("left"));
     }
-    return pageNumbers;
+
+    for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+      if (i > 1 && i < totalPages) {
+        pages.push(createPage(i));
+      }
+    }
+
+    if (currentPage < totalPages - 2) {
+      pages.push(createDots("right"));
+    }
+
+    if (totalPages > 1) {
+      pages.push(createPage(totalPages));
+    }
+    return pages;
   };
 
   return (

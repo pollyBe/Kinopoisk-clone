@@ -1,26 +1,25 @@
-.pageNubmers {
+.pageNumbers {
   border: none;
   background-color: transparent;
   cursor: pointer;
   font-size: 16px;
-  line-height: 24px;
   font-weight: 600;
   color: #271313;
 }
-.pageNubmersCurr {
+
+.pageNumbersCurr {
   border: none;
-  background-color: transparent;
   cursor: pointer;
   font-size: 16px;
-  line-height: 24px;
   font-weight: 600;
-  color: #363e7d;
+  color: white;
+  background: rgba(11, 69, 69, 0.397);
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
-.pageNubmersWrap {
+.pageNumbersWrap {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 32px;
 }
 
@@ -33,7 +32,7 @@
   cursor: pointer;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-color);
   gap: 8px;
 }
@@ -48,24 +47,6 @@
     justify-content: center;
     align-items: center;
     gap: 32px;
-    button {
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-      font-size: 16px;
-      line-height: 24px;
-      font-weight: 600;
-      color: #271313;
-      &:active {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        font-size: 18px;
-        line-height: 24px;
-        font-weight: 600;
-        color: #5563cc;
-      }
-    }
   }
 }
 
@@ -73,4 +54,9 @@
   width: 18px;
   height: 14px;
   fill: var(--text-color);
+}
+
+.dots {
+  color: gray;
+  padding: 0 5px;
 }

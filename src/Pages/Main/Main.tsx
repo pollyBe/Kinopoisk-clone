@@ -22,9 +22,6 @@ const Main = () => {
     }));
   }, [dispatch, currentPage]);
 
-  if (loading) {
-    return <div className={style.loading}>loading...</div>;
-  }
   if (error) {
     return <div>Error...</div>;
   }
@@ -32,6 +29,7 @@ const Main = () => {
   return (
     <>
       <MoviesList
+        isLoading={loading}
         movies={movies}
        title='Top 250 Popular Movies'
        currentPage={currentPage}
