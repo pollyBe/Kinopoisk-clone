@@ -17,7 +17,7 @@ export const GetActorInfo = createAsyncThunk<
       {
         method: "GET",
         headers: {
-          "X-API-KEY": "75a3a176-fdd5-47ef-9828-159d9d1426a6",
+          "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
       }

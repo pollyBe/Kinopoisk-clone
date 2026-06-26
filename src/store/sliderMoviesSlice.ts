@@ -1,31 +1,31 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMovie, ISliderState } from "../types/types";
+import {PayloadAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit"
+import {IMovie, ISliderState} from "../types/types"
 
 export const fetchSliderMovies = createAsyncThunk<
-  { items: IMovie[]; total: number },
+  {items: IMovie[]; total: number},
   void,
-  { rejectValue: string }
->("slidermovies/fetchSliderMovies", async (_, { rejectWithValue }) => {
+  {rejectValue: string}
+>("slidermovies/fetchSliderMovies", async (_, {rejectWithValue}) => {
   try {
     const response = await fetch(
       `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1`,
       {
         method: "GET",
         headers: {
-          "X-API-KEY": "75a3a176-fdd5-47ef-9828-159d9d1426a6",
+          "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
       }
-    );
+    )
     if (!response.ok) {
-      throw new Error("error");
+      throw new Error("error")
     }
-    const data = await response.json();
-    return data;
+    const data = await response.json()
+    return data
   } catch (error) {
-    return rejectWithValue((error as Error).message || "error");
+    return rejectWithValue((error as Error).message || "error")
   }
-});
+})
 
 const initialState: ISliderState = {
   sliderContent: [],
@@ -33,32 +33,32 @@ const initialState: ISliderState = {
   selectedMovie: null,
   loading: false,
   error: null,
-};
+}
 
 const sliderMoviesSlice = createSlice({
   name: "slider",
   initialState,
   reducers: {
     setSelectedMovie(state, action: PayloadAction<IMovie | null>) {
-      state.selectedMovie = action.payload;
+      state.selectedMovie = action.payload
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSliderMovies.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(fetchSliderMovies.fulfilled, (state, action) => {
-        state.loading = false;
-        state.sliderContent = action.payload.items;
-        state.totalItems = action.payload.total;
+        state.loading = false
+        state.sliderContent = action.payload.items
+        state.totalItems = action.payload.total
       })
       .addCase(fetchSliderMovies.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
+        state.loading = false
+        state.error = action.payload as string
+      })
   },
-});
-export const { setSelectedMovie } = sliderMoviesSlice.actions;
-export default sliderMoviesSlice.reducer;
+})
+export const {setSelectedMovie} = sliderMoviesSlice.actions
+export default sliderMoviesSlice.reducer
