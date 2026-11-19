@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  justify-content: space-between;
+  width: 22%;
+  align-items: center;
+  input {
+    background-color: rgb(78, 75, 75);
+    color: rgb(240, 238, 237);
+    padding: 3px 5px;
+    font-size: 12px;
+  }
+}

@@ -24,6 +24,7 @@
 - `npm run dev` — dev-сервер
 - `npm run build` — `tsc && vite build`
 - `npm run lint` — ESLint (`eslint .`)
+- `npm run lint:fsd` — steiger (проверка правил FSD)
 - `npm run format` / `npm run format:check` — Prettier
 - Тестов пока нет: jest удалён, Vitest добавим в фазе 5
 
@@ -36,13 +37,14 @@
 
 ```
 src/
-  app/          # инициализация: providers (store, router, theme), глобальные стили, роутинг
-  pages/        # home, collection, movie, actor, search, discover (фильтр), not-found
-  widgets/      # header, footer, navbar, top-slider, movies-grid, movie-details, cast-list, actor-details, filters-panel
-  features/     # search-movies, filter-movies, toggle-theme, toggle-filters-panel
-  entities/     # movie (api, model/types, ui: MovieCard, MovieCardSkeleton), person (актёр), dictionary (жанры/страны)
-  shared/       # api (baseApi RTK Query), ui (Button, Input, Select, Title, Logo, Pagination, Skeleton, ErrorState, EmptyState),
-                # config (routes, env), lib (hooks, format), assets, styles (tokens, mixins)
+  app/          # main.tsx, App.tsx (роуты), layouts/, model/store.ts, styles/ (глобальные стили и фоновые картинки)
+  pages/        # home, collection, movie, actor, search, discover (фильтр), favorites, not-found
+  widgets/      # header, footer, navbar, top-slider, movies-grid
+  features/     # search-movies, filter-movies, toggle-theme, toggle-favorite
+  entities/     # movie (api, model/types, ui: MovieCard, MovieCardSkeleton), person (актёр), dictionary (жанры/страны), favorite
+  shared/       # api (baseApi RTK Query), ui (Button, Input, Select, Title, Logo, Pagination, icons, Skeleton, ErrorState, EmptyState),
+                # config (routes, env), lib (store-хуки, format), styles (tokens, mixins)
+public/         # favicon и прочая статика без обработки
 api/            # serverless-функции Vercel (прокси к Kinopoisk API), лежат вне src
 ```
 
@@ -54,6 +56,9 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 - Сегменты внутри слайса: `ui/`, `model/`, `api/`, `lib/`, `config/`.
 - Алиас `@/` указывает на `src/`.
 - Проверка — `steiger` (линтер FSD), запускается в CI.
+- Компонент, который используется только на одной странице, живёт в `pages/<page>/ui`, а не в widgets (правило steiger `insignificant-slice`).
+- Redux-хуки: `useAppDispatch` и `useAppSelector` из `@/shared/lib/store`. Типы `RootState` и `AppDispatch` объявлены глобально в `app/model/store.ts`, потому что нижние слои не могут импортировать app.
+- Steiger запрещает сегменты `store`, `providers`, `hooks`, `components`, `assets` и т. п.: сегмент называют по назначению (`model`, `ui`, `lib`).
 
 ### Соглашения
 
@@ -80,15 +85,16 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 1. Переезд на FSD (только перенос, без изменения поведения)
 
-- [ ] Создать слои `app/ pages/ widgets/ features/ entities/ shared/`
-- [ ] shared/ui ← UI-Components (Button, Input, Select, Title, Logo) + Pagination
-- [ ] entities/movie ← MovieCard, MovieCardSkeleton, типы IMovie; entities/person ← IActor
-- [ ] widgets ← Header, Footer, Navbar, MoviesTopSlider, MoviesList, SelectedMovie, ActorsInfo, ActorInfo, FormOfFilters
-- [ ] pages ← Main/*, SelectedMoviePage, ActorPage, Layout → app/layouts или widget layout
-- [ ] app ← main.tsx, App.tsx, store, глобальные стили
-- [ ] Разбить `types/types.ts` по слайсам (типы пропсов — к компонентам, доменные — в entities)
-- [ ] Подключить steiger, убрать нарушения
-- [ ] Исправить опечатки в именах: `Srlect.module.scss`, `filtred*`, `raitingsWrap`, `IObjectFrommainPage`
+- [x] Создать слои `app/ pages/ widgets/ features/ entities/ shared/`
+- [x] shared/ui ← Button, Input, Select, Title, Logo, Pagination, icons
+- [x] entities/movie ← MovieCard, MovieCardSkeleton, IMovie, слайсы movie/movies; entities/person ← IPerson, IStaff, слайсы actor/actors; entities/dictionary ← жанры/страны
+- [x] features ← search-movies (SearchForm из Header), filter-movies (FormOfFilters, YearRange), toggle-theme (слайс темы)
+- [x] widgets ← Header, Footer, Navbar, MoviesTopSlider, MoviesList; SelectedMovie, ActorsInfo, ActorInfo ушли в свои страницы
+- [x] pages ← все страницы; Layout → app/layouts/MainLayout
+- [x] app ← main.tsx, App.tsx, store (app/model), глобальные стили
+- [x] Разбить `types/types.ts` по слайсам
+- [x] Подключить steiger, убрать нарушения
+- [x] Исправить опечатки в именах: `Srlect.module.scss` (был пустой, удалён), `filtred*`, `raitingsWrap`, `IObjectFrommainPage` → `ICollectionQuery`
 
 ### Фаза 2. Слой данных
 

@@ -1,0 +1,67 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IStaff } from "./types"
+
+export const GetActorsInfo = createAsyncThunk(
+  "actors/GetActorsInfo",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${id}
+`,
+        {
+          method: "GET",
+          headers: {
+            "X-API-KEY": import.meta.env.VITE_API_KEY,
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      if (!response.ok) {
+        throw new Error("error")
+      }
+      const data = await response.json()
+
+      return data
+    } catch (error) {
+      return rejectWithValue((error as Error).message || "error")
+    }
+  },
+)
+
+interface IActorsState {
+  actors: IStaff[]
+  loading: boolean
+  error: string | null
+}
+
+const initialState: IActorsState = {
+  actors: [],
+  loading: false,
+  error: null as string | null,
+}
+const actorsSlice = createSlice({
+  name: "actors",
+  initialState,
+  reducers: {
+    clearActors: (state) => {
+      state.actors = []
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(GetActorsInfo.pending, (state) => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(GetActorsInfo.fulfilled, (state, action) => {
+        state.loading = false
+        state.actors = action.payload
+      })
+      .addCase(GetActorsInfo.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload as string
+      })
+  },
+})
+export default actorsSlice.reducer
+export const { clearActors } = actorsSlice.actions

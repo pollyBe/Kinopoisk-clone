@@ -1,0 +1,38 @@
+import { useEffect } from "react"
+import { FetchMovies, setMoviesPage } from "@/entities/movie"
+import { MoviesList } from "@/widgets/movies-grid"
+import { useAppDispatch, useAppSelector } from "@/shared/lib/store"
+
+const Vampires = () => {
+  const dispatch = useAppDispatch()
+  const { movies, loading, error, currentPage, totalPages } = useAppSelector(
+    (state) => state.movies,
+  )
+
+  useEffect(() => {
+    dispatch(
+      FetchMovies({
+        page: currentPage,
+        type: "VAMPIRE_THEME",
+      }),
+    )
+  }, [dispatch, currentPage])
+
+  if (error) {
+    return <div>Error...</div>
+  }
+
+  return (
+    <>
+      <MoviesList
+        movies={movies}
+        title="Hoa hoa hoa hoa(Vampires)"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setPage={(page: number) => dispatch(setMoviesPage(page))}
+        isLoading={loading}
+      />
+    </>
+  )
+}
+export default Vampires

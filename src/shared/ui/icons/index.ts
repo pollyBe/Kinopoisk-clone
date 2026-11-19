@@ -1,0 +1,5 @@
+export { default as AnglesLeftIcon } from "./angles-left-solid.svg?react"
+export { default as AnglesRightIcon } from "./angles-right-solid.svg?react"
+export { default as FilmIcon } from "./film-solid.svg?react"
+export { default as ArrowNextIcon } from "./Icon-Arrow-Next.svg?react"
+export { default as ArrowPrevIcon } from "./Icon-Arrow-Prev.svg?react"
