@@ -2,13 +2,35 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kinopoisk-clone</title>
     <meta
       name="description"
-      content="Каталог фильмов и сериалов: подборки, поиск, фильтры, актёры."
+      content="Каталог фильмов и сериалов: подборки, поиск, фильтры, страницы фильмов и актёров, избранное."
     />
-    <title>Kinopoisk-clone</title>
+
+    <!-- Иконки -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#131212" />
+
+    <!-- Превью ссылки в соцсетях и мессенджерах -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kinopoisk-clone" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://kinopoisk-clone-orpin.vercel.app/" />
+    <meta property="og:title" content="Kinopoisk-clone — каталог фильмов и сериалов" />
+    <meta
+      property="og:description"
+      content="Подборки, поиск, фильтры, страницы фильмов и актёров, избранное. React + TypeScript, Feature-Sliced Design."
+    />
+    <meta property="og:image" content="https://kinopoisk-clone-orpin.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Главная страница Kinopoisk-clone" />
+    <meta name="twitter:card" content="summary_large_image" />
     <!-- Хосты постеров (см. shared/lib/image/posterUrl.ts): соединения открываем заранее -->
     <link rel="preconnect" href="https://st.kp.yandex.net" />
     <link rel="preconnect" href="https://avatars.mds.yandex.net" />

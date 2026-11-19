@@ -76,6 +76,7 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 - Тема: inline-скрипт в `index.html` ставит `data-theme` до загрузки React (без вспышки); `features/toggle-theme` хранит выбор в localStorage, а без выбора следует `prefers-color-scheme`.
 - Весь интерфейс на русском. Числа — `formatNumber`/`formatCount` из `@/shared/lib/format` (ru-RU, склонения через `Intl.PluralRules`), даты — `formatDate`, длительность — `formatDuration`. Типы из API — `getMovieTypeLabel`.
 - Состояния: `ErrorState` (с `onRetry={refetch}`) и `EmptyState` из `@/shared/ui/status`, заглушки загрузки — `Skeleton`. В `MoviesList` состояние вместо сетки передаётся пропом `status`.
+- Скриншоты для README пересобираются с текущей сборки (headless Edge) и кладутся в `docs/screenshots` в WebP ≤ 1280px. При смене домена обновить `og:url`/`og:image` в `index.html` и ссылку в README.
 - Картинки — только через `Poster` (`priority` для первого экрана). Новые тяжёлые ассеты — в WebP с запасным форматом, не больше 1920px.
 - MovieCard — `div` со ссылкой и слотом `actions` рядом: кнопки нельзя класть внутрь `<a>`.
 - Заголовок вкладки — `useDocumentTitle` из `@/shared/lib/dom`; кнопка «Назад» — `BackButton` (без истории ведёт на главную).
@@ -178,9 +179,9 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 7. Упаковка для портфолио
 
-- [ ] README: превью/GIF, ссылка на Vercel, фичи, стек, схема FSD, запуск локально, env
-- [ ] Meta-теги и Open Graph, нормальный favicon
-- [ ] Описание и topics у репозитория на GitHub
+- [x] README: скриншоты (`docs/screenshots/*.webp`), ссылка на Vercel, бейдж CI, фичи, стек, схема FSD (mermaid), решения, запуск локально, env, деплой. GIF не делали
+- [x] Meta-теги и Open Graph (`public/og-image.jpg` 1200×630), `theme-color`, манифест; свой favicon (`public/favicon.svg` + PNG 32/180/192/512) вместо иконки icons8
+- [ ] Описание и topics у репозитория на GitHub (делает владелец, команда подготовлена)
 - [ ] (опционально) обновить до React 19
 
 ## Решения по продукту (2026-11-19)
