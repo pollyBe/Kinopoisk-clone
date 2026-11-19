@@ -64,7 +64,7 @@ const ActorInfo = (person: IPerson) => {
     <article className={style.actor}>
       <div className={style.top}>
         <div className={style.photo}>
-          <Poster src={posterUrl} alt={`Фото: ${name}`} loading="eager" />
+          <Poster src={posterUrl} alt={`Фото: ${name}`} priority />
         </div>
         <div className={style.main}>
           <Title title={name} />

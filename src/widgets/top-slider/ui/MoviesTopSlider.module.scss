@@ -16,6 +16,10 @@
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.8));
   }
 
+  /* Крупнее и с отступами: в точки должно быть легко попасть пальцем (≥ 24px между центрами) */
+  --swiper-pagination-bullet-size: 10px;
+  --swiper-pagination-bullet-horizontal-gap: 8px;
+
   :global(.swiper-pagination-bullet-active) {
     background: var(--color-accent);
   }

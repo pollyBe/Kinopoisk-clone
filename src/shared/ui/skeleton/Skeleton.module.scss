@@ -1,21 +1,27 @@
 .skeleton {
+  position: relative;
   display: block;
+  overflow: hidden;
   border-radius: var(--radius-sm);
-  background: linear-gradient(
-    70deg,
-    var(--color-skeleton-1) 25%,
-    var(--color-skeleton-2) 50%,
-    var(--color-skeleton-1) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.2s infinite linear;
+  background-color: var(--color-skeleton-1);
+
+  /*
+   * Блик двигается через transform: такую анимацию браузер выполняет на композиторе (GPU),
+   * без перерисовки на главном потоке. Анимация background-position перерисовывала бы каждый кадр.
+   */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--color-skeleton-2), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 1.2s infinite linear;
+    will-change: transform;
+  }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
   100% {
-    background-position: -200% 0;
+    transform: translateX(100%);
   }
 }

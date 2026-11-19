@@ -9,6 +9,9 @@
       content="Каталог фильмов и сериалов: подборки, поиск, фильтры, актёры."
     />
     <title>Kinopoisk-clone</title>
+    <!-- Хосты постеров (см. shared/lib/image/posterUrl.ts): соединения открываем заранее -->
+    <link rel="preconnect" href="https://st.kp.yandex.net" />
+    <link rel="preconnect" href="https://avatars.mds.yandex.net" />
     <script>
       // Тему ставим до отрисовки, чтобы не было вспышки светлой темы
       ;(function () {
@@ -19,11 +22,53 @@
           else if (matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark"
         } catch (e) {}
         document.documentElement.dataset.theme = theme
+
+        // Данные слайдера запрашиваем сразу, не дожидаясь JS: RTK Query возьмёт готовый ответ.
+        // URL должен совпадать с запросом useGetCollectionQuery в widgets/top-slider.
+        // На страницах фильма и актёра слайдера нет — там не грузим.
+        if (!/^\/(movie|actor)\//.test(location.pathname)) {
+          var link = document.createElement("link")
+          link.rel = "preload"
+          link.as = "fetch"
+          link.crossOrigin = "anonymous"
+          link.href = "/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1"
+          document.head.appendChild(link)
+        }
       })()
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      Оболочка до загрузки JS: шапка тех же размеров, что настоящая (widgets/header).
+      Браузер рисует её сразу (быстрый FCP), React заменяет содержимое #root при старте.
+    -->
+    <div id="root">
+      <div
+        style="
+          position: sticky;
+          top: 0;
+          height: 56px;
+          background: #131212;
+          color: #f0eeed;
+          font-family: Tahoma, Verdana, &quot;Segoe UI&quot;, sans-serif;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        "
+      >
+        <div
+          style="
+            width: min(1200px, 100% - 32px);
+            height: 100%;
+            margin-inline: auto;
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+          "
+        >
+          KINOPOISK<span style="font-weight: 400">-clone</span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/app/main.tsx"></script>
   </body>
 </html>

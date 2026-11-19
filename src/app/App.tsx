@@ -2,13 +2,15 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import MainLayout from "./layouts/MainLayout"
 import PageLayout from "./layouts/PageLayout"
 import ScrollToTop from "./lib/ScrollToTop"
+import {
+  ActorPage,
+  DiscoverPage,
+  FavoritesPage,
+  MoviePage,
+  NotFoundPage,
+  SearchPage,
+} from "./lib/lazyPages"
 import { CollectionPage } from "@/pages/collection"
-import { DiscoverPage } from "@/pages/discover"
-import { SearchPage } from "@/pages/search"
-import { MoviePage } from "@/pages/movie"
-import { ActorPage } from "@/pages/actor"
-import { NotFoundPage } from "@/pages/not-found"
-import { FavoritesPage } from "@/pages/favorites"
 import { useFavoritesSync } from "@/entities/favorite"
 import { useThemeSync } from "@/features/toggle-theme"
 import { ROUTES } from "@/shared/config"

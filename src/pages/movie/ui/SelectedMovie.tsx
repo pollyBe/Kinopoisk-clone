@@ -47,7 +47,7 @@ const SelectedMovie = (movie: IMovie) => {
   return (
     <article className={style.movie}>
       <div className={style.posterWrap}>
-        <Poster src={posterUrl} alt={`Постер: ${title}`} loading="eager" />
+        <Poster src={posterUrl} alt={`Постер: ${title}`} priority />
       </div>
 
       <div className={style.info}>

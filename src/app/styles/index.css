@@ -53,12 +53,39 @@ body {
   line-height: 1.4;
   color: var(--color-text);
   background-color: #a8dcd9;
-  /* В тёмной теме поверх фона ложится затемнение */
+}
+
+/*
+ * Фон — отдельный фиксированный слой, а не background-attachment: fixed:
+ * так браузер не перерисовывает картинку при каждой прокрутке (и это работает на iOS).
+ * В тёмной теме поверх ложится затемнение --bg-overlay.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #a8dcd9;
   background-image:
-    linear-gradient(var(--bg-overlay), var(--bg-overlay)), url("./images/flat-lay-cinema.jpg");
+    linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+    image-set(
+      url("./images/bg-1920.webp") type("image/webp"),
+      url("./images/bg-1920.jpg") type("image/jpeg")
+    );
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-position: center;
+}
+
+@media (max-width: 1024px) {
+  body::before {
+    background-image:
+      linear-gradient(var(--bg-overlay), var(--bg-overlay)),
+      image-set(
+        url("./images/bg-1024.webp") type("image/webp"),
+        url("./images/bg-1024.jpg") type("image/jpeg")
+      );
+  }
 }
 
 #root {

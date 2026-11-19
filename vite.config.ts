@@ -23,5 +23,17 @@ export default defineConfig(({ mode }) => {
     },
     server: { proxy },
     preview: { proxy },
+    build: {
+      rollupOptions: {
+        output: {
+          // Библиотеки меняются редко — отдельные чанки дольше живут в кэше браузера
+          manualChunks: {
+            react: ["react", "react-dom", "react-router-dom"],
+            redux: ["@reduxjs/toolkit", "react-redux"],
+            swiper: ["swiper"],
+          },
+        },
+      },
+    },
   }
 })

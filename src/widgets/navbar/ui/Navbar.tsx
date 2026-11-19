@@ -11,6 +11,9 @@ const PANEL_ID = "collections-panel"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  // Форма фильтра (и запрос справочника жанров/стран) монтируется только после первого открытия
+  const [wasOpened, setWasOpened] = useState(false)
+  if (isOpen && !wasOpened) setWasOpened(true)
   const panelRef = useRef<HTMLElement>(null)
   const favoritesCount = useAppSelector(selectFavoritesCount)
   const { pathname, search } = useLocation()
@@ -64,7 +67,7 @@ const Navbar = () => {
           </NavLink>
           <div className={style.filters}>
             <h2 className={style.heading}>Фильтр</h2>
-            <FormOfFilters onSubmitClick={() => setIsOpen(false)} />
+            {wasOpened && <FormOfFilters onSubmitClick={() => setIsOpen(false)} />}
           </div>
         </nav>
         <button

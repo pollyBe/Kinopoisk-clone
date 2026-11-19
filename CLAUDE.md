@@ -76,6 +76,7 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 - Тема: inline-скрипт в `index.html` ставит `data-theme` до загрузки React (без вспышки); `features/toggle-theme` хранит выбор в localStorage, а без выбора следует `prefers-color-scheme`.
 - Весь интерфейс на русском. Числа — `formatNumber`/`formatCount` из `@/shared/lib/format` (ru-RU, склонения через `Intl.PluralRules`), даты — `formatDate`, длительность — `formatDuration`. Типы из API — `getMovieTypeLabel`.
 - Состояния: `ErrorState` (с `onRetry={refetch}`) и `EmptyState` из `@/shared/ui/status`, заглушки загрузки — `Skeleton`. В `MoviesList` состояние вместо сетки передаётся пропом `status`.
+- Картинки — только через `Poster` (`priority` для первого экрана). Новые тяжёлые ассеты — в WebP с запасным форматом, не больше 1920px.
 - MovieCard — `div` со ссылкой и слотом `actions` рядом: кнопки нельзя класть внутрь `<a>`.
 - Заголовок вкладки — `useDocumentTitle` из `@/shared/lib/dom`; кнопка «Назад» — `BackButton` (без истории ведёт на главную).
 
@@ -163,9 +164,17 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 6. Производительность
 
-- [ ] Ленивая загрузка страниц (`React.lazy` + Suspense)
-- [ ] Проверить размер бандла (импорты swiper), картинки с размерами и lazy
-- [ ] Lighthouse ≥ 90 по всем метрикам
+- [x] Ленивая загрузка страниц (`app/lib/lazyPages.ts`, Suspense в лейаутах; главная — в основном бандле)
+- [x] Чанки библиотек (`manualChunks`: react, redux, swiper)
+- [x] Фон: 5 МБ → WebP/JPEG 1920 и 1024px (84 / 36 КБ), фиксированный слой `body::before` вместо `background-attachment: fixed`; неиспользуемые картинки удалены
+- [x] Постеры: `Poster` с `priority` (eager + fetchpriority=high) для первого экрана, остальные lazy; короткий адрес без первого редиректа (`shared/lib/image/posterUrl.ts`) с откатом на исходный; в слайдере постеры только для видимых слайдов + следующей «страницы»
+- [x] Запрос слайдера стартует из `<head>` (preload, URL должен совпадать с `useGetCollectionQuery`), preconnect к хостам картинок
+- [x] Оболочка шапки в `index.html` до загрузки JS; заглушка Suspense на весь экран (CLS 0)
+- [x] Шиммер скелетонов на `transform` (композитная анимация)
+- [x] Справочник фильтра грузится при первом открытии панели; `public/robots.txt`
+- [~] Lighthouse (локально, `vite preview`, Edge): десктоп 93–94, мобильный 79–89 (разброс из-за серверов картинок Яндекса), доступность 100, SEO 100, best practices 79
+  - best practices: cookies `_yasc` ставят сервера картинок Яндекса; убрать можно только проксированием картинок (например, Vercel Image Optimization `/_vercel/image` — проверить лимиты тарифа)
+  - перемерить на проде Vercel (HTTP/2, CDN)
 
 ### Фаза 7. Упаковка для портфолио
 

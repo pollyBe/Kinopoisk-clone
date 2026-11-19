@@ -5,6 +5,8 @@ import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
 
+import { useState } from "react"
+import type { Swiper as SwiperInstance } from "swiper"
 import { Link } from "react-router-dom"
 import { getMovieTitle, useGetCollectionQuery } from "@/entities/movie"
 import { collectionPath, ROUTES } from "@/shared/config"
@@ -24,6 +26,16 @@ function MoviesTopSlider() {
     page: 1,
   })
   const movies = data?.items ?? []
+
+  /*
+   * Swiper рендерит все слайды сразу, и браузер качал бы постеры даже за краем.
+   * Постер получают только видимые слайды и следующая «страница»; остальные — по мере листания.
+   */
+  const [loadUntil, setLoadUntil] = useState(4)
+  const updateLoadUntil = (swiper: SwiperInstance) => {
+    const perView = Number(swiper.params.slidesPerView) || 2
+    setLoadUntil((prev) => Math.max(prev, swiper.activeIndex + perView * 2))
+  }
 
   const renderBody = () => {
     if (isLoading) {
@@ -50,6 +62,9 @@ function MoviesTopSlider() {
           nextSlideMessage: "Следующие фильмы",
           paginationBulletMessage: "Перейти к слайду {{index}}",
         }}
+        onInit={updateLoadUntil}
+        onSlideChange={updateLoadUntil}
+        onBreakpoint={updateLoadUntil}
         breakpoints={{
           480: { slidesPerView: 3, slidesPerGroup: 3 },
           768: { slidesPerView: 4, slidesPerGroup: 4 },
@@ -58,12 +73,20 @@ function MoviesTopSlider() {
       >
         {movies.map((movie, index) => (
           <SwiperSlide key={movie.kinopoiskId}>
-            <Link to={ROUTES.movie(movie.kinopoiskId)} className={slide}>
-              <Poster
-                src={movie.posterUrlPreview || movie.posterUrl}
-                alt={getMovieTitle(movie)}
-                loading={index < 6 ? "eager" : "lazy"}
-              />
+            <Link
+              to={ROUTES.movie(movie.kinopoiskId)}
+              className={slide}
+              aria-label={getMovieTitle(movie)}
+            >
+              {index < loadUntil ? (
+                <Poster
+                  src={movie.posterUrlPreview || movie.posterUrl}
+                  alt={getMovieTitle(movie)}
+                  priority={index < 2}
+                />
+              ) : (
+                <Skeleton height="100%" radius="0" />
+              )}
             </Link>
           </SwiperSlide>
         ))}
