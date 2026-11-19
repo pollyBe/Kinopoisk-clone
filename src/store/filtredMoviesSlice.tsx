@@ -1,13 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IFiltredMoviesState, IFiltredObject, IMovie } from "../types/types";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IFiltredMoviesState, IFiltredObject, IMovie } from "../types/types"
 
 export const GetFiltredMovies = createAsyncThunk<
-{ items: IMovie[]; total: number; totalPages: number },
-IFiltredObject,
-{ rejectValue: string }
->('filtredMovies/GetFiltredMovies', async (objectFromMoviesPage, { rejectWithValue }) => {
-  const { country, page, genre, order, type, yearFrom, yearTo } = objectFromMoviesPage;
+  { items: IMovie[]; total: number; totalPages: number },
+  IFiltredObject,
+  { rejectValue: string }
+>("filtredMovies/GetFiltredMovies", async (objectFromMoviesPage, { rejectWithValue }) => {
+  const { country, page, genre, order, type, yearFrom, yearTo } = objectFromMoviesPage
   try {
     const response = await fetch(
       `https://kinopoiskapiunofficial.tech/api/v2.2/films?countries=${country}&genres=${genre}&order=${order}&type=${type}&ratingFrom=0&ratingTo=10&yearFrom=${yearFrom}&yearTo=${yearTo}&page=${page}`,
@@ -17,16 +16,16 @@ IFiltredObject,
           "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
-      }
-    );
+      },
+    )
     if (!response.ok) {
-      throw new Error("error");
+      throw new Error("error")
     }
-    const data = await response.json();
+    const data = await response.json()
 
-    return data;
+    return data
   } catch (error) {
-    return rejectWithValue((error as Error).message || "error");
+    return rejectWithValue((error as Error).message || "error")
   }
 })
 
@@ -47,49 +46,50 @@ const initialState: IFiltredMoviesState = {
 }
 
 const filtredMoviesSlice = createSlice({
-  name: 'filtredMovies',
+  name: "filtredMovies",
   initialState,
   reducers: {
     setPage: (state, action) => {
-      state.currentPage = action.payload;
+      state.currentPage = action.payload
     },
     setOrdering: (state, action) => {
-      state.order = action.payload;
+      state.order = action.payload
     },
     setCountryId: (state, action) => {
-      state.countryId = action.payload;
+      state.countryId = action.payload
     },
     setGenreId: (state, action) => {
-      state.genreId = action.payload;
+      state.genreId = action.payload
     },
     setYearTo: (state, action) => {
-      state.yearTo = action.payload;
+      state.yearTo = action.payload
     },
     setYearFrom: (state, action) => {
-      state.yearFrom = action.payload;
+      state.yearFrom = action.payload
     },
     setType: (state, action) => {
-      state.type = action.payload;
-    }
+      state.type = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(GetFiltredMovies.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(GetFiltredMovies.fulfilled, (state, action) => {
-        state.loading = false;
-        state.movies = action.payload.items;
-        state.totalItems = action.payload.total;
-        state.totalPages = action.payload.totalPages;
+        state.loading = false
+        state.movies = action.payload.items
+        state.totalItems = action.payload.total
+        state.totalPages = action.payload.totalPages
       })
       .addCase(GetFiltredMovies.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
+        state.loading = false
+        state.error = action.payload as string
+      })
   },
 })
 
-export const { setCountryId, setGenreId, setOrdering, setPage, setType, setYearFrom, setYearTo } = filtredMoviesSlice.actions;
-export default filtredMoviesSlice.reducer;
+export const { setCountryId, setGenreId, setOrdering, setPage, setType, setYearFrom, setYearTo } =
+  filtredMoviesSlice.actions
+export default filtredMoviesSlice.reducer

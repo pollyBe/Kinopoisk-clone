@@ -1,7 +1,7 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {IFiltersState} from "../types/types"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IFiltersState } from "../types/types"
 
-export const GetFilters = createAsyncThunk("filters/GetFilters", async (_, {rejectWithValue}) => {
+export const GetFilters = createAsyncThunk("filters/GetFilters", async (_, { rejectWithValue }) => {
   try {
     const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/filters`, {
       method: "GET",

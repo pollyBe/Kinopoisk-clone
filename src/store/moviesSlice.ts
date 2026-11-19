@@ -1,12 +1,12 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {IMovie, IMoviesState, IObjectFrommainPage} from "../types/types"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IMovie, IMoviesState, IObjectFrommainPage } from "../types/types"
 
 export const FetchMovies = createAsyncThunk<
-  {items: IMovie[]; total: number; totalPages: number},
+  { items: IMovie[]; total: number; totalPages: number },
   IObjectFrommainPage,
-  {rejectValue: string}
->("movies/fetchMovies", async (objectFromMainPage, {rejectWithValue}) => {
-  const {page, type} = objectFromMainPage
+  { rejectValue: string }
+>("movies/fetchMovies", async (objectFromMainPage, { rejectWithValue }) => {
+  const { page, type } = objectFromMainPage
   try {
     const response = await fetch(
       `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=${type}&page=${page}`,
@@ -16,7 +16,7 @@ export const FetchMovies = createAsyncThunk<
           "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
-      }
+      },
     )
     if (!response.ok) {
       throw new Error("error")
@@ -65,5 +65,5 @@ const moviesSlice = createSlice({
   },
 })
 
-export const {setPage} = moviesSlice.actions
+export const { setPage } = moviesSlice.actions
 export default moviesSlice.reducer

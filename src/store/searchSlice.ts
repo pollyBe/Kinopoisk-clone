@@ -1,16 +1,16 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {IMovie} from "../types/types"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IMovie } from "../types/types"
 interface IobjectFromSearchPage {
   keyword: string
   page: number
 }
 
 export const FetchSearchMovies = createAsyncThunk<
-  {films: IMovie[]; pagesCount: number},
+  { films: IMovie[]; pagesCount: number },
   IobjectFromSearchPage,
-  {rejectValue: string}
->("search/FetchSearchMovies", async (objectFromSearchPage, {rejectWithValue}) => {
-  const {keyword, page} = objectFromSearchPage
+  { rejectValue: string }
+>("search/FetchSearchMovies", async (objectFromSearchPage, { rejectWithValue }) => {
+  const { keyword, page } = objectFromSearchPage
   try {
     const response = await fetch(
       `https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${keyword}&page=${page}`,
@@ -20,7 +20,7 @@ export const FetchSearchMovies = createAsyncThunk<
           "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
-      }
+      },
     )
     if (!response.ok) {
       throw new Error("error")
@@ -85,5 +85,5 @@ const searchSlice = createSlice({
   },
 })
 
-export const {setPage, setKeyword} = searchSlice.actions
+export const { setPage, setKeyword } = searchSlice.actions
 export default searchSlice.reducer

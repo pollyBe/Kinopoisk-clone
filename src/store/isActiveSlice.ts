@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const IsActiveSlice = createSlice({
   name: "isActive",
@@ -7,13 +7,13 @@ const IsActiveSlice = createSlice({
   },
   reducers: {
     switchIsActive(state, action) {
-      state.isActive = action.payload;
+      state.isActive = action.payload
     },
     toggleIsActive(state) {
-      state.isActive = !state.isActive;
+      state.isActive = !state.isActive
     },
   },
-});
+})
 
-export const { switchIsActive, toggleIsActive } = IsActiveSlice.actions;
-export default IsActiveSlice.reducer;
+export const { switchIsActive, toggleIsActive } = IsActiveSlice.actions
+export default IsActiveSlice.reducer

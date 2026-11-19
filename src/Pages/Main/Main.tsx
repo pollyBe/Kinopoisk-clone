@@ -1,28 +1,26 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { FetchMovies, setPage } from "../../store/moviesSlice";
-import { AppDispatch, RootState } from "../../store";
-import MoviesList from "../../Components/MoviesList/MoviesList";
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { FetchMovies, setPage } from "../../store/moviesSlice"
+import { AppDispatch, RootState } from "../../store"
+import MoviesList from "../../Components/MoviesList/MoviesList"
 
 const Main = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const {
-    movies,
-    loading,
-    error,
-    currentPage,
-    totalPages,
-  } = useSelector((state: RootState) => state.movies);
+  const dispatch = useDispatch<AppDispatch>()
+  const { movies, loading, error, currentPage, totalPages } = useSelector(
+    (state: RootState) => state.movies,
+  )
 
   useEffect(() => {
-    dispatch(FetchMovies({
-      page: currentPage,
-      type: `TOP_250_MOVIES`,
-    }));
-  }, [dispatch, currentPage]);
+    dispatch(
+      FetchMovies({
+        page: currentPage,
+        type: `TOP_250_MOVIES`,
+      }),
+    )
+  }, [dispatch, currentPage])
 
   if (error) {
-    return <div>Error...</div>;
+    return <div>Error...</div>
   }
 
   return (
@@ -30,12 +28,12 @@ const Main = () => {
       <MoviesList
         isLoading={loading}
         movies={movies}
-       title='Top 250 Popular Movies'
-       currentPage={currentPage}
+        title="Top 250 Popular Movies"
+        currentPage={currentPage}
         totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
-        />
+      />
     </>
-  );
-};
-export default Main;
+  )
+}
+export default Main

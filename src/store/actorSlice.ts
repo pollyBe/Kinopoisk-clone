@@ -1,14 +1,14 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {IActor} from "../types/types"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IActor } from "../types/types"
 
 interface IActorIdObject {
   staffId?: string
 }
 
-export const GetActorInfo = createAsyncThunk<IActor, IActorIdObject, {rejectValue: string}>(
+export const GetActorInfo = createAsyncThunk<IActor, IActorIdObject, { rejectValue: string }>(
   "actor/GetActorInfo",
-  async (objectFromMoviePage, {rejectWithValue}) => {
-    const {staffId}: IActorIdObject = objectFromMoviePage
+  async (objectFromMoviePage, { rejectWithValue }) => {
+    const { staffId }: IActorIdObject = objectFromMoviePage
     try {
       const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v1/staff/${staffId}`, {
         method: "GET",
@@ -22,7 +22,7 @@ export const GetActorInfo = createAsyncThunk<IActor, IActorIdObject, {rejectValu
     } catch (error) {
       return rejectWithValue((error as Error).message)
     }
-  }
+  },
 )
 
 interface IActorState {

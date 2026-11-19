@@ -5,12 +5,14 @@ import Navbar from "../../Components/Navbar/Navbar"
 import MoviesTopSlider from "../../Components/MoviesTopSlider/MoviesTopSlider"
 
 const Layout = () => {
-  return <>
-    <Header />
-    <MoviesTopSlider />
-    <Navbar/>
-    <Outlet />
-    <Footer />
-  </>
+  return (
+    <>
+      <Header />
+      <MoviesTopSlider />
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  )
 }
 export default Layout

@@ -6,16 +6,18 @@ import MoviesList from "../../Components/MoviesList/MoviesList"
 
 const SearchResults = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { movies, loading, error, keyword, currentPage, totalPages } = useSelector((state: RootState) => state.search);
+  const { movies, loading, error, keyword, currentPage, totalPages } = useSelector(
+    (state: RootState) => state.search,
+  )
 
   useEffect(() => {
     if (keyword) {
-      dispatch(FetchSearchMovies({ keyword, page: currentPage }));
+      dispatch(FetchSearchMovies({ keyword, page: currentPage }))
     }
-  }, [keyword, currentPage, dispatch]);
+  }, [keyword, currentPage, dispatch])
 
-  if (error) return 'Error'
-  return  (
+  if (error) return "Error"
+  return (
     <>
       <MoviesList
         movies={movies}
@@ -23,8 +25,9 @@ const SearchResults = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
-        isLoading={loading} />
+        isLoading={loading}
+      />
     </>
-  );
+  )
 }
 export default SearchResults

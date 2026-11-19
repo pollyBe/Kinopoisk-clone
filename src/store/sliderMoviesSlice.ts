@@ -1,11 +1,11 @@
-import {PayloadAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit"
-import {IMovie, ISliderState} from "../types/types"
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IMovie, ISliderState } from "../types/types"
 
 export const fetchSliderMovies = createAsyncThunk<
-  {items: IMovie[]; total: number},
+  { items: IMovie[]; total: number },
   void,
-  {rejectValue: string}
->("slidermovies/fetchSliderMovies", async (_, {rejectWithValue}) => {
+  { rejectValue: string }
+>("slidermovies/fetchSliderMovies", async (_, { rejectWithValue }) => {
   try {
     const response = await fetch(
       `https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_ALL&page=1`,
@@ -15,7 +15,7 @@ export const fetchSliderMovies = createAsyncThunk<
           "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
-      }
+      },
     )
     if (!response.ok) {
       throw new Error("error")
@@ -60,5 +60,5 @@ const sliderMoviesSlice = createSlice({
       })
   },
 })
-export const {setSelectedMovie} = sliderMoviesSlice.actions
+export const { setSelectedMovie } = sliderMoviesSlice.actions
 export default sliderMoviesSlice.reducer

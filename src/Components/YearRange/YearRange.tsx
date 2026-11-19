@@ -1,13 +1,13 @@
-const getCurrentYear = () => new Date().getFullYear();
+const getCurrentYear = () => new Date().getFullYear()
 
 interface IYearRangeProps {
-  yearFrom: number;
-  setYearFrom: (value: number) => void;
-  yearTo: number;
-  setYearTo: (value: number) => void;
+  yearFrom: number
+  setYearFrom: (value: number) => void
+  yearTo: number
+  setYearTo: (value: number) => void
 }
 
-const YearRange = ({ yearFrom, setYearFrom, yearTo, setYearTo }:IYearRangeProps) => {
+const YearRange = ({ yearFrom, setYearFrom, yearTo, setYearTo }: IYearRangeProps) => {
   return (
     <>
       <div>
@@ -33,7 +33,7 @@ const YearRange = ({ yearFrom, setYearFrom, yearTo, setYearTo }:IYearRangeProps)
         </label>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default YearRange;
+export default YearRange

@@ -1,24 +1,20 @@
-import { useEffect } from 'react';
-import { GetFiltredMovies, setPage } from '../../store/filtredMoviesSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
-import { useLocation } from 'react-router-dom';
-import MoviesList from '../../Components/MoviesList/MoviesList';
+import { useEffect } from "react"
+import { GetFiltredMovies, setPage } from "../../store/filtredMoviesSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../../store"
+import { useLocation } from "react-router-dom"
+import MoviesList from "../../Components/MoviesList/MoviesList"
 
-import style from './Main.module.scss'
+import style from "./Main.module.scss"
 
 const CustomFilter = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const location = useLocation();
-  const { yearFrom, yearTo, genre, country, order, type } = location.state;
+  const dispatch = useDispatch<AppDispatch>()
+  const location = useLocation()
+  const { yearFrom, yearTo, genre, country, order, type } = location.state
 
-  const {
-    movies,
-    loading,
-    error,
-    totalPages,
-    currentPage,
-  } = useSelector((state: RootState) => state.filtredMovies);
+  const { movies, loading, error, totalPages, currentPage } = useSelector(
+    (state: RootState) => state.filtredMovies,
+  )
 
   useEffect(() => {
     dispatch(
@@ -30,12 +26,12 @@ const CustomFilter = () => {
         type: type,
         yearFrom: yearFrom,
         yearTo: yearTo,
-      })
-    );
-  }, [dispatch, currentPage, yearFrom, yearTo, genre, country, order, type]);
+      }),
+    )
+  }, [dispatch, currentPage, yearFrom, yearTo, genre, country, order, type])
 
   if (error) {
-    return <div>Error...</div>;
+    return <div>Error...</div>
   }
 
   return (
@@ -46,13 +42,16 @@ const CustomFilter = () => {
           title="Movies matching your filter criteria"
           currentPage={currentPage}
           totalPages={totalPages}
-          setPage={(page: number) => dispatch(setPage(page))} isLoading={loading}        />
+          setPage={(page: number) => dispatch(setPage(page))}
+          isLoading={loading}
+        />
       ) : (
-          <div className={style.errorWrap}>
-        <p>Ooops.... Such category will be updated soon</p></div>
+        <div className={style.errorWrap}>
+          <p>Ooops.... Such category will be updated soon</p>
+        </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default CustomFilter;
+export default CustomFilter

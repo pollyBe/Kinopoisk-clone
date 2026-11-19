@@ -1,6 +1,6 @@
-import style from './Footer.module.scss'
+import style from "./Footer.module.scss"
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear()
   return (
     <footer className={style.footer}>
       <div className={style.container}>

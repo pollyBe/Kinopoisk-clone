@@ -1,8 +1,8 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 export const GetActorsInfo = createAsyncThunk(
   "actors/GetActorsInfo",
-  async (id: number, {rejectWithValue}) => {
+  async (id: number, { rejectWithValue }) => {
     try {
       const response = await fetch(
         `https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${id}
@@ -13,7 +13,7 @@ export const GetActorsInfo = createAsyncThunk(
             "X-API-KEY": import.meta.env.VITE_API_KEY,
             "Content-Type": "application/json",
           },
-        }
+        },
       )
       if (!response.ok) {
         throw new Error("error")
@@ -24,7 +24,7 @@ export const GetActorsInfo = createAsyncThunk(
     } catch (error) {
       return rejectWithValue((error as Error).message || "error")
     }
-  }
+  },
 )
 
 interface IActorsState {
@@ -74,4 +74,4 @@ const actorsSlice = createSlice({
   },
 })
 export default actorsSlice.reducer
-export const {clearActors} = actorsSlice.actions
+export const { clearActors } = actorsSlice.actions

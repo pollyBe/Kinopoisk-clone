@@ -1,80 +1,80 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IMovie } from "../types/types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { IMovie } from "../types/types"
 
-interface IObjectFromMoviePage{
-  kinopoiskId?: string;
+interface IObjectFromMoviePage {
+  kinopoiskId?: string
 }
 
- export const GetMovieByID = createAsyncThunk<IMovie, IObjectFromMoviePage, {rejectValue:string}>(
-    "movie/GetMovieByID",
-    async (objectFromMoviePage, { rejectWithValue }) => {
-      const { kinopoiskId } = objectFromMoviePage;
-      try {
-        const response = await fetch(
-          `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`,
-          {
-            method: "GET",
-            headers: {
-              "X-API-KEY": import.meta.env.VITE_API_KEY,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        return rejectWithValue((error as Error).message);
-      }
+export const GetMovieByID = createAsyncThunk<IMovie, IObjectFromMoviePage, { rejectValue: string }>(
+  "movie/GetMovieByID",
+  async (objectFromMoviePage, { rejectWithValue }) => {
+    const { kinopoiskId } = objectFromMoviePage
+    try {
+      const response = await fetch(
+        `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`,
+        {
+          method: "GET",
+          headers: {
+            "X-API-KEY": import.meta.env.VITE_API_KEY,
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      const data = await response.json()
+      return data
+    } catch (error) {
+      return rejectWithValue((error as Error).message)
     }
-  );
+  },
+)
 
-interface IMovieState{
-  movie: IMovie,
-  loading: boolean,
+interface IMovieState {
+  movie: IMovie
+  loading: boolean
   error: string | null
 }
 
 const initialState: IMovieState = {
   movie: {
     countries: [],
-    coverUrl: '',
-    description: '',
+    coverUrl: "",
+    description: "",
     genres: [],
-    imdbId: '',
+    imdbId: "",
     kinopoiskId: 0,
-    logoUrl: '',
-    nameEn: '',
-    nameOriginal: '',
-    nameRu: '',
-    posterUrl: '',
-    posterUrlPreview: '',
-    ratingAgeLimits: '',
+    logoUrl: "",
+    nameEn: "",
+    nameOriginal: "",
+    nameRu: "",
+    posterUrl: "",
+    posterUrlPreview: "",
+    ratingAgeLimits: "",
     ratingImdb: 0,
     ratingKinopoisk: 0,
-    type: '',
+    type: "",
     year: 0,
   },
   loading: false,
   error: null as string | null,
-};
+}
 const movieSlice = createSlice({
-  name: 'movie',
+  name: "movie",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(GetMovieByID.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(GetMovieByID.fulfilled, (state, action) => {
-        state.loading = false;
-        state.movie = action.payload;
+        state.loading = false
+        state.movie = action.payload
       })
       .addCase(GetMovieByID.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-    })
-  }
+        state.loading = false
+        state.error = action.payload as string
+      })
+  },
 })
-export default movieSlice.reducer;
+export default movieSlice.reducer

@@ -1,4 +1,4 @@
-import {configureStore} from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import themeSlice from "./themeSlice"
 import moviesSlice from "./moviesSlice"
 import isActiveSlice from "./isActiveSlice"

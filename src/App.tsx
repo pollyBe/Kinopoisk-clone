@@ -1,32 +1,31 @@
-import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import Layout from './Pages/Layout/Layout'
-import Main from './Pages/Main/Main'
-import SelectedMoviePage from './Pages/SelectedMoviePage/SelectedMoviePage'
-import PopularTVShows from './Pages/Main/PopularTVShows'
-import Vampires from './Pages/Main/Vampires'
-import Comics from './Pages/Main/Comics'
-import TopPopularAll from './Pages/Main/TopPopularAll'
-import CustomFilter from './Pages/Main/CustomFilter'
-import SearchResults from './Pages/Main/SearchResults'
-import ActorPage from './Pages/ActorPage/ActorPage'
+import { Route, Routes } from "react-router-dom"
+import "./App.css"
+import Layout from "./Pages/Layout/Layout"
+import Main from "./Pages/Main/Main"
+import SelectedMoviePage from "./Pages/SelectedMoviePage/SelectedMoviePage"
+import PopularTVShows from "./Pages/Main/PopularTVShows"
+import Vampires from "./Pages/Main/Vampires"
+import Comics from "./Pages/Main/Comics"
+import TopPopularAll from "./Pages/Main/TopPopularAll"
+import CustomFilter from "./Pages/Main/CustomFilter"
+import SearchResults from "./Pages/Main/SearchResults"
+import ActorPage from "./Pages/ActorPage/ActorPage"
 
 function App() {
-
   return (
     <>
       <Routes>
-      <Route path='/' element={<Layout />}>
-          <Route path='/' element={<Main />} />
-          <Route path='/popularTVShows' element={<PopularTVShows />} />
-          <Route path='/vampires' element={<Vampires />} />
-          <Route path='/comics' element={<Comics />} />
-          <Route path='/top-popular-for-all-time' element={<TopPopularAll />} />
-          <Route path='/custom-filter' element={<CustomFilter />} />
-          <Route path='/search-results' element={<SearchResults/>}/>
-      </Route>
-        <Route path='/movie/:kinopoiskId' element={<SelectedMoviePage />} />
-        <Route path='/actor/:staffId' element={<ActorPage/>}/>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Main />} />
+          <Route path="/popularTVShows" element={<PopularTVShows />} />
+          <Route path="/vampires" element={<Vampires />} />
+          <Route path="/comics" element={<Comics />} />
+          <Route path="/top-popular-for-all-time" element={<TopPopularAll />} />
+          <Route path="/custom-filter" element={<CustomFilter />} />
+          <Route path="/search-results" element={<SearchResults />} />
+        </Route>
+        <Route path="/movie/:kinopoiskId" element={<SelectedMoviePage />} />
+        <Route path="/actor/:staffId" element={<ActorPage />} />
       </Routes>
     </>
   )

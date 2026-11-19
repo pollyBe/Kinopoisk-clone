@@ -1,35 +1,34 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination } from "swiper/modules"
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
 
-import style from './MoviesTopSlider.module.scss';
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchSliderMovies } from "../../store/sliderMoviesSlice";
-import { IMovie } from "../../types/types";
-import { AppDispatch, RootState } from "../../store";
+import style from "./MoviesTopSlider.module.scss"
+import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { fetchSliderMovies } from "../../store/sliderMoviesSlice"
+import { IMovie } from "../../types/types"
+import { AppDispatch, RootState } from "../../store"
 
 function MoviesTopSlider() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { sliderTitle, slide, container } = style;
+  const dispatch = useDispatch<AppDispatch>()
+  const { sliderTitle, slide, container } = style
 
-  const { sliderContent, loading, error } =
-    useSelector((state: RootState) => state.slider);
+  const { sliderContent, loading, error } = useSelector((state: RootState) => state.slider)
 
   useEffect(() => {
-    dispatch(fetchSliderMovies());
-  }, [dispatch]);
+    dispatch(fetchSliderMovies())
+  }, [dispatch])
 
   if (loading) {
-    return <div className={style.loading}>loading...</div>;
+    return <div className={style.loading}>loading...</div>
   }
 
   if (error) {
-    return <div>Error...</div>;
+    return <div>Error...</div>
   }
 
   return (
@@ -63,17 +62,14 @@ function MoviesTopSlider() {
       >
         {sliderContent.map((movie: IMovie) => (
           <SwiperSlide key={movie.kinopoiskId}>
-            <Link
-              to={`/movie/${movie.kinopoiskId}`}
-              className={slide}
-            >
+            <Link to={`/movie/${movie.kinopoiskId}`} className={slide}>
               <img src={movie.posterUrl} alt="poster" />
             </Link>
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
-  );
+  )
 }
 
-export default MoviesTopSlider;
+export default MoviesTopSlider
