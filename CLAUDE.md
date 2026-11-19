@@ -22,7 +22,7 @@
 ## Команды
 
 - `npm run dev` — dev-сервер
-- `npm run build` — `tsc && vite build`
+- `npm run build` — `tsc && tsc -p api && vite build` (проверка типов клиента и serverless-функции)
 - `npm run lint` — ESLint (`eslint .`)
 - `npm run lint:fsd` — steiger (проверка правил FSD)
 - `npm run format` / `npm run format:check` — Prettier
@@ -30,8 +30,11 @@
 
 ## Env
 
-- Сейчас: `VITE_API_KEY` — **попадает в клиентский бандл**, ключ виден всем.
-- Цель: `KINOPOISK_API_KEY` хранится только на сервере (переменная окружения Vercel); клиент ходит в `/api/*` (serverless-прокси).
+- `KINOPOISK_API_KEY` — ключ kinopoiskapiunofficial.tech. Только на сервере: в `.env` для локальной разработки и в Environment Variables проекта на Vercel. **Никогда не давать ему префикс `VITE_`**: такие переменные попадают в клиентский бандл.
+- Клиент ходит в `/api/<путь API>` без ключа (`API_BASE_URL` в `shared/config/api.ts`).
+  - Прод: `vercel.json` переписывает `/api/*` → `api/kinopoisk.ts` (serverless-функция подставляет ключ; пропускает только GET и эндпоинты из `ALLOWED_PATHS`; успешные ответы кэшируются на CDN на час).
+  - Локально (`npm run dev`, `npm run preview`): `server.proxy` в `vite.config.ts` подставляет ключ из `.env`.
+- Новый эндпоинт API = добавить его в `ALLOWED_PATHS` в `api/kinopoisk.ts`, иначе прокси ответит 404.
 
 ## Целевая структура FSD
 
@@ -110,11 +113,13 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 3. Деплой на Vercel
 
-- [ ] `api/[...path].ts`: serverless-прокси к kinopoiskapiunofficial.tech, ключ берётся из `KINOPOISK_API_KEY`
-- [ ] Для локальной разработки — proxy в `vite.config` (или `vercel dev`)
-- [ ] `vercel.json`: SPA-rewrite на `index.html` (кроме `/api`), cache headers для ассетов и ответов API
-- [ ] Удалить workflow GitHub Pages и ветку `gh-pages`, убрать ссылку на Netlify
-- [ ] Preview-деплои на PR
+- [x] `api/kinopoisk.ts`: serverless-прокси (rewrite из `vercel.json`), ключ из `KINOPOISK_API_KEY`, allowlist эндпоинтов, CDN-кэш
+- [x] Для локальной разработки — proxy в `vite.config` (dev и preview)
+- [x] `vercel.json`: SPA-rewrite на `index.html` (кроме `/api`), cache headers для ассетов
+- [x] Удалить workflow GitHub Pages, убрать ссылку на Netlify
+- [ ] Удалить ветку `gh-pages` и выключить GitHub Pages в настройках репозитория (делает владелец)
+- [ ] Подключить репозиторий к Vercel, задать `KINOPOISK_API_KEY`, первый деплой (делает владелец)
+- [ ] Preview-деплои на PR — включаются автоматически с GitHub-интеграцией Vercel
 
 ### Фаза 4. UI/UX-полировка
 

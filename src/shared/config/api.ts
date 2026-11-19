@@ -1,2 +1,2 @@
-// В фазе 3 станет "/api" (serverless-прокси на Vercel), и ключ уйдёт из клиента
-export const API_BASE_URL = "https://kinopoiskapiunofficial.tech/api"
+// Запросы идут через свой прокси, ключ API в браузер не попадает
+export const API_BASE_URL = "/api"
