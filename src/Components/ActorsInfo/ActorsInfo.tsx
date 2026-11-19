@@ -1,17 +1,23 @@
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../store"
 import { useEffect } from "react"
-import { GetActorsInfo, IActor } from "../../store/actorsSlice"
+import { clearActors, GetActorsInfo, IActor } from "../../store/actorsSlice"
 import { IMovie } from "../../types/types"
 
 import style from './ActorsInfo.module.scss'
 import { Link } from "react-router"
+
+
 const ActorsInfo = ({ kinopoiskId }:IMovie) => {
   const dispatch = useDispatch<AppDispatch>()
   const { actors } = useSelector((state: RootState) => state.actors)
+
   useEffect(() => {
     dispatch(GetActorsInfo(kinopoiskId))
-  }, [dispatch])
+    return () => {
+      dispatch(clearActors())
+    }
+  }, [dispatch, kinopoiskId])
 
   return (<div className={style.ActorsInfo}>
     <h4>Actors:</h4>

@@ -1,5 +1,3 @@
-//TODO add rating to card
-
 import MovieCard from '../../UI-Components/MovieCard/MovieCard';
 import MovieCardSkeleton from '../../UI-Components/MovieCardSkeleton/MovieCardSkeleton';
 import MoviesPageHeader from '../../UI-Components/MoviesPageHeader/MoviesPageHeader';
@@ -13,7 +11,7 @@ interface IProps{
   title: string,
   currentPage: number,
   totalPages: number,
-  setPage: ((page: number) => { payload: any; type: "movies/setPage"; }) | ((page: number) => { payload: any; type:"filtredMovies/setPage"}) | ((page: number) => { payload: any; type: "search/setPage"; })
+  setPage: (page: number) => void
 }
 
 const MoviesList = ({ isLoading, movies, title, currentPage,  totalPages, setPage}:IProps) => {

@@ -8,7 +8,7 @@ interface IObjectFromMoviePage{
  export const GetMovieByID = createAsyncThunk<IMovie, IObjectFromMoviePage, {rejectValue:string}>(
     "movie/GetMovieByID",
     async (objectFromMoviePage, { rejectWithValue }) => {
-      const { kinopoiskId }: any = objectFromMoviePage;
+      const { kinopoiskId } = objectFromMoviePage;
       try {
         const response = await fetch(
           `https://kinopoiskapiunofficial.tech/api/v2.2/films/${kinopoiskId}`,

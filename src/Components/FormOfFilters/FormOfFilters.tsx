@@ -9,6 +9,7 @@ import { GetFilters } from '../../store/filtersSlice';
 import YearRange from '../YearRange/YearRange';
 import Select from '../../UI-Components/Select/Select';
 import { switchIsActive } from '../../store/isActiveSlice';
+import { setPage } from '../../store/filtredMoviesSlice';
 
 const FormOfFilters = () => {
   const { isActive } = useSelector((state:RootState) => state.isActive)
@@ -38,6 +39,7 @@ const FormOfFilters = () => {
       order: selectedOrder,
       type: selectedType,
     };
+    dispatch(setPage(1))
     navigate('/custom-filter', { state: filterData });
   };
 

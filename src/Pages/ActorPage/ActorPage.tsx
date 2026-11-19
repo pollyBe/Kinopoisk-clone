@@ -19,7 +19,6 @@ const ActorPage = () => {
   useEffect(() => {
     dispatch(GetActorInfo({staffId}));
   }, [staffId]);
-  console.log(staffId)
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   return (<div className={container}>

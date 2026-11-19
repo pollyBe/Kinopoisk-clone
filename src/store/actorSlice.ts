@@ -1,39 +1,34 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IActor } from "../types/types";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
+import {IActor} from "../types/types"
 
 interface IActorIdObject {
-  staffId?: string;
+  staffId?: string
 }
 
-export const GetActorInfo = createAsyncThunk<
-  IActor,
-  IActorIdObject,
-  { rejectValue: string }
->("actor/GetActorInfo", async (objectFromMoviePage, { rejectWithValue }) => {
-  const { staffId }: IActorIdObject = objectFromMoviePage;
-  try {
-    const response = await fetch(
-      `https://kinopoiskapiunofficial.tech/api/v1/staff/${staffId}`,
-      {
+export const GetActorInfo = createAsyncThunk<IActor, IActorIdObject, {rejectValue: string}>(
+  "actor/GetActorInfo",
+  async (objectFromMoviePage, {rejectWithValue}) => {
+    const {staffId}: IActorIdObject = objectFromMoviePage
+    try {
+      const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v1/staff/${staffId}`, {
         method: "GET",
         headers: {
           "X-API-KEY": import.meta.env.VITE_API_KEY,
           "Content-Type": "application/json",
         },
-      }
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    return rejectWithValue((error as Error).message);
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      return rejectWithValue((error as Error).message)
+    }
   }
-});
+)
 
 interface IActorState {
-  actor: IActor;
-  loading: boolean;
-  error: string | null;
+  actor: IActor
+  loading: boolean
+  error: string | null
 }
 
 const initialState: IActorState = {
@@ -58,7 +53,7 @@ const initialState: IActorState = {
   },
   loading: false,
   error: null as string | null,
-};
+}
 const actorSlice = createSlice({
   name: "actor",
   initialState,
@@ -66,17 +61,17 @@ const actorSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(GetActorInfo.pending, (state) => {
-        state.loading = true;
-        state.error = null;
+        state.loading = true
+        state.error = null
       })
       .addCase(GetActorInfo.fulfilled, (state, action) => {
-        state.loading = false;
-        state.actor = action.payload;
+        state.loading = false
+        state.actor = action.payload
       })
       .addCase(GetActorInfo.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
+        state.loading = false
+        state.error = action.payload as string
+      })
   },
-});
-export default actorSlice.reducer;
+})
+export default actorSlice.reducer

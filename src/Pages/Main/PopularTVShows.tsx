@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import style from './Main.module.scss';
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../store";
 import { FetchMovies, setPage} from "../../store/moviesSlice";
@@ -22,9 +21,6 @@ const PopularTVShows = () => {
     }));
   }, [dispatch, currentPage]);
 
-  if (loading) {
-    return <div className={style.loading}>loading...</div>;
-  }
   if (error) {
     return <div>Error...</div>;
   }
@@ -32,11 +28,10 @@ const PopularTVShows = () => {
   return (    <>
     <MoviesList
       movies={movies}
-     title='Top 250 TV Shows'
-     currentPage={currentPage}
-     totalPages={totalPages}
-      setPage={(page: number) => dispatch(setPage(page))}
-      />
+      title='Top 250 TV Shows'
+      currentPage={currentPage}
+      totalPages={totalPages}
+      setPage={(page: number) => dispatch(setPage(page))} isLoading={loading}      />
   </>)
 }
 export default PopularTVShows

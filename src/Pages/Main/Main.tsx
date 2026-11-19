@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import style from './Main.module.scss';
 import { FetchMovies, setPage } from "../../store/moviesSlice";
 import { AppDispatch, RootState } from "../../store";
 import MoviesList from "../../Components/MoviesList/MoviesList";

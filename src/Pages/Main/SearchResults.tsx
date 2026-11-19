@@ -14,9 +14,7 @@ const SearchResults = () => {
     }
   }, [keyword, currentPage, dispatch]);
 
-  if (loading) return <div>Loading...</div>;
   if (error) return 'Error'
-  console.log(movies)
   return  (
     <>
       <MoviesList
@@ -25,7 +23,7 @@ const SearchResults = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
-        />
+        isLoading={loading} />
     </>
   );
 }

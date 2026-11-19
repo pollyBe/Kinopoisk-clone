@@ -52,7 +52,11 @@ const initialState: IActorsState = {
 const actorsSlice = createSlice({
   name: "actors",
   initialState,
-  reducers: {},
+  reducers: {
+    clearActors: (state) => {
+      state.actors = []
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(GetActorsInfo.pending, (state) => {
@@ -70,3 +74,4 @@ const actorsSlice = createSlice({
   },
 })
 export default actorsSlice.reducer
+export const {clearActors} = actorsSlice.actions

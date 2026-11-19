@@ -34,9 +34,6 @@ const CustomFilter = () => {
     );
   }, [dispatch, currentPage, yearFrom, yearTo, genre, country, order, type]);
 
-  if (loading) {
-    return <div>loading...</div>;
-  }
   if (error) {
     return <div>Error...</div>;
   }
@@ -49,8 +46,7 @@ const CustomFilter = () => {
           title="Movies matching your filter criteria"
           currentPage={currentPage}
           totalPages={totalPages}
-          setPage={(page: number) => dispatch(setPage(page))}
-        />
+          setPage={(page: number) => dispatch(setPage(page))} isLoading={loading}        />
       ) : (
           <div className={style.errorWrap}>
         <p>Ooops.... Such category will be updated soon</p></div>

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
 
-import style from './Main.module.scss'
 import MoviesList from "../../Components/MoviesList/MoviesList";
 import { FetchMovies, setPage } from "../../store/moviesSlice";
 
@@ -23,9 +22,6 @@ const TopPopularAll = () => {
     }));
   }, [dispatch, currentPage]);
 
-  if (loading) {
-    return <div className={style.loading}>loading...</div>;
-  }
   if (error) {
     return <div>Error...</div>;
   }
@@ -37,7 +33,7 @@ const TopPopularAll = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         setPage={(page: number) => dispatch(setPage(page))}
-        />:<p>Such category will be updated soon</p>}
+        isLoading={loading} /> : <p>Such category will be updated soon</p>}
     </>)
 }
 export default TopPopularAll
