@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { NavLink, useLocation } from "react-router-dom"
+import { selectFavoritesCount } from "@/entities/favorite"
 import { FormOfFilters } from "@/features/filter-movies"
-import { COLLECTIONS, collectionPath } from "@/shared/config"
+import { COLLECTIONS, collectionPath, ROUTES } from "@/shared/config"
+import { useAppSelector } from "@/shared/lib/store"
 import { AnglesLeftIcon as Left, AnglesRightIcon as Right, FilmIcon } from "@/shared/ui/icons"
 import style from "./Navbar.module.scss"
 
@@ -10,6 +12,7 @@ const PANEL_ID = "collections-panel"
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const panelRef = useRef<HTMLElement>(null)
+  const favoritesCount = useAppSelector(selectFavoritesCount)
   const { pathname, search } = useLocation()
   const { navbarWrap, open, navbar, sortingWrap, item, active } = style
 
@@ -51,6 +54,14 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
+          <NavLink
+            to={ROUTES.favorites}
+            className={({ isActive }) => `${item} ${style.favorites} ${isActive ? active : ""}`}
+          >
+            <span aria-hidden="true">♥</span>
+            Избранное
+            {favoritesCount > 0 && <span className={style.count}>{favoritesCount}</span>}
+          </NavLink>
           <div className={style.filters}>
             <h2 className={style.heading}>Фильтр</h2>
             <FormOfFilters onSubmitClick={() => setIsOpen(false)} />

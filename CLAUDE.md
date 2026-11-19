@@ -76,6 +76,7 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 - Тема: inline-скрипт в `index.html` ставит `data-theme` до загрузки React (без вспышки); `features/toggle-theme` хранит выбор в localStorage, а без выбора следует `prefers-color-scheme`.
 - Весь интерфейс на русском. Числа — `formatNumber`/`formatCount` из `@/shared/lib/format` (ru-RU, склонения через `Intl.PluralRules`), даты — `formatDate`, длительность — `formatDuration`. Типы из API — `getMovieTypeLabel`.
 - Состояния: `ErrorState` (с `onRetry={refetch}`) и `EmptyState` из `@/shared/ui/status`, заглушки загрузки — `Skeleton`. В `MoviesList` состояние вместо сетки передаётся пропом `status`.
+- MovieCard — `div` со ссылкой и слотом `actions` рядом: кнопки нельзя класть внутрь `<a>`.
 - Заголовок вкладки — `useDocumentTitle` из `@/shared/lib/dom`; кнопка «Назад» — `BackButton` (без истории ведёт на главную).
 
 ## План работ
@@ -145,19 +146,19 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 4.5. Избранное
 
-- [ ] `entities/favorite`: модель (slice: список фильмов — id, название, постер, рейтинг, год), селекторы `selectIsFavorite(id)`, `selectFavorites`
-- [ ] Сохранение в localStorage (listener middleware или подписка на store; чтение в try/catch, версия схемы)
-- [ ] `features/toggle-favorite`: кнопка-сердечко (на MovieCard через слот или пропс `actions`, на странице фильма), aria-pressed
-- [ ] `pages/favorites`: сетка избранного, empty-состояние «Вы пока ничего не добавили» со ссылкой на подборки
-- [ ] Пункт «Избранное» в навбаре со счётчиком
-- [ ] Синхронизация между вкладками (событие `storage`) — опционально
-- [ ] Тесты: reducer, toggle-кнопка
+- [x] `entities/favorite`: слайс (`toggleFavorite`, `removeFavorite`, `clearFavorites`, `setFavorites`), селекторы `selectFavorites`, `selectFavoritesCount`, `selectIsFavorite(state, id)`
+- [x] Сохранение в localStorage: `favoritesListener` (listener middleware) после каждого изменения; формат `{ version: 1, items }`, чтение в try/catch с валидацией
+- [x] `features/toggle-favorite`: `ToggleFavoriteButton` (variant `icon` на карточке через слот `actions` у MovieCard, `full` на странице фильма), aria-pressed
+- [x] `pages/favorites` (`/favorites`): сетка, сначала новые; empty-состояние со ссылкой на подборки
+- [x] «Избранное» со счётчиком в навбаре и сердечко со счётчиком в шапке
+- [x] Синхронизация между вкладками (`useFavoritesSync`, событие `storage`)
+- [ ] Тесты: reducer, toggle-кнопка — в фазе 5, когда появится Vitest
 
 ### Фаза 5. Качество
 
-- [ ] Vitest + Testing Library + MSW (моки API)
-- [ ] Тесты: MovieCard, Pagination, парсинг URL-фильтров, search-feature, один интеграционный тест страницы
-- [ ] GitHub Actions CI: lint, typecheck, steiger, test, build
+- [ ] Vitest + Testing Library + MSW (моки API) — отложено по решению владельца (2026-11-19)
+- [ ] Тесты: MovieCard, Pagination, парсинг URL-фильтров, search-feature, избранное (reducer, toggle-кнопка), один интеграционный тест страницы — отложено
+- [x] GitHub Actions CI (`.github/workflows/ci.yml`): lint, steiger, format:check, typecheck + build. Шаг `npm test` добавить, когда появятся тесты
 - [ ] (опционально) husky + lint-staged, conventional commits
 
 ### Фаза 6. Производительность

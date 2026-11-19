@@ -1,0 +1,11 @@
+.link {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+}

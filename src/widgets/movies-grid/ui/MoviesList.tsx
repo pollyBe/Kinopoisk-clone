@@ -1,5 +1,6 @@
 import type { ReactNode } from "react"
 import { MovieCard, MovieCardSkeleton, getMovieId, type IMovie } from "@/entities/movie"
+import { ToggleFavoriteButton } from "@/features/toggle-favorite"
 import { Pagination } from "@/shared/ui/pagination"
 import { EmptyState } from "@/shared/ui/status"
 import MoviesPageHeader from "./MoviesPageHeader"
@@ -50,7 +51,7 @@ const MoviesList = ({
                 ))
               : movies.map((movie) => (
                   <li key={getMovieId(movie)}>
-                    <MovieCard movie={movie} />
+                    <MovieCard movie={movie} actions={<ToggleFavoriteButton movie={movie} />} />
                   </li>
                 ))}
           </ul>

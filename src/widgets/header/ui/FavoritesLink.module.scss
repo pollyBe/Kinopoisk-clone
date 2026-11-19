@@ -1,0 +1,45 @@
+.link {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #444040;
+  border-radius: 50%;
+  background-color: #353232;
+  transition: background-color var(--transition);
+
+  &:hover {
+    background-color: #4a4646;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: transparent;
+    stroke: #ff4d6d;
+    stroke-width: 2;
+  }
+}
+
+.active svg {
+  fill: #ff4d6d;
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background-color: #ff4d6d;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}

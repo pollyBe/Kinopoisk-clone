@@ -1,24 +1,33 @@
 .card {
   position: relative;
-  display: block;
   width: 100%;
   aspect-ratio: 2 / 3;
-  overflow: hidden;
   border-radius: var(--radius-md);
-  background-color: var(--color-skeleton-1);
   box-shadow: var(--shadow);
   transition: transform var(--transition);
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-4px);
+  }
+}
+
+.link {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  background-color: var(--color-skeleton-1);
 
   img {
     transition: transform 0.4s ease;
   }
 
-  &:hover,
-  &:focus-visible {
-    transform: translateY(-4px);
-    img {
-      transform: scale(1.03);
-    }
+  &:hover img,
+  &:focus-visible img {
+    transform: scale(1.03);
   }
 }
 
@@ -33,6 +42,15 @@
   color: var(--rating);
   font-size: var(--fs-xs);
   font-weight: 700;
+}
+
+.actions {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 2;
+  display: flex;
+  gap: var(--space-1);
 }
 
 .overlay {
@@ -61,8 +79,8 @@
   }
 }
 
-.card:hover .overlay,
-.card:focus-visible .overlay {
+.link:hover .overlay,
+.link:focus-visible .overlay {
   opacity: 1;
   transform: translateY(0);
 }

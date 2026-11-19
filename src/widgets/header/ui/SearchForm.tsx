@@ -29,7 +29,7 @@ const SearchForm = () => {
         className={style.input}
         onChange={(e) => setInputKeyword(e.target.value)}
       />
-      <Button text="Найти" type="submit" variant="dark" />
+      <Button text="Найти" type="submit" variant="dark" className={style.submit} />
     </form>
   )
 }

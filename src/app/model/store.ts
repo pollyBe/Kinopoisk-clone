@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
+import { favoritesListener, favoritesReducer } from "@/entities/favorite"
 import { themeReducer } from "@/features/toggle-theme"
 import { baseApi } from "@/shared/api"
 
@@ -8,8 +9,10 @@ const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     // клиентское состояние
     theme: themeReducer,
+    favorites: favoritesReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(favoritesListener.middleware).concat(baseApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

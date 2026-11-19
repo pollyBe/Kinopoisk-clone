@@ -8,6 +8,8 @@ import { SearchPage } from "@/pages/search"
 import { MoviePage } from "@/pages/movie"
 import { ActorPage } from "@/pages/actor"
 import { NotFoundPage } from "@/pages/not-found"
+import { FavoritesPage } from "@/pages/favorites"
+import { useFavoritesSync } from "@/entities/favorite"
 import { useThemeSync } from "@/features/toggle-theme"
 import { ROUTES } from "@/shared/config"
 
@@ -24,6 +26,7 @@ const LEGACY_REDIRECTS: Record<string, string> = {
 
 function App() {
   useThemeSync()
+  useFavoritesSync()
 
   return (
     <>
@@ -34,6 +37,7 @@ function App() {
           <Route path="/collection/:slug" element={<CollectionPage />} />
           <Route path={ROUTES.discover} element={<DiscoverPage />} />
           <Route path={ROUTES.search} element={<SearchPage />} />
+          <Route path={ROUTES.favorites} element={<FavoritesPage />} />
           {Object.entries(LEGACY_REDIRECTS).map(([from, to]) => (
             <Route key={from} path={from} element={<Navigate to={to} replace />} />
           ))}

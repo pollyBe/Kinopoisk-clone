@@ -1,0 +1,58 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.heart {
+  width: 18px;
+  height: 18px;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: fill var(--transition);
+}
+
+.active .heart {
+  fill: #ff4d6d;
+  stroke: #ff4d6d;
+}
+
+/* Круглая кнопка поверх постера */
+.icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* Кнопка с текстом на странице фильма */
+.full {
+  align-self: flex-start;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent-soft);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--color-surface-strong);
+  }
+}

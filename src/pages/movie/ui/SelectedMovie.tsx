@@ -1,4 +1,5 @@
 import { getMovieTitle, getMovieTypeLabel, type IMovie } from "@/entities/movie"
+import { ToggleFavoriteButton } from "@/features/toggle-favorite"
 import { capitalize, formatCount, formatDuration } from "@/shared/lib/format"
 import { Poster } from "@/shared/ui/poster"
 import { Title } from "@/shared/ui/title"
@@ -95,6 +96,10 @@ const SelectedMovie = (movie: IMovie) => {
         </div>
 
         <p className={style.description}>{description || "Описание пока не добавлено."}</p>
+
+        <div className={style.actionsRow}>
+          <ToggleFavoriteButton movie={movie} variant="full" />
+        </div>
 
         {webUrl && (
           <a className={style.external} href={webUrl} target="_blank" rel="noopener noreferrer">

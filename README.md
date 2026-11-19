@@ -13,4 +13,3 @@ deploy: [Vercel](https://kinopoisk-clone-orpin.vercel.app)
 - pages with information about the movie, and with information about an actor
 - sorting (by year and type:movie, series, TV-Shows)
 - pagination
-

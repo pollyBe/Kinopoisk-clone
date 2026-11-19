@@ -94,6 +94,12 @@
   line-height: 1.55;
 }
 
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
 .external {
   align-self: flex-start;
   font-weight: 600;

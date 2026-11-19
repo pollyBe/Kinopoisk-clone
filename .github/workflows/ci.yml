@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Новый запуск для той же ветки отменяет предыдущий
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: FSD (steiger)
+        run: npm run lint:fsd
+
+      - name: Prettier
+        run: npm run format:check
+
+      # tsc (клиент и serverless-функция) + vite build; ключ API для сборки не нужен
+      - name: Typecheck & build
+        run: npm run build
