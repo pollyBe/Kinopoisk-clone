@@ -13,3 +13,4 @@ deploy https://lucent-baklava-9f9497.netlify.app/
 - pages with information about the movie, and with information about an actor
 - sorting (by year and type:movie, series, TV-Shows)
 - pagination
+
