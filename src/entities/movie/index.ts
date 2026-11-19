@@ -1,9 +1,16 @@
-export type { IMovie, IMoviesState, ICollectionQuery } from "./model/types"
-export { default as movieReducer, GetMovieByID } from "./model/movieSlice"
+export type {
+  IMovie,
+  IMoviesPage,
+  ISearchResult,
+  ICollectionArgs,
+  ISearchArgs,
+  IDiscoverArgs,
+} from "./model/types"
 export {
-  default as moviesReducer,
-  FetchMovies,
-  setPage as setMoviesPage,
-} from "./model/moviesSlice"
+  useGetCollectionQuery,
+  useGetMovieByIdQuery,
+  useSearchMoviesQuery,
+  useDiscoverMoviesQuery,
+} from "./api/movieApi"
 export { default as MovieCard } from "./ui/MovieCard"
 export { default as MovieCardSkeleton } from "./ui/MovieCardSkeleton"

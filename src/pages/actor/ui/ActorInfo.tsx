@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import { ROUTES } from "@/shared/config"
 import type { IMovie } from "@/entities/movie"
 import type { ISpouse } from "@/entities/person"
 import { Title } from "@/shared/ui/title"
@@ -123,7 +124,7 @@ const ActorInfo = ({
           {films &&
             films.slice(0, 26).map((film) => (
               <li key={film.filmId} className={movieItem}>
-                <NavLink to={`/movie/${film.filmId}`}>
+                <NavLink to={ROUTES.movie(film.filmId ?? "")}>
                   <p>{film.nameRu ? film.nameRu : film.nameEn}</p>
                 </NavLink>
               </li>

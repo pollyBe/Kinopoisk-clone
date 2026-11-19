@@ -1,13 +1,15 @@
 //TODO fix styles for range
 
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { GetFilters } from "@/entities/dictionary"
+import { useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
+import { useGetFiltersQuery } from "../api/dictionaryApi"
+import { ROUTES } from "@/shared/config"
 import { Select } from "@/shared/ui/select"
-import { useAppDispatch, useAppSelector } from "@/shared/lib/store"
-import { setPage } from "../model/filteredMoviesSlice"
+import { buildFilterParams, parseFilterParams } from "../lib/filterParams"
 import YearRange from "./YearRange"
 import style from "./FormOfFilters.module.scss"
+
+const MIN_YEAR = 1998
 
 interface IProps {
   /** Вызывается по клику на Submit (навбар так закрывает панель) */
@@ -15,35 +17,35 @@ interface IProps {
 }
 
 const FormOfFilters = ({ onSubmitClick }: IProps) => {
-  const { genres, countries } = useAppSelector((state) => state.filters)
+  const { data } = useGetFiltersQuery()
+  const genres = data?.genres ?? []
+  const countries = data?.countries ?? []
   const { genresWrap, countriesWrap, form, orderWrap, typeWrap, yearRangeWrap, submitButton } =
     style
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const [yearFrom, setYearFrom] = useState(1998)
-  const [yearTo, setYearTo] = useState(getCurrentYear())
-  const [selectedGenre, setSelectedGenre] = useState("")
-  const [selectedCountry, setSelectedCountry] = useState("")
-  const [selectedOrder, setSelectedOrder] = useState("")
-  const [selectedType, setSelectedType] = useState("")
+  // Начальные значения берём из URL, чтобы форма совпадала с открытым фильтром
+  const [searchParams] = useSearchParams()
+  const [initial] = useState(() => parseFilterParams(searchParams))
 
-  useEffect(() => {
-    dispatch(GetFilters())
-  }, [dispatch])
+  const [yearFrom, setYearFrom] = useState(initial.yearFrom ?? MIN_YEAR)
+  const [yearTo, setYearTo] = useState(initial.yearTo ?? getCurrentYear())
+  const [selectedGenre, setSelectedGenre] = useState(initial.genre?.toString() ?? "")
+  const [selectedCountry, setSelectedCountry] = useState(initial.country?.toString() ?? "")
+  const [selectedOrder, setSelectedOrder] = useState(initial.order ?? "RATING")
+  const [selectedType, setSelectedType] = useState(initial.type ?? "ALL")
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const filterData = {
+    const params = buildFilterParams({
       yearFrom,
       yearTo,
-      genre: parseInt(selectedGenre),
-      country: parseInt(selectedCountry),
+      genre: selectedGenre ? Number(selectedGenre) : undefined,
+      country: selectedCountry ? Number(selectedCountry) : undefined,
       order: selectedOrder,
       type: selectedType,
-    }
-    dispatch(setPage(1))
-    navigate("/custom-filter", { state: filterData })
+    })
+    navigate(`${ROUTES.discover}?${params}`)
   }
 
   return (
@@ -52,6 +54,7 @@ const FormOfFilters = ({ onSubmitClick }: IProps) => {
         <Select
           label="Select genre"
           name="genres"
+          placeholder="Any"
           options={genres.slice(0, 20).map((genre) => ({
             value: genre.id,
             label: genre.genre,
@@ -64,6 +67,7 @@ const FormOfFilters = ({ onSubmitClick }: IProps) => {
         <Select
           label="Select country"
           name="countries"
+          placeholder="Any"
           options={countries.slice(0, 20).map((country) => ({
             value: country.id,
             label: country.country,

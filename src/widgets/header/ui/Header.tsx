@@ -1,4 +1,4 @@
-import { SearchForm } from "@/features/search-movies"
+import SearchForm from "./SearchForm"
 import { Logo } from "@/shared/ui/logo"
 import style from "./Header.module.scss"
 

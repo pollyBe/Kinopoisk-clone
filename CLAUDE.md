@@ -38,10 +38,10 @@
 ```
 src/
   app/          # main.tsx, App.tsx (роуты), layouts/, model/store.ts, styles/ (глобальные стили и фоновые картинки)
-  pages/        # home, collection, movie, actor, search, discover (фильтр), favorites, not-found
-  widgets/      # header, footer, navbar, top-slider, movies-grid
-  features/     # search-movies, filter-movies, toggle-theme, toggle-favorite
-  entities/     # movie (api, model/types, ui: MovieCard, MovieCardSkeleton), person (актёр), dictionary (жанры/страны), favorite
+  pages/        # collection (и главная), movie, actor, search, discover (фильтр), not-found, favorites
+  widgets/      # header (+ форма поиска), footer, navbar, top-slider, movies-grid
+  features/     # filter-movies (форма, URL-параметры, справочник жанров/стран), toggle-theme, toggle-favorite
+  entities/     # movie (api, model/types, ui: MovieCard, MovieCardSkeleton), person (актёр, съёмочная группа), favorite
   shared/       # api (baseApi RTK Query), ui (Button, Input, Select, Title, Logo, Pagination, icons, Skeleton, ErrorState, EmptyState),
                 # config (routes, env), lib (store-хуки, format), styles (tokens, mixins)
 public/         # favicon и прочая статика без обработки
@@ -56,7 +56,9 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 - Сегменты внутри слайса: `ui/`, `model/`, `api/`, `lib/`, `config/`.
 - Алиас `@/` указывает на `src/`.
 - Проверка — `steiger` (линтер FSD), запускается в CI.
-- Компонент, который используется только на одной странице, живёт в `pages/<page>/ui`, а не в widgets (правило steiger `insignificant-slice`).
+- Слайс, который используется только в одном месте, сливается с потребителем (правило steiger `insignificant-slice`): компонент одной страницы живёт в `pages/<page>/ui`, форма поиска — в `widgets/header`, справочник жанров/стран — в `features/filter-movies`.
+- Серверные данные — только через RTK Query (`baseApi.injectEndpoints` в `entities/*/api`). В Redux лежит лишь клиентское состояние (тема, позже избранное). Состояние одного компонента — `useState`.
+- Маршруты — `ROUTES` из `@/shared/config`, подборки — `COLLECTIONS`; номер страницы в URL — хук `usePageParam` из `@/shared/lib/url`.
 - Redux-хуки: `useAppDispatch` и `useAppSelector` из `@/shared/lib/store`. Типы `RootState` и `AppDispatch` объявлены глобально в `app/model/store.ts`, потому что нижние слои не могут импортировать app.
 - Steiger запрещает сегменты `store`, `providers`, `hooks`, `components`, `assets` и т. п.: сегмент называют по назначению (`model`, `ui`, `lib`).
 
@@ -98,13 +100,13 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 2. Слой данных
 
-- [ ] `shared/api/baseApi` (RTK Query, baseUrl `/api`)
-- [ ] Эндпоинты через `injectEndpoints` в entities: collections, film by id, staff by film, person by id, search, filters dictionary, discover (фильтр)
-- [ ] Удалить 10 ручных слайсов (movies, movie, slider, search, filtredMovies, filters, actors, actor, topMovies, isActive → в UI-стейт или локальный useState)
-- [ ] Страница, фильтры и запрос живут в URL: `/search?q=...&page=2`, `/discover?genre=...&page=...`, `/collection/:type?page=...`
-- [ ] Свести 5 дублирующихся страниц (Main, PopularTVShows, Vampires, Comics, TopPopularAll) в одну `CollectionPage` с конфигом подборок (`shared/config/collections`)
-- [ ] Понятные маршруты (`/popularTVShows` → `/collection/tv-shows` и т. п.), константы маршрутов в `shared/config/routes`
-- [ ] Страница 404
+- [x] `shared/api/baseApi` (RTK Query; baseUrl пока прямой — `API_BASE_URL` в `shared/config/api.ts`, в фазе 3 станет `/api`)
+- [x] Эндпоинты через `injectEndpoints`: collections, film by id, search, discover — `entities/movie`; staff by film, person by id — `entities/person`; filters — `features/filter-movies/api`
+- [x] Удалить ручные слайсы; в store остались `api` и `theme`; isActive → `useState` в Navbar
+- [x] Страница, фильтры и запрос живут в URL: `/search?q=...&page=2`, `/discover?genre=...&page=...`, `/collection/:slug?page=...`
+- [x] Свести 5 дублирующихся страниц в одну `CollectionPage` с конфигом подборок (`shared/config/collections`)
+- [x] Понятные маршруты (`/collection/tv-shows` и т. п.), редиректы со старых адресов, константы в `shared/config/routes`
+- [x] Страница 404
 
 ### Фаза 3. Деплой на Vercel
 

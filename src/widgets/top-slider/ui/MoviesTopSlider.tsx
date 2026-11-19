@@ -7,20 +7,22 @@ import "swiper/css/pagination"
 
 import style from "./MoviesTopSlider.module.scss"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
-import type { IMovie } from "@/entities/movie"
-import { useAppDispatch, useAppSelector } from "@/shared/lib/store"
-import { fetchSliderMovies } from "../model/sliderMoviesSlice"
+import { useGetCollectionQuery, type IMovie } from "@/entities/movie"
+import { ROUTES } from "@/shared/config"
 
 function MoviesTopSlider() {
-  const dispatch = useAppDispatch()
   const { sliderTitle, slide, container } = style
 
-  const { sliderContent, loading, error } = useAppSelector((state) => state.slider)
-
-  useEffect(() => {
-    dispatch(fetchSliderMovies())
-  }, [dispatch])
+  // Тот же запрос, что у подборки «Top popular» (страница 1): кэш общий
+  const {
+    data,
+    isLoading: loading,
+    isError: error,
+  } = useGetCollectionQuery({
+    type: "TOP_POPULAR_ALL",
+    page: 1,
+  })
+  const sliderContent = data?.items ?? []
 
   if (loading) {
     return <div className={style.loading}>loading...</div>
@@ -61,7 +63,7 @@ function MoviesTopSlider() {
       >
         {sliderContent.map((movie: IMovie) => (
           <SwiperSlide key={movie.kinopoiskId}>
-            <Link to={`/movie/${movie.kinopoiskId}`} className={slide}>
+            <Link to={ROUTES.movie(movie.kinopoiskId)} className={slide}>
               <img src={movie.posterUrl} alt="poster" />
             </Link>
           </SwiperSlide>

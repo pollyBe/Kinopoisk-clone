@@ -1,1 +1,1 @@
-export { default as SelectedMoviePage } from "./ui/SelectedMoviePage"
+export { default as MoviePage } from "./ui/MoviePage"

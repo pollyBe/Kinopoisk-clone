@@ -1,1 +1,1 @@
-export { default as CustomFilter } from "./ui/CustomFilter"
+export { default as DiscoverPage } from "./ui/DiscoverPage"

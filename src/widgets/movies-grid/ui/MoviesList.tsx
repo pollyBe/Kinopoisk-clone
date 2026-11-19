@@ -10,10 +10,32 @@ interface IProps {
   currentPage: number
   totalPages: number
   setPage: (page: number) => void
+  /** Текст, если после загрузки список пуст */
+  emptyText?: string
 }
 
-const MoviesList = ({ isLoading, movies, title, currentPage, totalPages, setPage }: IProps) => {
-  const { container, moviesSection, moviesWrap, movieItem } = style
+const MoviesList = ({
+  isLoading,
+  movies,
+  title,
+  currentPage,
+  totalPages,
+  setPage,
+  emptyText = "Nothing found",
+}: IProps) => {
+  const { container, moviesSection, moviesWrap, movieItem, emptyWrap } = style
+
+  if (!isLoading && movies.length === 0) {
+    return (
+      <div className={container}>
+        <MoviesPageHeader title={title} />
+        <div className={emptyWrap}>
+          <p>{emptyText}</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={container}>
       <MoviesPageHeader title={title} />
@@ -32,7 +54,9 @@ const MoviesList = ({ isLoading, movies, title, currentPage, totalPages, setPage
               ))}
         </ul>
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} setPage={setPage} />
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} setPage={setPage} />
+      )}
     </div>
   )
 }

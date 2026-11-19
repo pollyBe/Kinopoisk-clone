@@ -1,26 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { movieReducer, moviesReducer } from "@/entities/movie"
-import { actorReducer, actorsReducer } from "@/entities/person"
-import { filtersReducer } from "@/entities/dictionary"
-import { filteredMoviesReducer } from "@/features/filter-movies"
-import { searchReducer } from "@/features/search-movies"
 import { themeReducer } from "@/features/toggle-theme"
-import { isActiveReducer } from "@/widgets/navbar"
-import { sliderReducer } from "@/widgets/top-slider"
+import { baseApi } from "@/shared/api"
 
 const store = configureStore({
   reducer: {
+    // серверные данные: кэш RTK Query (эндпоинты — в entities/*/api)
+    [baseApi.reducerPath]: baseApi.reducer,
+    // клиентское состояние
     theme: themeReducer,
-    movies: moviesReducer,
-    isActive: isActiveReducer,
-    slider: sliderReducer,
-    filters: filtersReducer,
-    filteredMovies: filteredMoviesReducer,
-    movie: movieReducer,
-    search: searchReducer,
-    actors: actorsReducer,
-    actor: actorReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

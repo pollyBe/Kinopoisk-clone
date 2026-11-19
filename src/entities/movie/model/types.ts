@@ -23,20 +23,38 @@ export interface IMovie {
   webUrl?: string
 }
 
-export interface ICollectionQuery {
-  limit?: number
-  page?: number
-  searchQuery?: string
-  ordering?: string
-  type?: string
-  keyword?: string
+/** Ответ /v2.2/films/collections и /v2.2/films */
+export interface IMoviesPage {
+  items: IMovie[]
+  total: number
+  totalPages: number
 }
 
-export interface IMoviesState {
-  movies: IMovie[]
-  loading: boolean
-  error: string | null
-  totalItems: number
-  totalPages: number
-  currentPage: number
+/** Ответ /v2.1/films/search-by-keyword */
+export interface ISearchResult {
+  keyword: string
+  pagesCount: number
+  searchFilmsCountResult: number
+  films: IMovie[]
+}
+
+export interface ICollectionArgs {
+  type: string
+  page: number
+}
+
+export interface ISearchArgs {
+  keyword: string
+  page: number
+}
+
+/** Параметры /v2.2/films; незаданные поля не отправляются */
+export interface IDiscoverArgs {
+  genre?: number
+  country?: number
+  order?: string
+  type?: string
+  yearFrom?: number
+  yearTo?: number
+  page: number
 }
