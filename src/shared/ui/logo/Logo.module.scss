@@ -1,3 +1,16 @@
 .logo {
-  color: rgb(240, 238, 237);
+  flex-shrink: 0;
+  color: var(--header-text);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+
+  span {
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo span {
+    display: none;
+  }
 }

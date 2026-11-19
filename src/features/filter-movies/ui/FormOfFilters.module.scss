@@ -1,50 +1,79 @@
 .form {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 2px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
 }
-.genresWrap,
-.countriesWrap,
-.yearRangeWrap,
-.orderWrap,
-.typeWrap {
+
+.field {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
+  gap: var(--space-1);
+  min-width: 0;
+
   label {
-    font-size: 14px;
+    font-size: var(--fs-sm);
+    font-weight: 600;
   }
+
   select {
     width: 100%;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(70, 159, 129, 0.415);
-    padding: 2px;
-    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
-    option {
-      max-height: 60px;
-      overflow: scroll;
-      font-size: 12px;
-    }
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-field);
+    font-size: var(--fs-sm);
+  }
+
+  /* обёртка Select из shared/ui */
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 }
-.submitButton {
-  width: 100%;
-  height: 50%;
-  align-self: center;
-  margin: auto;
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.years {
   border: none;
-  border-radius: 10px;
-  background-color: rgba(70, 159, 129, 0.415);
-  transition: 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  legend {
+    margin-bottom: var(--space-1);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+
+  label {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 400;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--color-accent);
+  }
+}
+
+.submitButton {
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
   cursor: pointer;
-  box-shadow:
-    10px 10px 10px 2px rgba(34, 60, 80, 0.2) inset,
-    10px 10px 10px 2px rgba(34, 60, 80, 0.2);
+  transition: background-color var(--transition);
+
   &:hover {
-    background-color: rgba(70, 159, 129, 0.604);
+    background-color: var(--color-accent-hover);
   }
 }

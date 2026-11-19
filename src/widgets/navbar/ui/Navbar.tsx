@@ -1,55 +1,78 @@
-import { useState } from "react"
-import { NavLink } from "react-router-dom"
-import style from "./Navbar.module.scss"
-import { AnglesLeftIcon as Left, AnglesRightIcon as Right, FilmIcon } from "@/shared/ui/icons"
+import { useEffect, useRef, useState } from "react"
+import { NavLink, useLocation } from "react-router-dom"
 import { FormOfFilters } from "@/features/filter-movies"
 import { COLLECTIONS, collectionPath } from "@/shared/config"
+import { AnglesLeftIcon as Left, AnglesRightIcon as Right, FilmIcon } from "@/shared/ui/icons"
+import style from "./Navbar.module.scss"
+
+const PANEL_ID = "collections-panel"
 
 const Navbar = () => {
-  const [isActive, setIsActive] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const panelRef = useRef<HTMLElement>(null)
+  const { pathname, search } = useLocation()
+  const { navbarWrap, open, navbar, sortingWrap, item, active } = style
 
-  const {
-    navbarWrap,
-    navbar,
-    sortingWrap,
-    item,
-    active,
-    itemWrap,
-    openNavbarButton,
-    icon,
-    filmIcon,
-    filters,
-  } = style
+  // При любом переходе панель закрывается
+  useEffect(() => setIsOpen(false), [pathname, search])
 
-  const closeNavBar = () => setIsActive(false)
+  // Закрытая панель недоступна с клавиатуры и для скринридеров (React 18 не знает атрибут inert)
+  useEffect(() => {
+    if (panelRef.current) panelRef.current.inert = !isOpen
+  }, [isOpen])
+
+  // Escape закрывает панель
+  useEffect(() => {
+    if (!isOpen) return
+    const onKeyDown = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false)
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [isOpen])
+
+  const label = isOpen ? "Скрыть подборки и фильтр" : "Показать подборки и фильтр"
 
   return (
-    <div className={!isActive ? navbarWrap : `${navbarWrap} ${active}`}>
-      <div className={navbar}>
-        <h4>Choose your vibe</h4>
-        <ul className={sortingWrap}>
-          {COLLECTIONS.map(({ slug, navLabel }) => (
-            <li key={slug} className={itemWrap}>
-              <FilmIcon className={filmIcon} />
-              <NavLink
-                to={collectionPath(slug)}
-                className={({ isActive }) => (isActive ? active : item)}
-                onClick={closeNavBar}
-              >
-                {navLabel}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-        <div className={filters}>
-          <h4>Custom filter</h4>
-          <FormOfFilters onSubmitClick={() => setIsActive(!isActive)} />
-        </div>
+    <>
+      {isOpen && <div className={style.backdrop} onClick={() => setIsOpen(false)} />}
+      <div className={isOpen ? `${navbarWrap} ${open}` : navbarWrap}>
+        <nav id={PANEL_ID} ref={panelRef} className={navbar} aria-label="Подборки и фильтр">
+          <h2 className={style.heading}>Подборки</h2>
+          <ul className={sortingWrap}>
+            {COLLECTIONS.map(({ slug, navLabel }) => (
+              <li key={slug}>
+                <NavLink
+                  to={collectionPath(slug)}
+                  className={({ isActive }) => (isActive ? `${item} ${active}` : item)}
+                  end
+                >
+                  <FilmIcon className={style.filmIcon} aria-hidden="true" />
+                  {navLabel}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <div className={style.filters}>
+            <h2 className={style.heading}>Фильтр</h2>
+            <FormOfFilters onSubmitClick={() => setIsOpen(false)} />
+          </div>
+        </nav>
+        <button
+          type="button"
+          className={style.openNavbarButton}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-controls={PANEL_ID}
+          aria-label={label}
+          title={label}
+        >
+          {isOpen ? (
+            <Left className={style.icon} aria-hidden="true" />
+          ) : (
+            <Right className={style.icon} aria-hidden="true" />
+          )}
+        </button>
       </div>
-      <button className={openNavbarButton} onClick={() => setIsActive(!isActive)}>
-        {!isActive ? <Right className={icon} /> : <Left className={icon} />}
-      </button>
-    </div>
+    </>
   )
 }
 

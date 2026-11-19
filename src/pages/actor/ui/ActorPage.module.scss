@@ -1,15 +1,39 @@
 .container {
-  width: 80%;
-  margin: auto;
+  width: min(var(--container-width), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding-top: var(--space-5);
 }
-.backLink {
-  text-decoration: none;
-  padding: 10px;
-  text-align: center;
-  color: #19242c;
-  font-weight: 600;
-  cursor: pointer;
-  :hover {
-    color: #3f87ba;
+
+.back {
+  margin-bottom: var(--space-4);
+}
+
+.skeleton {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: var(--space-6);
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+.skeletonPhoto {
+  aspect-ratio: 2 / 3;
+}
+
+.skeletonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (max-width: 767px) {
+  .skeleton {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
+  .skeletonPhoto {
+    width: min(240px, 65%);
+    margin-inline: auto;
   }
 }

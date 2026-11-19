@@ -18,15 +18,18 @@ const SearchForm = () => {
   }
 
   return (
-    <form className={style.form} onSubmit={handleSubmit}>
+    <form className={style.form} onSubmit={handleSubmit} role="search">
       <Input
         name="search"
-        placeholder="Search"
+        label="Поиск фильмов и сериалов"
+        hideLabel
+        placeholder="Поиск"
         type="search"
         value={inputKeyword}
+        className={style.input}
         onChange={(e) => setInputKeyword(e.target.value)}
       />
-      <Button text="Search" type="submit" />
+      <Button text="Найти" type="submit" variant="dark" />
     </form>
   )
 }

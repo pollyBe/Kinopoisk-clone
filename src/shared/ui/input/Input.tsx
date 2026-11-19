@@ -1,16 +1,32 @@
 export interface IInputProps {
   label?: string
+  /** Подпись только для скринридеров (визуально скрыта) */
+  hideLabel?: boolean
   type: "search" | "text" | "password"
   placeholder: string
   name: string
   value?: string
+  className?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input = ({ type, placeholder, name, value, onChange, label }: IInputProps) => {
+const Input = ({
+  type,
+  placeholder,
+  name,
+  value,
+  onChange,
+  label,
+  hideLabel,
+  className,
+}: IInputProps) => {
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
+    <>
+      {label && (
+        <label htmlFor={name} className={hideLabel ? "visually-hidden" : undefined}>
+          {label}
+        </label>
+      )}
       <input
         id={name}
         type={type}
@@ -18,8 +34,9 @@ const Input = ({ type, placeholder, name, value, onChange, label }: IInputProps)
         name={name}
         onChange={onChange}
         value={value}
-      ></input>
-    </div>
+        className={className}
+      />
+    </>
   )
 }
 export default Input

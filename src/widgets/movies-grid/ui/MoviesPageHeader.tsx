@@ -3,19 +3,13 @@ import style from "./MoviesPageHeader.module.scss"
 
 interface IProps {
   title: string
+  description?: string
 }
 
-const MoviesPageHeader = ({ title }: IProps) => {
-  return (
-    <>
-      <div className={style.titleWrap}>
-        <Title title={title} />
-        <p>
-          Рейтинг составлен по результатам голосования посетителей сайта. Любой желающий может
-          принять в нем участие, проголосовав за свой любимый фильм.
-        </p>
-      </div>
-    </>
-  )
-}
+const MoviesPageHeader = ({ title, description }: IProps) => (
+  <div className={style.titleWrap}>
+    <Title title={title} />
+    {description && <p>{description}</p>}
+  </div>
+)
 export default MoviesPageHeader

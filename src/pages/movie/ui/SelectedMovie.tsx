@@ -1,120 +1,108 @@
-import type { IMovie } from "@/entities/movie"
+import { getMovieTitle, getMovieTypeLabel, type IMovie } from "@/entities/movie"
+import { capitalize, formatCount, formatDuration } from "@/shared/lib/format"
+import { Poster } from "@/shared/ui/poster"
 import { Title } from "@/shared/ui/title"
 import ActorsInfo from "./ActorsInfo"
 import style from "./SelectedMovie.module.scss"
 
-const SelectedMovie = ({
-  nameRu,
-  posterUrl,
-  nameOriginal,
-  ratingImdb,
-  ratingKinopoisk,
-  ratingAgeLimits,
-  countries,
-  genres,
-  year,
-  type,
-  description,
-  ratingImdbVoteCount,
-  ratingKinopoiskVoteCount,
-  filmLength,
-  webUrl,
-  kinopoiskId,
-}: IMovie) => {
+const VOTES: [string, string, string] = ["голос", "голоса", "голосов"]
+
+/** "age18" → «18+» */
+const formatAgeLimit = (value?: string) => {
+  const digits = value?.replace(/\D/g, "")
+  return digits ? `${digits}+` : ""
+}
+
+const SelectedMovie = (movie: IMovie) => {
   const {
-    movieContainer,
-    leftWrap,
-    imgWrap,
-    rightWrap,
-    ratingsWrap,
-    age,
-    infoWrap,
-    countriesWrap,
-    genresWrap,
-    yearInfo,
-    typeInfo,
-    descriptionWrap,
-    lengthWrap,
-    webUrlWrap,
-    originalNameWrap,
-    container,
-    infoLeft,
-  } = style
+    posterUrl,
+    nameOriginal,
+    ratingImdb,
+    ratingKinopoisk,
+    ratingAgeLimits,
+    countries,
+    genres,
+    year,
+    type,
+    description,
+    ratingImdbVoteCount,
+    ratingKinopoiskVoteCount,
+    filmLength,
+    webUrl,
+    kinopoiskId,
+  } = movie
+  const title = getMovieTitle(movie)
+  const ageLimit = formatAgeLimit(ratingAgeLimits)
+
+  const facts: [string, string | undefined][] = [
+    ["Год", year ? String(year) : undefined],
+    ["Тип", getMovieTypeLabel(type) || undefined],
+    ["Страна", countries?.map((c) => c.country).join(", ") || undefined],
+    ["Жанр", genres?.map((g) => g.genre).join(", ") || undefined],
+    ["Время", filmLength ? formatDuration(filmLength) : undefined],
+    ["Оригинальное название", nameOriginal && nameOriginal !== title ? nameOriginal : undefined],
+  ]
+
   return (
-    <div className={container}>
-      <div className={movieContainer}>
-        <div className={leftWrap}>
-          <div className={imgWrap}>
-            <img src={posterUrl} alt="poster" />
-          </div>
+    <article className={style.movie}>
+      <div className={style.posterWrap}>
+        <Poster src={posterUrl} alt={`Постер: ${title}`} loading="eager" />
+      </div>
+
+      <div className={style.info}>
+        <div className={style.heading}>
+          <Title title={title} />
+          {ageLimit && (
+            <span className={style.age} aria-label={`Возрастное ограничение ${ageLimit}`}>
+              {ageLimit}
+            </span>
+          )}
         </div>
-        <div className={rightWrap}>
-          <Title title={nameRu === null ? nameOriginal : nameRu} />
-          {ratingAgeLimits && <p className={age}>{ratingAgeLimits}+</p>}
-          <ul className={ratingsWrap}>
+
+        {(ratingKinopoisk || ratingImdb) && (
+          <ul className={style.ratings} aria-label="Рейтинги">
             {ratingKinopoisk ? (
               <li>
-                Kinopoisk: {ratingKinopoisk}
-                <p> ({ratingKinopoiskVoteCount})</p>
+                <b>Кинопоиск {ratingKinopoisk.toFixed(1)}</b>
+                {ratingKinopoiskVoteCount ? (
+                  <span>{formatCount(ratingKinopoiskVoteCount, VOTES)}</span>
+                ) : null}
               </li>
             ) : null}
             {ratingImdb ? (
               <li>
-                IMDB: {ratingImdb}
-                <p> ({ratingImdbVoteCount})</p>
+                <b>IMDb {ratingImdb.toFixed(1)}</b>
+                {ratingImdbVoteCount ? (
+                  <span>{formatCount(ratingImdbVoteCount, VOTES)}</span>
+                ) : null}
               </li>
             ) : null}
           </ul>
-          <div className={infoWrap}>
-            <div className={infoLeft}>
-              <div className={lengthWrap}>
-                {filmLength && (
-                  <p>
-                    <b>Length:</b> {filmLength} min
-                  </p>
-                )}
-              </div>
-              <div className={originalNameWrap}>
-                {nameOriginal ? (
-                  <p>
-                    <b>Original name:</b> {nameOriginal}
-                  </p>
-                ) : null}
-              </div>
-              <ul className={countriesWrap}>
-                Country:
-                {countries && countries.map((el) => <li key={el.country}>{el.country}</li>)}
-              </ul>
-              <ul className={genresWrap}>
-                Genres:
-                {genres && genres.map((el) => <li key={el.genre}> {el.genre}</li>)}
-              </ul>
-              {year && (
-                <div className={yearInfo}>
-                  Year:<p>{year}</p>
+        )}
+
+        <div className={style.columns}>
+          <dl className={style.facts}>
+            {facts
+              .filter(([, value]) => value)
+              .map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{label === "Жанр" ? capitalize(value!) : value}</dd>
                 </div>
-              )}
-              {type && (
-                <div className={typeInfo}>
-                  Type:<p>{type}</p>
-                </div>
-              )}
-            </div>
-            <ActorsInfo kinopoiskId={kinopoiskId} />
-          </div>
-          <div className={descriptionWrap}>
-            {description ? <p>{description}</p> : <p>Sorry. Will be updated soon.</p>}
-          </div>
-          <div className={webUrlWrap}>
-            {webUrl && (
-              <a href={webUrl} target="_blank">
-                Watch on Kinopoisk
-              </a>
-            )}
-          </div>
+              ))}
+          </dl>
+          <ActorsInfo kinopoiskId={kinopoiskId} />
         </div>
+
+        <p className={style.description}>{description || "Описание пока не добавлено."}</p>
+
+        {webUrl && (
+          <a className={style.external} href={webUrl} target="_blank" rel="noopener noreferrer">
+            Смотреть на Кинопоиске ↗
+          </a>
+        )}
       </div>
-    </div>
+    </article>
   )
 }
 export default SelectedMovie

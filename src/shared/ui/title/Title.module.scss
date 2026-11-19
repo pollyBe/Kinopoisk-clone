@@ -1,8 +1,9 @@
 .title {
-  margin: 20px 0 20px 40px;
-  color: #282f2f;
-  font-size: 48px;
+  margin: var(--space-4) 0;
+  color: var(--color-text);
+  font-size: var(--fs-title);
   font-weight: 700;
-  line-height: 46px;
+  line-height: 1.1;
   text-align: left;
+  overflow-wrap: anywhere;
 }

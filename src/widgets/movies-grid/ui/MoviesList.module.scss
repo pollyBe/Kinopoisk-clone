@@ -1,45 +1,31 @@
 .container {
-  width: 65%;
-  margin: auto;
-  padding-top: 20px;
+  width: min(var(--container-width), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding-top: var(--space-4);
   display: flex;
   flex-direction: column;
 }
-.moviesWrap {
-  padding: 15px 0;
-  justify-content: space-around;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
 
-.movieItem {
-  width: 17%;
-  height: 300px;
-  overflow: hidden;
-}
-
-.loading {
-  text-align: center;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-}
 .moviesSection {
   width: 100%;
-  margin-top: 20px;
-  padding: 10px 15px;
-  background-color: rgba(11, 69, 69, 0.397);
-  border-radius: 20px;
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--color-panel);
+  border-radius: var(--radius-lg);
 }
-.emptyWrap {
-  width: 100%;
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  p {
-    font-size: 24px;
-    font-weight: 600;
+
+.moviesWrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .moviesSection {
+    padding: var(--space-3);
+  }
+  .moviesWrap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
   }
 }

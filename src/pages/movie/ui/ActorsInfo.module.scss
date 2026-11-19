@@ -1,26 +1,26 @@
-.actorsWrap {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.actorsItem {
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
+.cast {
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--fs-md);
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  li {
+    min-height: 1.4em;
+  }
+
   a {
-    color: black;
-    text-decoration: none;
-    text-align: start;
+    font-weight: 600;
+    &:hover {
+      color: var(--color-accent);
+      text-decoration: underline;
+    }
   }
-  &:hover {
-    background-color: #ffffff3a;
-  }
-}
-.actorswrap {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
 }

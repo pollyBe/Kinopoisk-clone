@@ -1,16 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { getInitialTheme, type Theme } from "../lib/storage"
 
-const MyThemeSlice = createSlice({
-  name: "myAppTheme",
-  initialState: {
-    theme: "light",
-  },
+interface IThemeState {
+  theme: Theme
+}
+
+const initialState: IThemeState = { theme: getInitialTheme() }
+
+const themeSlice = createSlice({
+  name: "theme",
+  initialState,
   reducers: {
-    switchTheme(state, action) {
+    setTheme(state, action: PayloadAction<Theme>) {
       state.theme = action.payload
     },
   },
 })
 
-export const { switchTheme } = MyThemeSlice.actions
-export default MyThemeSlice.reducer
+export const { setTheme } = themeSlice.actions
+export default themeSlice.reducer

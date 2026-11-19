@@ -21,6 +21,8 @@ export interface IMovie {
   year?: number
   filmLength?: number
   webUrl?: string
+  /** Только в результатах поиска: строка вида "8.5" или "99%" (ожидание) */
+  rating?: string
 }
 
 /** Ответ /v2.2/films/collections и /v2.2/films */

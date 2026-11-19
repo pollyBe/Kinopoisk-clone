@@ -1,0 +1,26 @@
+.toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #444040;
+  border-radius: 50%;
+  background-color: #353232;
+  cursor: pointer;
+  transition: background-color var(--transition);
+
+  &:hover {
+    background-color: #4a4646;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--rating);
+    stroke: var(--rating);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+}

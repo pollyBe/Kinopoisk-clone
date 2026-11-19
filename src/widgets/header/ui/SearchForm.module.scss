@@ -1,12 +1,24 @@
 .form {
+  flex: 1;
+  max-width: 420px;
+  margin-left: auto;
   display: flex;
-  justify-content: space-between;
-  width: 22%;
   align-items: center;
-  input {
-    background-color: rgb(78, 75, 75);
-    color: rgb(240, 238, 237);
-    padding: 3px 5px;
-    font-size: 12px;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid #5c5858;
+  border-radius: var(--radius-sm);
+  background-color: var(--header-field);
+  color: var(--header-text);
+  font-size: var(--fs-sm);
+
+  &::placeholder {
+    color: #bdb8b6;
   }
 }

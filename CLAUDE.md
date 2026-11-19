@@ -70,7 +70,13 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 - Имена слайсов и папок — kebab-case, компонентов — PascalCase.
 - Источник правды для страницы, фильтров и поискового запроса — **URL** (search params), а не Redux и не `location.state`.
 - У каждого запроса данных есть три состояния: skeleton, error (с кнопкой retry) и empty.
-- У картинок осмысленный `alt`, `loading="lazy"` и заглушка на случай ошибки.
+- У картинок осмысленный `alt`, `loading="lazy"` и заглушка на случай ошибки — компонент `Poster` из `@/shared/ui/poster`.
+- Цвета, отступы, радиусы и размеры шрифта — только CSS-переменные из `src/app/styles/tokens.css` (`var(--color-text)`, `var(--space-4)`…). Тёмная тема переопределяет цветовые токены через `[data-theme="dark"]` на `<html>`; новые цвета добавлять в обе темы.
+- Ширина контейнера страницы: `width: min(var(--container-width), 100% - 2 * var(--gutter)); margin-inline: auto`. Брейкпоинты: 480 / 768 / 1024px.
+- Тема: inline-скрипт в `index.html` ставит `data-theme` до загрузки React (без вспышки); `features/toggle-theme` хранит выбор в localStorage, а без выбора следует `prefers-color-scheme`.
+- Весь интерфейс на русском. Числа — `formatNumber`/`formatCount` из `@/shared/lib/format` (ru-RU, склонения через `Intl.PluralRules`), даты — `formatDate`, длительность — `formatDuration`. Типы из API — `getMovieTypeLabel`.
+- Состояния: `ErrorState` (с `onRetry={refetch}`) и `EmptyState` из `@/shared/ui/status`, заглушки загрузки — `Skeleton`. В `MoviesList` состояние вместо сетки передаётся пропом `status`.
+- Заголовок вкладки — `useDocumentTitle` из `@/shared/lib/dom`; кнопка «Назад» — `BackButton` (без истории ведёт на главную).
 
 ## План работ
 
@@ -123,18 +129,18 @@ api/            # serverless-функции Vercel (прокси к Kinopoisk AP
 
 ### Фаза 4. UI/UX-полировка
 
-- [ ] Дизайн-токены (цвета, отступы, радиусы, типографика) как CSS-переменные в `shared/styles`
-- [ ] Рабочая светлая и тёмная тема: учитывать `prefers-color-scheme`, сохранять выбор (feature `toggle-theme`)
-- [ ] Адаптив: mobile-first, проверить 360 / 768 / 1280+
-- [ ] Skeleton вместо `loading...` везде (слайдер, страница фильма, актёр, каст)
-- [ ] Error- и empty-состояния с retry; убрать «Ooops....», «Hoa hoa hoa hoa(Vampires)», «Will be updated soon»
-- [ ] Перевести весь интерфейс на русский: навигация, заголовки подборок, кнопки, фильтры, пагинация, состояния, футер
-- [ ] Русские подписи для типов из API (FILM → «Фильм», TV_SERIES → «Сериал» и т. д.), форматирование чисел и голосов (`Intl.NumberFormat('ru-RU')`), склонения («1 голос / 5 голосов»)
-- [ ] `<html lang="ru">`
-- [ ] Заглушка для отсутствующих постеров, `alt` с названием фильма
-- [ ] Доступность: семантика (header/nav/main), видимый фокус, aria-label у иконочных кнопок, контраст
-- [ ] Заголовок вкладки для каждой страницы (название фильма или актёра)
-- [ ] Прокрутка наверх при смене страницы пагинации и маршрута
+- [x] Дизайн-токены (цвета, отступы, радиусы, типографика) как CSS-переменные в `app/styles/tokens.css`
+- [x] Светлая и тёмная тема: учитывает `prefers-color-scheme`, сохраняет выбор, без вспышки при загрузке
+- [x] Адаптив: проверено на 390 / 1280 / 1440 (скриншоты headless Edge)
+- [x] Skeleton вместо `loading...` везде (слайдер, сетка, страница фильма, актёр, каст)
+- [x] Error- и empty-состояния с retry; старые тексты убраны
+- [x] Весь интерфейс на русском
+- [x] Русские подписи для типов, ru-RU числа, склонения, даты
+- [x] `<html lang="ru">`, meta description
+- [x] Заглушка для постеров (`Poster`), `alt` с названием
+- [x] Доступность: header/nav/main, `:focus-visible`, aria-label/aria-expanded/aria-current, inert у закрытой панели, Escape закрывает панель
+- [x] Заголовок вкладки для каждой страницы
+- [x] Прокрутка наверх при смене маршрута и `?page=`
 - [ ] Debounce или подсказки в поиске (опционально)
 
 ### Фаза 4.5. Избранное

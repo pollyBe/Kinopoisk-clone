@@ -7,33 +7,48 @@ export interface ICollectionConfig {
   title: string
   /** Подпись в навбаре */
   navLabel: string
+  /** Подзаголовок страницы подборки */
+  description: string
 }
+
+const VOTING_NOTE =
+  "Рейтинг составлен по результатам голосования посетителей Кинопоиска. Любой желающий может принять в нём участие, проголосовав за свой любимый фильм."
 
 export const COLLECTIONS: ICollectionConfig[] = [
   {
     slug: "top-250-movies",
     type: "TOP_250_MOVIES",
-    title: "Top 250 Popular Movies",
-    navLabel: "Top 250 Popular Movies",
+    title: "250 лучших фильмов",
+    navLabel: "250 лучших фильмов",
+    description: VOTING_NOTE,
   },
   {
     slug: "tv-shows",
     type: "TOP_250_TV_SHOWS",
-    title: "Top 250 TV Shows",
-    navLabel: "Top Popular TV-Shows",
+    title: "250 лучших сериалов",
+    navLabel: "250 лучших сериалов",
+    description: VOTING_NOTE,
+  },
+  {
+    slug: "top-popular",
+    type: "TOP_POPULAR_ALL",
+    title: "Популярное сейчас",
+    navLabel: "Популярное сейчас",
+    description: "Фильмы и сериалы, которые сейчас чаще всего смотрят на Кинопоиске.",
   },
   {
     slug: "vampires",
     type: "VAMPIRE_THEME",
-    title: "Hoa hoa hoa hoa(Vampires)",
-    navLabel: "Hoa Hoa Hoa Hoa (Vampires)",
+    title: "Фильмы про вампиров",
+    navLabel: "Про вампиров",
+    description: "Классика и новинки о вампирах: от готических драм до комедий.",
   },
-  { slug: "comics", type: "COMICS_THEME", title: "Comics", navLabel: "Comics" },
   {
-    slug: "top-popular",
-    type: "TOP_POPULAR_ALL",
-    title: "Top popular for all time",
-    navLabel: "Top popular for all time",
+    slug: "comics",
+    type: "COMICS_THEME",
+    title: "Фильмы по комиксам",
+    navLabel: "По комиксам",
+    description: "Экранизации комиксов и графических романов.",
   },
 ]
 

@@ -1,6 +1,8 @@
-import { NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { ROUTES } from "@/shared/config"
-import { IMovie } from "../model/types"
+import { Poster } from "@/shared/ui/poster"
+import { getMovieId, getMovieRating, getMovieTitle } from "../lib/movie"
+import type { IMovie } from "../model/types"
 import style from "./MovieCard.module.scss"
 
 interface Props {
@@ -8,17 +10,23 @@ interface Props {
 }
 
 const MovieCard = ({ movie }: Props) => {
-  const id = movie.kinopoiskId || movie.filmId
+  const id = getMovieId(movie)
+  const title = getMovieTitle(movie)
+  const rating = getMovieRating(movie)
 
   return (
-    <NavLink to={ROUTES.movie(id ?? "")} className={style.card}>
-      <div className={style.rating}>⭐ {movie.ratingKinopoisk || "—"}</div>
-      <img src={movie.posterUrlPreview} alt="poster" />
-
+    <Link to={ROUTES.movie(id ?? "")} className={style.card}>
+      {rating && (
+        <span className={style.rating} aria-label={`Рейтинг ${rating}`}>
+          ★ {rating.toFixed(1)}
+        </span>
+      )}
+      <Poster src={movie.posterUrlPreview || movie.posterUrl} alt={`Постер: ${title}`} />
       <div className={style.overlay}>
-        <p>{movie.nameRu || movie.nameOriginal}</p>
+        <p>{title}</p>
+        {movie.year && <span>{movie.year}</span>}
       </div>
-    </NavLink>
+    </Link>
   )
 }
 

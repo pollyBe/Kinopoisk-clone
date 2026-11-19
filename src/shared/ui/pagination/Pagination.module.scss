@@ -1,62 +1,82 @@
-.pageNumbers {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  color: #271313;
-}
-
-.pageNumbersCurr {
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;
-  background: rgba(11, 69, 69, 0.397);
-  padding: 4px 10px;
-  border-radius: 6px;
+.numbersWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) 0;
 }
 
 .pageNumbersWrap {
   display: flex;
-  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.pageNumbers,
+.pageNumbersCurr {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  transition: background-color var(--transition);
+}
+
+.pageNumbers {
+  background-color: transparent;
+  color: var(--color-text);
+  &:hover {
+    background-color: var(--color-accent-soft);
+  }
+}
+
+.pageNumbersCurr {
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
 }
 
 .NumberButton {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
   border: none;
+  border-radius: var(--radius-sm);
   background-color: transparent;
+  color: var(--color-text);
   cursor: pointer;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  color: var(--text-color);
-  gap: 8px;
-}
-
-.numbersWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 30px;
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 32px;
+  font-size: var(--fs-md);
+  &:hover:not(:disabled) {
+    background-color: var(--color-accent-soft);
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
   }
 }
 
 .icon {
   width: 18px;
   height: 14px;
-  fill: var(--text-color);
+  fill: currentColor;
 }
 
 .dots {
-  color: gray;
-  padding: 0 5px;
+  color: var(--color-text-muted);
+  padding: 0 var(--space-1);
+}
+
+@media (max-width: 600px) {
+  .label {
+    display: none;
+  }
+  .pageNumbersWrap {
+    gap: var(--space-1);
+  }
 }

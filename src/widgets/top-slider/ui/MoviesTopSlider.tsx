@@ -1,75 +1,85 @@
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination } from "swiper/modules"
+import { A11y, Navigation, Pagination } from "swiper/modules"
 
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
 
-import style from "./MoviesTopSlider.module.scss"
 import { Link } from "react-router-dom"
-import { useGetCollectionQuery, type IMovie } from "@/entities/movie"
-import { ROUTES } from "@/shared/config"
+import { getMovieTitle, useGetCollectionQuery } from "@/entities/movie"
+import { collectionPath, ROUTES } from "@/shared/config"
+import { Poster } from "@/shared/ui/poster"
+import { Skeleton } from "@/shared/ui/skeleton"
+import { ErrorState } from "@/shared/ui/status"
+import style from "./MoviesTopSlider.module.scss"
+
+const SLIDER_TYPE = "TOP_POPULAR_ALL"
 
 function MoviesTopSlider() {
-  const { sliderTitle, slide, container } = style
+  const { container, sliderTitle, slide, skeletonRow } = style
 
-  // Тот же запрос, что у подборки «Top popular» (страница 1): кэш общий
-  const {
-    data,
-    isLoading: loading,
-    isError: error,
-  } = useGetCollectionQuery({
-    type: "TOP_POPULAR_ALL",
+  // Тот же запрос, что у подборки «Популярное сейчас» (страница 1): кэш общий
+  const { data, isLoading, isError, refetch } = useGetCollectionQuery({
+    type: SLIDER_TYPE,
     page: 1,
   })
-  const sliderContent = data?.items ?? []
+  const movies = data?.items ?? []
 
-  if (loading) {
-    return <div className={style.loading}>loading...</div>
-  }
+  const renderBody = () => {
+    if (isLoading) {
+      return (
+        <div className={skeletonRow} aria-hidden="true">
+          {Array.from({ length: 6 }, (_, i) => (
+            <Skeleton key={i} height="auto" radius="var(--radius-sm)" />
+          ))}
+        </div>
+      )
+    }
+    if (isError) return <ErrorState compact onRetry={refetch} />
 
-  if (error) {
-    return <div>Error...</div>
-  }
-
-  return (
-    <div className={container}>
-      <div className={sliderTitle}>
-        <h2>Top popular for all time</h2>
-      </div>
-
+    return (
       <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={2}
-        slidesPerView={6}
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={8}
+        slidesPerView={2}
         slidesPerGroup={2}
         navigation
         pagination={{ clickable: true }}
+        a11y={{
+          prevSlideMessage: "Предыдущие фильмы",
+          nextSlideMessage: "Следующие фильмы",
+          paginationBulletMessage: "Перейти к слайду {{index}}",
+        }}
         breakpoints={{
-          1024: {
-            slidesPerView: 6,
-            slidesPerGroup: 6,
-          },
-          600: {
-            slidesPerView: 4,
-            slidesPerGroup: 4,
-            initialSlide: 2,
-          },
-          480: {
-            slidesPerView: 1,
-            slidesPerGroup: 1,
-          },
+          480: { slidesPerView: 3, slidesPerGroup: 3 },
+          768: { slidesPerView: 4, slidesPerGroup: 4 },
+          1024: { slidesPerView: 6, slidesPerGroup: 6 },
         }}
       >
-        {sliderContent.map((movie: IMovie) => (
+        {movies.map((movie, index) => (
           <SwiperSlide key={movie.kinopoiskId}>
             <Link to={ROUTES.movie(movie.kinopoiskId)} className={slide}>
-              <img src={movie.posterUrl} alt="poster" />
+              <Poster
+                src={movie.posterUrlPreview || movie.posterUrl}
+                alt={getMovieTitle(movie)}
+                loading={index < 6 ? "eager" : "lazy"}
+              />
             </Link>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    )
+  }
+
+  return (
+    <section className={container} aria-labelledby="top-slider-title">
+      <div className={sliderTitle}>
+        <h2 id="top-slider-title">
+          <Link to={collectionPath("top-popular")}>Популярное сейчас</Link>
+        </h2>
+      </div>
+      {renderBody()}
+    </section>
   )
 }
 

@@ -1,0 +1,27 @@
+.status {
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  text-align: center;
+  p {
+    max-width: 520px;
+    font-size: var(--fs-lg);
+    font-weight: 600;
+  }
+}
+
+.compact {
+  min-height: 0;
+  padding: var(--space-4);
+  p {
+    font-size: var(--fs-md);
+  }
+}
+
+.error {
+  color: var(--color-danger);
+}

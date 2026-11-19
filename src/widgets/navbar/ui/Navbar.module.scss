@@ -1,100 +1,121 @@
+/* Выезжающая слева панель: подборки + фильтр. Кнопка-«язычок» торчит из-за края */
+
 .navbarWrap {
   position: fixed;
-  display: flex;
-  top: -5px;
-  left: -18%;
-  width: 20%;
-  height: 100vh;
-  transition: all 0.5s ease-in-out;
+  top: var(--header-height);
+  bottom: 0;
+  left: 0;
+  z-index: 90;
+  width: var(--navbar-width);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-in-out;
 }
-.openNavbarButton {
-  width: 10%;
+
+.open {
+  transform: translateX(0);
+}
+
+.backdrop {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  z-index: 89;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.navbar {
   height: 100%;
-  border: none;
-  background-color: #ffffff00;
-  cursor: pointer;
-  transition: all 0.7s ease-in-out;
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-4);
+  background-color: var(--color-surface-strong);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.heading {
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.sortingWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  transition: background-color var(--transition);
+
   &:hover {
-    transform: scale(1.1);
+    background-color: var(--color-accent-soft);
+  }
+}
+
+.active {
+  color: var(--color-accent);
+  font-weight: 700;
+  background-color: var(--color-accent-soft);
+}
+
+.filmIcon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.filters {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.openNavbarButton {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  width: 40px;
+  height: 72px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background-color: var(--color-surface-strong);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: background-color var(--transition);
+
+  &:hover {
+    background-color: var(--color-accent-soft);
+  }
+}
+
+/* На телефоне «язычок» меньше и внизу экрана, чтобы не закрывать заголовки */
+@media (max-width: 767px) {
+  .openNavbarButton {
+    top: auto;
+    bottom: var(--space-6);
+    right: -32px;
+    width: 32px;
+    height: 56px;
+    transform: none;
   }
 }
 
 .icon {
-  height: 40px;
-  fill: rgba(65, 211, 211, 0.666);
-  pointer-events: auto;
-  cursor: pointer;
-}
-.navbar {
-  padding: 40px 7px;
-  width: 90%;
-  height: 100%;
-  background-color: rgba(240, 248, 255, 0.697);
-  box-shadow: 9px 0px 5px -5px rgba(34, 60, 80, 0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: start;
-  h4 {
-    margin-bottom: 30px;
-    line-height: 30px;
-    text-transform: uppercase;
-    color: rgb(12, 32, 32);
-  }
-}
-.navbarWrap.active {
-  left: 0;
-}
-
-.sortingWrap,
-.typesWrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: start;
-}
-.itemWrap {
-  cursor: pointer;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  .item {
-    color: rgb(9, 52, 52);
-    font-size: 14px;
-  }
-
-  .active {
-    color: rgb(8, 131, 131);
-    font-size: 14px;
-    background-color: rgba(79, 240, 240, 0.185);
-    padding: 5px;
-    border-radius: 10px;
-    box-shadow:
-      10px 10px 10px 2px rgba(34, 60, 80, 0.2) inset,
-      10px 10px 10px 2px rgba(34, 60, 80, 0.2);
-  }
-}
-.filmIcon {
-  height: 14px;
-  width: 14px;
-  fill: rgb(35, 52, 52);
-  margin-right: 5px;
-}
-.sortingWrap {
-  margin-bottom: 10px;
-}
-.typesWrap {
-  padding-top: 20px;
-  border-top: 1px solid rgb(153, 200, 200);
-  width: 50%;
-}
-.filters {
-  border-top: 1px solid #4e787e98;
-  padding-top: 20px;
-  h4 {
-    margin-bottom: 10px;
-    line-height: 30px;
-    text-transform: uppercase;
-    color: rgb(12, 32, 32);
-  }
+  width: 22px;
+  height: 22px;
+  fill: var(--color-accent);
 }

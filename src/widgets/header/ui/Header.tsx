@@ -1,20 +1,16 @@
-import SearchForm from "./SearchForm"
+import { ThemeToggle } from "@/features/toggle-theme"
 import { Logo } from "@/shared/ui/logo"
+import SearchForm from "./SearchForm"
 import style from "./Header.module.scss"
 
-const Header = () => {
-  const { header, container } = style
-
-  return (
-    <section className={header}>
-      <div className={container}>
-        <div className={style.headerWrap}>
-          <Logo />
-          <SearchForm />
-        </div>
-      </div>
-    </section>
-  )
-}
+const Header = () => (
+  <header className={style.header}>
+    <div className={style.container}>
+      <Logo />
+      <SearchForm />
+      <ThemeToggle />
+    </div>
+  </header>
+)
 
 export default Header

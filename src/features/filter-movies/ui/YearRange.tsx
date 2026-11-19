@@ -1,4 +1,7 @@
-const getCurrentYear = () => new Date().getFullYear()
+import style from "./FormOfFilters.module.scss"
+
+export const MIN_YEAR = 1950
+const currentYear = () => new Date().getFullYear()
 
 interface IYearRangeProps {
   yearFrom: number
@@ -8,31 +11,35 @@ interface IYearRangeProps {
 }
 
 const YearRange = ({ yearFrom, setYearFrom, yearTo, setYearTo }: IYearRangeProps) => {
+  const max = currentYear()
   return (
-    <>
-      <div>
-        <label>
-          From: {yearFrom}
-          <input
-            type="range"
-            min="1998"
-            max={getCurrentYear().toString()}
-            value={yearFrom}
-            onChange={(e) => setYearFrom(parseInt(e.target.value, 10))}
-          />
-        </label>
-        <label>
-          To: {yearTo}
-          <input
-            type="range"
-            min="1998"
-            max={getCurrentYear().toString()}
-            value={yearTo}
-            onChange={(e) => setYearTo(parseInt(e.target.value, 10))}
-          />
-        </label>
-      </div>
-    </>
+    <fieldset className={style.years}>
+      <legend>Годы выпуска</legend>
+      <label>
+        <span>
+          С <b>{yearFrom}</b>
+        </span>
+        <input
+          type="range"
+          min={MIN_YEAR}
+          max={max}
+          value={yearFrom}
+          onChange={(e) => setYearFrom(parseInt(e.target.value, 10))}
+        />
+      </label>
+      <label>
+        <span>
+          По <b>{yearTo}</b>
+        </span>
+        <input
+          type="range"
+          min={MIN_YEAR}
+          max={max}
+          value={yearTo}
+          onChange={(e) => setYearTo(parseInt(e.target.value, 10))}
+        />
+      </label>
+    </fieldset>
   )
 }
 
