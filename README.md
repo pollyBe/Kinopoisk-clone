@@ -1,6 +1,6 @@
 # KinoGo-clone
 
-deploy: Vercel (ссылка появится после первого деплоя)
+deploy: [Vercel](https://kinopoisk-clone-orpin.vercel.app)
 
 ## This app is realized on React with using Redux-toolkit
 
